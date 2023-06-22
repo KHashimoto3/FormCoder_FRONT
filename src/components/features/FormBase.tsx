@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Grid } from "@mui/material";
-import { Hint } from "./features/hint/Hint";
-import { Form } from "./features/form/Form";
+import { Hint } from "./hint/Hint";
+import { Form } from "./form/Form";
 
 interface FormData {
   stepName: string;
