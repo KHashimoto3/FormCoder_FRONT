@@ -1,3 +1,5 @@
+import { FormBase } from "../FormBase";
+
 export const FormPage = () => {
-  return <h1>ここにフォームの画面がきます。</h1>;
+  return <FormBase />;
 };
