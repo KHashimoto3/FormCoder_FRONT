@@ -125,7 +125,7 @@ export const FormBase = () => {
             />
           </Grid>
           <Grid item xs={7}>
-            <Form changeFormDataIndex={changeFormDataIndex} />
+            <Form />
           </Grid>
         </Grid>
       </Box>
