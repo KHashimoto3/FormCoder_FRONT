@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
@@ -14,12 +13,6 @@ interface HintList {
 }
 
 export const FormBase = () => {
-  const [formDataIndex, setFormDataIndex] = useState<number>(0);
-
-  const changeFormDataIndex = (index: number) => {
-    setFormDataIndex(index);
-  };
-
   const formData: FormData[] = [
     {
       stepName: "ヘッダコメント",
@@ -119,9 +112,9 @@ export const FormBase = () => {
         <Grid container spacing={2}>
           <Grid item xs={5}>
             <Hint
-              stepNo={formDataIndex + 1}
-              stepName={formData[formDataIndex].stepName}
-              hintList={formData[formDataIndex].hintList}
+              stepNo={1}
+              stepName={formData[0].stepName}
+              hintList={formData[0].hintList}
             />
           </Grid>
           <Grid item xs={7}>
