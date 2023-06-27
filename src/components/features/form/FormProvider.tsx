@@ -1,7 +1,8 @@
 import { FormData } from "../../types/formData";
-import { For } from "./formComponents/For";
 
 import { Process } from "./formComponents/Process";
+import { For } from "./formComponents/For";
+import { While } from "./formComponents/While";
 
 type Props = {
   partType: string;
@@ -18,5 +19,7 @@ export const FormProvider = (props: Props) => {
     return (
       <For partType={formData.partType} childrenPart={formData.childrenPart} />
     );
+  } else if (formData.partType == "WHL") {
+    return <While />;
   }
 };
