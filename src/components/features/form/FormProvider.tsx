@@ -15,6 +15,8 @@ export const FormProvider = (props: Props) => {
   if (formData.partType == "PROC") {
     return <Process partType={formData.partType} />;
   } else if (formData.partType == "FOR") {
-    return <For />;
+    return (
+      <For partType={formData.partType} childrenPart={formData.childrenPart} />
+    );
   }
 };
