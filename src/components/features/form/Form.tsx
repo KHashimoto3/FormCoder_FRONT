@@ -24,9 +24,15 @@ export const Form = () => {
       explanation: "パートの解説",
       childrenPart: {
         id: 1,
-        partType: "PROC",
+        partType: "FOR",
         explanation: "パートの解説",
-        childrenPart: "none",
+        childrenPart: {
+          id: 1,
+          partType: "PROC",
+          explanation: "パートの解説",
+          childrenPart: "none",
+          inputData: "入力される内容",
+        },
         inputData: "入力される内容",
       },
       inputData: "入力される内容",
