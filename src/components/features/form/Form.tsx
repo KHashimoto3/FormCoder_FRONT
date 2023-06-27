@@ -6,14 +6,14 @@ export const Form = () => {
   const sampleFormData: FormData[] = [
     {
       id: 1,
-      partType: "0",
+      partType: "PROC",
       explanation: "パートの解説",
       childrenPart: "none",
       inputData: "入力される内容",
     },
     {
       id: 2,
-      partType: "0",
+      partType: "PROC",
       explanation: "パートの解説",
       childrenPart: "none",
       inputData: "入力される内容",
