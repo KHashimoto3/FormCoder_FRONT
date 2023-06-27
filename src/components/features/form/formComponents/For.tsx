@@ -16,6 +16,7 @@ export const For = (props: Props) => {
     fontSize: "16pt",
   };
 
+  //子要素がなければエラーを出し、あればその子要素を表示する
   if (typeof props.childrenPart == "string") {
     alert(
       "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。"
@@ -23,7 +24,6 @@ export const For = (props: Props) => {
     return <Process partType="PROC" />;
   } else if (typeof props.childrenPart == "object") {
     const childrenPart: FormData = props.childrenPart;
-    console.log("forの設定部分がきます。");
     return (
       <>
         <pre style={preStyle}>
