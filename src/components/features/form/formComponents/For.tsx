@@ -42,6 +42,7 @@ export const For = (props: Props) => {
             inputData={childrenPart.inputData}
           />
         </div>
+        <pre style={preStyle}>{"}"}</pre>
       </>
     );
   }
