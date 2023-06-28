@@ -7,12 +7,15 @@ function App() {
   return (
     <BrowserRouter>
       <Route exact path="/">
+        <TitleBar />
         <TopPage />
       </Route>
       <Route path="/learn">
+        <TitleBar />
         <p>学習ページがきます。</p>
       </Route>
       <Route path="/form">
+        <TitleBar />
         <FormPage />
       </Route>
       <Route path="/testTitle">
