@@ -29,7 +29,7 @@ export const TitleBar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ background: "#fff" }}>
+    <AppBar position="static" sx={{ background: "#fff", borderRadius: "10px" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
