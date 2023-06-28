@@ -11,7 +11,7 @@ import {
   Button,
   Tooltip,
 } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
+import PersonIcon from "@mui/icons-material";
 
 const pages = ["FormCoderとは", "フォーム一覧"];
 const settings = ["私の成績", "アカウント設定", "ログアウト"];
