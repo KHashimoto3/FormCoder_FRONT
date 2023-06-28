@@ -9,14 +9,27 @@ import {
   Menu,
   MenuItem,
   Button,
+  Tooltip,
 } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["FormCoderとは", "フォーム一覧"];
+const settings = ["私の成績", "アカウント設定", "ログアウト"];
 
 export const TitleBar = () => {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ background: "#fff" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -30,11 +43,11 @@ export const TitleBar = () => {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "#000",
               textDecoration: "none",
             }}
           >
-            LOGO
+            FormCoder
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -84,17 +97,47 @@ export const TitleBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            FormCoder
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "#000", display: "block" }}
               >
                 {page}
               </Button>
             ))}
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="アカウントメニューを開く">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <AccountCircle />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
