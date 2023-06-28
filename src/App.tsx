@@ -6,7 +6,7 @@ import { TitleBar } from "./components/common/TitleBar";
 function App() {
   return (
     <BrowserRouter>
-      <Route path="/">
+      <Route exact path="/">
         <TopPage />
       </Route>
       <Route path="/learn">
