@@ -11,7 +11,7 @@ import {
   Button,
   Tooltip,
 } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
+import PersonIcon from "@mui/icons-material/Person";
 
 const pages = ["FormCoderとは", "フォーム一覧"];
 const settings = ["私の成績", "アカウント設定", "ログアウト"];
@@ -103,7 +103,12 @@ export const TitleBar = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: "#000", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "#000",
+                  display: "block",
+                  fontSize: "14pt",
+                }}
               >
                 {page}
               </Button>
@@ -113,7 +118,7 @@ export const TitleBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="アカウントメニューを開く">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircle />
+                <PersonIcon fontSize="large" />
               </IconButton>
             </Tooltip>
             <Menu
