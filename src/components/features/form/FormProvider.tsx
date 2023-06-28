@@ -20,6 +20,11 @@ export const FormProvider = (props: Props) => {
       <For partType={formData.partType} childrenPart={formData.childrenPart} />
     );
   } else if (formData.partType == "WHL") {
-    return <While />;
+    return (
+      <While
+        partType={formData.partType}
+        childrenPart={formData.childrenPart}
+      />
+    );
   }
 };
