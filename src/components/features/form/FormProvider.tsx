@@ -6,7 +6,7 @@ import { While } from "./formComponents/While";
 
 type Props = {
   partType: string;
-  childrenPart: string | FormData;
+  childrenPart: string | FormData[];
   inputData: string;
 };
 

@@ -22,19 +22,30 @@ export const Form = () => {
       id: 3,
       partType: "FOR",
       explanation: "パートの解説",
-      childrenPart: {
-        id: 1,
-        partType: "FOR",
-        explanation: "パートの解説",
-        childrenPart: {
+      childrenPart: [
+        {
+          id: 1,
+          partType: "FOR",
+          explanation: "パートの解説",
+          childrenPart: [
+            {
+              id: 1,
+              partType: "PROC",
+              explanation: "パートの解説",
+              childrenPart: "none",
+              inputData: "入力される内容",
+            },
+          ],
+          inputData: "入力される内容",
+        },
+        {
           id: 1,
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
           inputData: "入力される内容",
         },
-        inputData: "入力される内容",
-      },
+      ],
       inputData: "入力される内容",
     },
     {
@@ -48,13 +59,15 @@ export const Form = () => {
       id: 1,
       partType: "WHL",
       explanation: "パートの解説",
-      childrenPart: {
-        id: 1,
-        partType: "PROC",
-        explanation: "パートの解説",
-        childrenPart: "none",
-        inputData: "入力される内容",
-      },
+      childrenPart: [
+        {
+          id: 1,
+          partType: "PROC",
+          explanation: "パートの解説",
+          childrenPart: "none",
+          inputData: "入力される内容",
+        },
+      ],
       inputData: "入力される内容",
     },
   ];

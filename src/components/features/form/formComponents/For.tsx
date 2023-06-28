@@ -4,7 +4,7 @@ import { Process } from "./Process";
 
 type Props = {
   partType: string;
-  childrenPart: string | FormData;
+  childrenPart: string | FormData[];
 };
 
 export const For = (props: Props) => {
@@ -22,8 +22,8 @@ export const For = (props: Props) => {
       "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。"
     );
     return <Process partType="PROC" />;
-  } else if (typeof props.childrenPart == "object") {
-    const childrenPart: FormData = props.childrenPart;
+  } else if (Array.isArray(props.childrenPart)) {
+    const childrenPartArray: FormData[] = props.childrenPart;
     return (
       <>
         <pre style={preStyle}>
@@ -36,11 +36,19 @@ export const For = (props: Props) => {
           {") {\n"}
         </pre>
         <div style={{ marginLeft: "50px" }}>
-          <FormProvider
-            partType={childrenPart.partType}
-            childrenPart={childrenPart.childrenPart}
-            inputData={childrenPart.inputData}
-          />
+          {childrenPartArray.map((childrenPart) => {
+            return (
+              <>
+                <FormProvider
+                  key={childrenPart.id}
+                  partType={childrenPart.partType}
+                  childrenPart={childrenPart.childrenPart}
+                  inputData={childrenPart.inputData}
+                />
+                <br />
+              </>
+            );
+          })}
         </div>
         <pre style={preStyle}>{"}"}</pre>
       </>
