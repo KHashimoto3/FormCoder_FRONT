@@ -190,9 +190,7 @@ export const TitleBar = (props: Props) => {
             </Box>
 
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <Button variant="contained" color="warning">
-                保存して終了
-              </Button>
+              <Button variant="contained">保存して終了</Button>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
