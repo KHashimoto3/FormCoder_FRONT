@@ -7,19 +7,19 @@ function App() {
   return (
     <BrowserRouter>
       <Route exact path="/">
-        <TitleBar />
+        <TitleBar barType="nomal" />
         <TopPage />
       </Route>
       <Route path="/learn">
-        <TitleBar />
+        <TitleBar barType="nomal" />
         <p>学習ページがきます。</p>
       </Route>
       <Route path="/form">
-        <TitleBar />
+        <TitleBar barType="form" />
         <FormPage />
       </Route>
       <Route path="/testTitle">
-        <TitleBar />
+        <TitleBar barType="nomal" />
       </Route>
     </BrowserRouter>
   );
