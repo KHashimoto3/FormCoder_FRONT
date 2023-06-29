@@ -18,10 +18,12 @@ const settings = ["私の成績", "アカウント設定", "ログアウト"];
 
 type Props = {
   barType: string;
+  formName: string;
 };
 
 export const TitleBar = (props: Props) => {
   const barType = props.barType;
+  const formName = props.formName;
   const [anchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -185,7 +187,7 @@ export const TitleBar = (props: Props) => {
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Typography variant="h5" sx={{ color: "#000" }}>
-                フォーム名
+                {formName}
               </Typography>
             </Box>
 
