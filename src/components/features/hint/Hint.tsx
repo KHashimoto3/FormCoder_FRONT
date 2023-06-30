@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { HintContext } from "./HintProvider";
+
 import {
   Button,
   Container,
@@ -23,8 +26,8 @@ interface HintList {
 export const Hint = (props: Props) => {
   //ヒントのリスト（MainPageから渡された）
   const hintList: HintList[] = props.hintList;
-  const stepNo: number = props.stepNo;
   const stepName: string = props.stepName;
+  const { hintListIdx } = useContext(HintContext);
 
   const grammerCodeStyle = {
     backgroundColor: "#363636",
@@ -36,7 +39,7 @@ export const Hint = (props: Props) => {
   return (
     <Container maxWidth="md">
       <Typography variant="h4">
-        STEP{stepNo}: {stepName}
+        STEP{hintListIdx}: {stepName}
       </Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
