@@ -12,13 +12,6 @@ export const Form = () => {
       inputData: "入力される内容",
     },
     {
-      id: 2,
-      partType: "PROC",
-      explanation: "パートの解説",
-      childrenPart: "none",
-      inputData: "入力される内容",
-    },
-    {
       id: 1,
       partType: "FUN",
       explanation: "パートの解説",
@@ -34,15 +27,37 @@ export const Form = () => {
       inputData: "入力される内容",
     },
     {
-      id: 3,
-      partType: "FOR",
+      id: 2,
+      partType: "MAIN",
       explanation: "パートの解説",
       childrenPart: [
         {
-          id: 1,
+          id: 2,
+          partType: "PROC",
+          explanation: "パートの解説",
+          childrenPart: "none",
+          inputData: "入力される内容",
+        },
+        {
+          id: 3,
           partType: "FOR",
           explanation: "パートの解説",
           childrenPart: [
+            {
+              id: 1,
+              partType: "FOR",
+              explanation: "パートの解説",
+              childrenPart: [
+                {
+                  id: 1,
+                  partType: "PROC",
+                  explanation: "パートの解説",
+                  childrenPart: "none",
+                  inputData: "入力される内容",
+                },
+              ],
+              inputData: "入力される内容",
+            },
             {
               id: 1,
               partType: "PROC",
@@ -54,32 +69,25 @@ export const Form = () => {
           inputData: "入力される内容",
         },
         {
-          id: 1,
+          id: 4,
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
           inputData: "入力される内容",
         },
-      ],
-      inputData: "入力される内容",
-    },
-    {
-      id: 4,
-      partType: "PROC",
-      explanation: "パートの解説",
-      childrenPart: "none",
-      inputData: "入力される内容",
-    },
-    {
-      id: 1,
-      partType: "WHL",
-      explanation: "パートの解説",
-      childrenPart: [
         {
           id: 1,
-          partType: "PROC",
+          partType: "WHL",
           explanation: "パートの解説",
-          childrenPart: "none",
+          childrenPart: [
+            {
+              id: 1,
+              partType: "PROC",
+              explanation: "パートの解説",
+              childrenPart: "none",
+              inputData: "入力される内容",
+            },
+          ],
           inputData: "入力される内容",
         },
       ],
