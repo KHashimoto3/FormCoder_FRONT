@@ -27,7 +27,7 @@ export const Hint = () => {
   const { partType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
-  let hintData: HintData[] = [
+  const hintData: HintData[] = [
     {
       partType: "DAMY",
       partTitle: "ヒント非表示",
@@ -52,7 +52,7 @@ export const Hint = () => {
         },
         {
           hintTitle: "何を計算、代入したらいいかわからない",
-          hint: "説明",
+          hint: "",
         },
       ],
     },
@@ -70,7 +70,7 @@ export const Hint = () => {
         },
         {
           hintTitle: "どのような繰り返しの設定にしたらいいかわからない",
-          hint: "説明",
+          hint: "",
         },
       ],
     },
@@ -88,14 +88,14 @@ export const Hint = () => {
         },
         {
           hintTitle: "どのような関数を定義したらいいかわからない",
-          hint: "説明",
+          hint: "",
         },
       ],
     },
   ];
 
   //TypeCのヒントを展開するためのIdx
-  const [hintTypeCIdx] = useState<number>(0);
+  const [hintTypeCIdx, setHintTypeCIdx] = useState<number>(0);
   const [currentHintData, setCurrentHintData] = useState<HintData>(hintData[0]);
 
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
@@ -123,6 +123,10 @@ export const Hint = () => {
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
           {currentHintData.hintList.map((hint, index) => {
+            if (hint.hint == "") {
+              hint.hint = hintTypeC;
+              setHintTypeCIdx(hintTypeCIdx + 1);
+            }
             return (
               <Accordion key={hint.hint}>
                 <AccordionSummary
@@ -132,7 +136,7 @@ export const Hint = () => {
                   sx={{ backgroundColor: "#e3f4ff" }}
                 >
                   <Typography variant="h5">
-                    つまずき{index + 1}：{hint.hint}
+                    つまずき{index + 1}：{hint.hintTitle}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
