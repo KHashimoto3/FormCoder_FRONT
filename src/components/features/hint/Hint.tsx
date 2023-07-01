@@ -28,6 +28,7 @@ export const Hint = (props: Props) => {
   const hintList: HintList[] = props.hintList;
   const stepName: string = props.stepName;
   const { hintListIdx } = useContext(HintContext);
+  const { hintTypeC } = useContext(HintContext);
 
   const grammerCodeStyle = {
     backgroundColor: "#363636",
@@ -35,6 +36,8 @@ export const Hint = (props: Props) => {
     color: "#fff",
     width: "100%",
   };
+
+  console.log(hintTypeC);
 
   return (
     <Container maxWidth="md">
