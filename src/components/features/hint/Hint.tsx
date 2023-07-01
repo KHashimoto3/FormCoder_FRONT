@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HintContext } from "./HintProvider";
 
 import {
@@ -24,11 +24,20 @@ interface HintData {
 }
 
 export const Hint = () => {
-  //ヒントのリスト（MainPageから渡された）
   const { partType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
   let hintData: HintData[] = [
+    {
+      partType: "DAMY",
+      partTitle: "ヒント非表示",
+      hintList: [
+        {
+          hintTitle: "つまずきに応じたヒントを出します",
+          hint: "ヒントの説明",
+        },
+      ],
+    },
     {
       partType: "PROC",
       partTitle: "計算・代入",
@@ -85,6 +94,19 @@ export const Hint = () => {
     },
   ];
 
+  //TypeCのヒントを展開するためのIdx
+  const [hintTypeCIdx] = useState<number>(0);
+  const [currentHintData, setCurrentHintData] = useState<HintData>(hintData[0]);
+
+  //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
+  useEffect(() => {
+    hintData.map((hint) => {
+      if (hint.partType == partType) {
+        setCurrentHintData(hint);
+      }
+    });
+  }, [hintTypeCIdx]);
+
   const grammerCodeStyle = {
     backgroundColor: "#363636",
     fontSize: "14pt",
@@ -100,7 +122,7 @@ export const Hint = () => {
       <Typography variant="h4">STEP1: ステップ名</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
-          {hintList.map((hint, index) => {
+          {currentHintData.hintList.map((hint, index) => {
             return (
               <Accordion key={hint.hint}>
                 <AccordionSummary
@@ -114,18 +136,8 @@ export const Hint = () => {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography variant="h6">for文の書き方</Typography>
-                  <textarea style={grammerCodeStyle} cols={40} rows={4}>
-                    {hint.explanation}
-                  </textarea>
-                  <br />
-                  <Typography variant="body1">
-                    カウンタ変数の初期化：何回目のループかをカウントする変数を初期化します。通常は0で初期化します。
-                    <br />
-                    継続条件：ループの中身に書く処理を、何の条件を満たす間行うかを条件式で設定します。
-                    <br />
-                    カウンタの増減：ループの中身の処理を一回実行した時に、カウンタ変数をどのように増減するかを設定します。通常は１つずつ増やすカウントアップを行います。
-                  </Typography>
+                  <Typography variant="h6">{hint.hintTitle}</Typography>
+                  <Typography variant="body1">{hint.hint}</Typography>
                 </AccordionDetails>
               </Accordion>
             );
