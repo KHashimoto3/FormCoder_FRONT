@@ -12,23 +12,78 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-type Props = {
-  stepNo: number;
-  stepName: string;
-  hintList: HintList[];
-};
-
 interface HintList {
+  hintTitle: string;
   hint: string;
-  explanation: string;
 }
 
-export const Hint = (props: Props) => {
+interface HintData {
+  partType: string;
+  partTitle: string;
+  hintList: HintList[];
+}
+
+export const Hint = () => {
   //ヒントのリスト（MainPageから渡された）
-  const hintList: HintList[] = props.hintList;
-  const stepName: string = props.stepName;
   const { hintListIdx } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
+
+  let hintData: HintData[] = [
+    {
+      partType: "PROC",
+      partTitle: "計算・代入",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、計算・代入の処理を記述します",
+        },
+        {
+          hintTitle: "計算・代入の処理の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "何を計算、代入したらいいかわからない",
+          hint: "説明",
+        },
+      ],
+    },
+    {
+      partType: "FOR",
+      partTitle: "繰り返し（for）",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、繰り返し（for）を記述します",
+        },
+        {
+          hintTitle: "繰り返し（for）の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "どのような繰り返しの設定にしたらいいかわからない",
+          hint: "説明",
+        },
+      ],
+    },
+    {
+      partType: "FUN",
+      partTitle: "関数定義",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、関数定義を記述します",
+        },
+        {
+          hintTitle: "関数定義の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "どのような関数を定義したらいいかわからない",
+          hint: "説明",
+        },
+      ],
+    },
+  ];
 
   const grammerCodeStyle = {
     backgroundColor: "#363636",
@@ -41,9 +96,7 @@ export const Hint = (props: Props) => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4">
-        STEP{hintListIdx}: {stepName}
-      </Typography>
+      <Typography variant="h4">STEP{hintListIdx}: ステップ名</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
           {hintList.map((hint, index) => {

@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
 
-interface FormData {
+/*interface FormData {
   stepName: string;
   hintList: HintList[];
 }
@@ -10,9 +10,10 @@ interface FormData {
 interface HintList {
   hint: string;
   explanation: string;
-}
+}*/
 
 export const FormBase = () => {
+  /*
   const formData: FormData[] = [
     {
       stepName: "ヘッダコメント",
@@ -104,18 +105,14 @@ export const FormBase = () => {
         },
       ],
     },
-  ];
+  ];*/
 
   return (
     <div>
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={5}>
-            <Hint
-              stepNo={1}
-              stepName={formData[0].stepName}
-              hintList={formData[0].hintList}
-            />
+            <Hint />
           </Grid>
           <Grid item xs={7}>
             <Form />
