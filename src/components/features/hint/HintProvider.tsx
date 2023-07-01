@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction, createContext, useState } from "react";
 
 export const HintContext = createContext(
   {} as {
-    hintListIdx: number;
-    setHintListIdx: Dispatch<SetStateAction<number>>;
+    partType: string;
+    setPartType: Dispatch<SetStateAction<string>>;
     hintTypeC: string;
     setHintTypeC: Dispatch<SetStateAction<string>>;
   }
@@ -13,11 +13,11 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
   //eslint-disable-next-line
   children,
 }) => {
-  const [hintListIdx, setHintListIdx] = useState<number>(1);
+  const [partType, setPartType] = useState<string>("PROC");
   const [hintTypeC, setHintTypeC] = useState<string>("テストヒントC");
   return (
     <HintContext.Provider
-      value={{ hintListIdx, setHintListIdx, hintTypeC, setHintTypeC }}
+      value={{ partType, setPartType, hintTypeC, setHintTypeC }}
     >
       {children}
     </HintContext.Provider>

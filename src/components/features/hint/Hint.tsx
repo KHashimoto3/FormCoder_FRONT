@@ -25,7 +25,7 @@ interface HintData {
 
 export const Hint = () => {
   //ヒントのリスト（MainPageから渡された）
-  const { hintListIdx } = useContext(HintContext);
+  const { partType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
   let hintData: HintData[] = [
@@ -92,11 +92,12 @@ export const Hint = () => {
     width: "100%",
   };
 
+  console.log(partType);
   console.log(hintTypeC);
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4">STEP{hintListIdx}: ステップ名</Typography>
+      <Typography variant="h4">STEP1: ステップ名</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
           {hintList.map((hint, index) => {
