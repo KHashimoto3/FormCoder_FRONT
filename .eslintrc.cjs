@@ -29,6 +29,5 @@ module.exports = {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-no-comment-textnodes": "off",
-    "react/prop-types": "off",
   },
 };
