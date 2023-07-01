@@ -8,6 +8,7 @@ import { Main } from "./formComponents/Main";
 
 type Props = {
   partType: string;
+  explanation: string;
   childrenPart: string | FormData[];
   inputData: string;
 };
@@ -20,15 +21,25 @@ export const FormProvider = (props: Props) => {
       <Main partType={formData.partType} childrenPart={formData.childrenPart} />
     );
   } else if (formData.partType == "PROC") {
-    return <Process partType={formData.partType} />;
+    return (
+      <Process
+        partType={formData.partType}
+        explanation={formData.explanation}
+      />
+    );
   } else if (formData.partType == "FOR") {
     return (
-      <For partType={formData.partType} childrenPart={formData.childrenPart} />
+      <For
+        partType={formData.partType}
+        explanation={formData.explanation}
+        childrenPart={formData.childrenPart}
+      />
     );
   } else if (formData.partType == "WHL") {
     return (
       <While
         partType={formData.partType}
+        explanation={formData.explanation}
         childrenPart={formData.childrenPart}
       />
     );
@@ -36,6 +47,7 @@ export const FormProvider = (props: Props) => {
     return (
       <Function
         partType={formData.partType}
+        explanation={formData.explanation}
         childrenPart={formData.childrenPart}
       />
     );

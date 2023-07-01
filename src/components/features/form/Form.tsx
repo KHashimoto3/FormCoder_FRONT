@@ -103,6 +103,7 @@ export const Form = () => {
             <FormProvider
               key={data.id}
               partType={data.partType}
+              explanation={data.explanation}
               childrenPart={data.childrenPart}
               inputData={data.inputData}
             />

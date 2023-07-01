@@ -4,6 +4,7 @@ import { Process } from "./Process";
 
 type Props = {
   partType: string;
+  explanation: string;
   childrenPart: string | FormData[];
 };
 
@@ -21,7 +22,7 @@ export const For = (props: Props) => {
     alert(
       "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。"
     );
-    return <Process partType="PROC" />;
+    return <Process partType="PROC" explanation="" />;
   } else if (Array.isArray(props.childrenPart)) {
     const childrenPartArray: FormData[] = props.childrenPart;
     return (
@@ -42,6 +43,7 @@ export const For = (props: Props) => {
                 <FormProvider
                   key={childrenPart.id}
                   partType={childrenPart.partType}
+                  explanation={childrenPart.explanation}
                   childrenPart={childrenPart.childrenPart}
                   inputData={childrenPart.inputData}
                 />

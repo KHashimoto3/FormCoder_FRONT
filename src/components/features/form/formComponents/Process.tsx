@@ -1,5 +1,6 @@
 type Props = {
   partType: string;
+  explanation: string;
 };
 
 export const Process = (props: Props) => {
