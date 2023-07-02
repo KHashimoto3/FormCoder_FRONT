@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import { FormData } from "../../../types/formData";
 import { FormProvider } from "../FormProvider";
 import { Process } from "./Process";
+import { HintContext } from "../../hint/HintProvider";
 
 type Props = {
   partType: string;
@@ -9,6 +11,12 @@ type Props = {
 };
 
 export const For = (props: Props) => {
+  const { setCurrentPartType } = useContext(HintContext);
+  const { setHintTypeC } = useContext(HintContext);
+
+  const partType = props.partType;
+  const explanation = props.explanation;
+
   const inputStyle = {
     fontSize: "16pt",
   };
@@ -29,11 +37,35 @@ export const For = (props: Props) => {
       <>
         <pre style={preStyle}>
           for {"("}
-          <input style={inputStyle} type="text" size={5} />
+          <input
+            style={inputStyle}
+            type="text"
+            size={5}
+            onFocus={() => {
+              setCurrentPartType(partType);
+              setHintTypeC(explanation);
+            }}
+          />
           {"; "}
-          <input style={inputStyle} type="text" size={5} />
+          <input
+            style={inputStyle}
+            type="text"
+            size={5}
+            onFocus={() => {
+              setCurrentPartType(partType);
+              setHintTypeC(explanation);
+            }}
+          />
           {"; "}
-          <input style={inputStyle} type="text" size={5} />
+          <input
+            style={inputStyle}
+            type="text"
+            size={5}
+            onFocus={() => {
+              setCurrentPartType(partType);
+              setHintTypeC(explanation);
+            }}
+          />
           {") {\n"}
         </pre>
         <div style={{ marginLeft: "50px" }}>

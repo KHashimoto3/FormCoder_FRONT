@@ -93,6 +93,24 @@ export const Hint = () => {
         },
       ],
     },
+    {
+      partType: "WHL",
+      partTitle: "繰り返し（while）",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、繰り返し（while）を記述します",
+        },
+        {
+          hintTitle: "繰り返し（while）の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "どのような繰り返しの設定にしたら良いかわからない",
+          hint: "",
+        },
+      ],
+    },
   ];
 
   //TypeCのヒントを展開するためのIdx
