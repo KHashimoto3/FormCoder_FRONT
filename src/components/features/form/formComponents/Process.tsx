@@ -12,7 +12,6 @@ export const Process = (props: Props) => {
 
   const partType = props.partType;
   const explanation = props.explanation;
-  console.log(partType); //理由：propsを受け取って使わないという事態を防ぐためにつけている
   return (
     <textarea
       cols={40}
@@ -20,7 +19,6 @@ export const Process = (props: Props) => {
       onFocus={() => {
         setCurrentPartType(partType);
         setHintTypeC(explanation);
-        console.log("切り替えます！");
       }}
     ></textarea>
   );

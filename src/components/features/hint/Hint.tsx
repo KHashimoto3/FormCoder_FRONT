@@ -133,9 +133,6 @@ export const Hint = () => {
     width: "100%",
   };
 
-  console.log(currentPartType);
-  console.log(hintTypeC);
-
   return (
     <Container maxWidth="md">
       <Typography variant="h4">STEP1: ステップ名</Typography>
