@@ -24,7 +24,7 @@ interface HintData {
 }
 
 export const Hint = () => {
-  const { partType } = useContext(HintContext);
+  const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
   //TODO: GCPのFirestoreからヒントデータを取ってくる
@@ -102,7 +102,7 @@ export const Hint = () => {
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
     hintData.map((hint) => {
-      if (hint.partType == partType) {
+      if (hint.partType == currentPartType) {
         setCurrentHintData(hint);
       }
     });
@@ -115,7 +115,7 @@ export const Hint = () => {
     width: "100%",
   };
 
-  console.log(partType);
+  console.log(currentPartType);
   console.log(hintTypeC);
 
   return (
