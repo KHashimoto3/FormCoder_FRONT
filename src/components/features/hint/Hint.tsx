@@ -1,3 +1,6 @@
+import { useContext, useEffect, useState } from "react";
+import { HintContext } from "./HintProvider";
+
 import {
   Button,
   Container,
@@ -9,22 +12,119 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-type Props = {
-  stepNo: number;
-  stepName: string;
-  hintList: HintList[];
-};
-
 interface HintList {
+  hintTitle: string;
   hint: string;
-  explanation: string;
 }
 
-export const Hint = (props: Props) => {
-  //ヒントのリスト（MainPageから渡された）
-  const hintList: HintList[] = props.hintList;
-  const stepNo: number = props.stepNo;
-  const stepName: string = props.stepName;
+interface HintData {
+  partType: string;
+  partTitle: string;
+  hintList: HintList[];
+}
+
+export const Hint = () => {
+  const { currentPartType } = useContext(HintContext);
+  const { hintTypeC } = useContext(HintContext);
+
+  //TODO: GCPのFirestoreからヒントデータを取ってくる
+  const hintData: HintData[] = [
+    {
+      partType: "DAMY",
+      partTitle: "ヒント非表示",
+      hintList: [
+        {
+          hintTitle: "つまずきに応じたヒントを出します",
+          hint: "ヒントの説明",
+        },
+      ],
+    },
+    {
+      partType: "PROC",
+      partTitle: "計算・代入",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、計算・代入の処理を記述します",
+        },
+        {
+          hintTitle: "計算・代入の処理の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "何を計算、代入したらいいかわからない",
+          hint: "",
+        },
+      ],
+    },
+    {
+      partType: "FOR",
+      partTitle: "繰り返し（for）",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、繰り返し（for）を記述します",
+        },
+        {
+          hintTitle: "繰り返し（for）の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "どのような繰り返しの設定にしたらいいかわからない",
+          hint: "",
+        },
+      ],
+    },
+    {
+      partType: "FUN",
+      partTitle: "関数定義",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、関数定義を記述します",
+        },
+        {
+          hintTitle: "関数定義の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "どのような関数を定義したらいいかわからない",
+          hint: "",
+        },
+      ],
+    },
+    {
+      partType: "WHL",
+      partTitle: "繰り返し（while）",
+      hintList: [
+        {
+          hintTitle: "何を書くパートなのかわからない",
+          hint: "ここには、繰り返し（while）を記述します",
+        },
+        {
+          hintTitle: "繰り返し（while）の書き方がわからない",
+          hint: "文法の説明",
+        },
+        {
+          hintTitle: "どのような繰り返しの設定にしたら良いかわからない",
+          hint: "",
+        },
+      ],
+    },
+  ];
+
+  //TypeCのヒントを展開するためのIdx
+  const [hintTypeCIdx, setHintTypeCIdx] = useState<number>(0);
+  const [currentHintData, setCurrentHintData] = useState<HintData>(hintData[0]);
+
+  //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
+  useEffect(() => {
+    hintData.map((hint) => {
+      if (hint.partType == currentPartType) {
+        setCurrentHintData(hint);
+      }
+    });
+  }, [currentPartType]);
 
   const grammerCodeStyle = {
     backgroundColor: "#363636",
@@ -35,12 +135,14 @@ export const Hint = (props: Props) => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4">
-        STEP{stepNo}: {stepName}
-      </Typography>
+      <Typography variant="h4">STEP1: ステップ名</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
-          {hintList.map((hint, index) => {
+          {currentHintData.hintList.map((hint, index) => {
+            if (hint.hint == "") {
+              hint.hint = hintTypeC;
+              setHintTypeCIdx(hintTypeCIdx + 1);
+            }
             return (
               <Accordion key={hint.hint}>
                 <AccordionSummary
@@ -50,22 +152,12 @@ export const Hint = (props: Props) => {
                   sx={{ backgroundColor: "#e3f4ff" }}
                 >
                   <Typography variant="h5">
-                    つまずき{index + 1}：{hint.hint}
+                    つまずき{index + 1}：{hint.hintTitle}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography variant="h6">for文の書き方</Typography>
-                  <textarea style={grammerCodeStyle} cols={40} rows={4}>
-                    {hint.explanation}
-                  </textarea>
-                  <br />
-                  <Typography variant="body1">
-                    カウンタ変数の初期化：何回目のループかをカウントする変数を初期化します。通常は0で初期化します。
-                    <br />
-                    継続条件：ループの中身に書く処理を、何の条件を満たす間行うかを条件式で設定します。
-                    <br />
-                    カウンタの増減：ループの中身の処理を一回実行した時に、カウンタ変数をどのように増減するかを設定します。通常は１つずつ増やすカウントアップを行います。
-                  </Typography>
+                  <Typography variant="h6">{hint.hintTitle}</Typography>
+                  <Typography variant="body1">{hint.hint}</Typography>
                 </AccordionDetails>
               </Accordion>
             );
