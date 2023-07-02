@@ -124,7 +124,7 @@ export const Hint = () => {
         setCurrentHintData(hint);
       }
     });
-  }, [hintTypeCIdx]);
+  }, [currentPartType]);
 
   const grammerCodeStyle = {
     backgroundColor: "#363636",
