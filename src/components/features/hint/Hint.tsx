@@ -142,13 +142,6 @@ export const Hint = () => {
     });
   }, [currentPartType]);
 
-  /*const grammerCodeStyle = {
-    backgroundColor: "#363636",
-    fontSize: "14pt",
-    color: "#fff",
-    width: "100%",
-  };*/
-
   return (
     <Container maxWidth="md">
       <Typography variant="h4">STEP1: ステップ名</Typography>
