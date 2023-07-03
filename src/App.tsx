@@ -21,9 +21,6 @@ function App() {
           <TitleBar barType="form" formName="サンプルフォーム" />
           <FormPage />
         </Route>
-        <Route path="/hintprovider">
-          <HintCompProvider />
-        </Route>
       </BrowserRouter>
     </HintProvider>
   );
