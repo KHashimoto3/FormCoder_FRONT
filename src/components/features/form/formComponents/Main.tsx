@@ -40,7 +40,6 @@ export const Main = (props: Props) => {
           })}
         </div>
         <pre style={preStyle}>{"    return 0;\n}"}</pre>
-        <pre style={preStyle}>{"}"}</pre>
       </>
     );
   }
