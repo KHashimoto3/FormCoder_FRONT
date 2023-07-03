@@ -85,13 +85,20 @@ export const Form = () => {
         },
         {
           id: 5,
-          partType: "PROC",
+          partType: "IFE",
           explanation: "パートの解説",
           childrenPart: "none",
           inputData: "入力される内容",
         },
         {
           id: 6,
+          partType: "PROC",
+          explanation: "パートの解説",
+          childrenPart: "none",
+          inputData: "入力される内容",
+        },
+        {
+          id: 7,
           partType: "WHL",
           explanation: "パートの解説",
           childrenPart: [

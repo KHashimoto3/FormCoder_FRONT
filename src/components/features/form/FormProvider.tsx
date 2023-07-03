@@ -8,6 +8,7 @@ import { Main } from "./formComponents/Main";
 import { If } from "./formComponents/If";
 import { Elseif } from "./formComponents/Elseif";
 import { Else } from "./formComponents/Else";
+import { IfEnd } from "./formComponents/IfEnd";
 
 type Props = {
   partType: string;
@@ -73,6 +74,14 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "ELS") {
     return (
       <Else
+        partType={formData.partType}
+        explanation={formData.explanation}
+        childrenPart={formData.childrenPart}
+      />
+    );
+  } else if (formData.partType == "IFE") {
+    return (
+      <IfEnd
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
