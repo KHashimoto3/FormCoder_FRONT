@@ -51,5 +51,15 @@ export const FormProvider = (props: Props) => {
         childrenPart={formData.childrenPart}
       />
     );
+  } else {
+    alert(
+      "データエラー：存在しない種類のフォームを使用しようとしています。フォームデータを確認してください。"
+    );
+    return (
+      <Process
+        partType={formData.partType}
+        explanation={formData.explanation}
+      />
+    );
   }
 };
