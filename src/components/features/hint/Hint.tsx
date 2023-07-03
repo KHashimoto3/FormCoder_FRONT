@@ -12,7 +12,10 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+import { HintCompProvider } from "./HintCompProvider";
+
 interface HintList {
+  hintType: string;
   hintTitle: string;
   hint: string;
 }
@@ -34,6 +37,7 @@ export const Hint = () => {
       partTitle: "ヒント非表示",
       hintList: [
         {
+          hintType: "A",
           hintTitle: "つまずきに応じたヒントを出します",
           hint: "ヒントの説明",
         },
@@ -44,14 +48,17 @@ export const Hint = () => {
       partTitle: "計算・代入",
       hintList: [
         {
+          hintType: "A",
           hintTitle: "何を書くパートなのかわからない",
           hint: "ここには、計算・代入の処理を記述します",
         },
         {
+          hintType: "B",
           hintTitle: "計算・代入の処理の書き方がわからない",
           hint: "文法の説明",
         },
         {
+          hintType: "C",
           hintTitle: "何を計算、代入したらいいかわからない",
           hint: "",
         },
@@ -62,14 +69,17 @@ export const Hint = () => {
       partTitle: "繰り返し（for）",
       hintList: [
         {
+          hintType: "A",
           hintTitle: "何を書くパートなのかわからない",
           hint: "ここには、繰り返し（for）を記述します",
         },
         {
+          hintType: "B",
           hintTitle: "繰り返し（for）の書き方がわからない",
           hint: "文法の説明",
         },
         {
+          hintType: "C",
           hintTitle: "どのような繰り返しの設定にしたらいいかわからない",
           hint: "",
         },
@@ -80,14 +90,17 @@ export const Hint = () => {
       partTitle: "関数定義",
       hintList: [
         {
+          hintType: "A",
           hintTitle: "何を書くパートなのかわからない",
           hint: "ここには、関数定義を記述します",
         },
         {
+          hintType: "B",
           hintTitle: "関数定義の書き方がわからない",
           hint: "文法の説明",
         },
         {
+          hintType: "C",
           hintTitle: "どのような関数を定義したらいいかわからない",
           hint: "",
         },
@@ -98,14 +111,17 @@ export const Hint = () => {
       partTitle: "繰り返し（while）",
       hintList: [
         {
+          hintType: "A",
           hintTitle: "何を書くパートなのかわからない",
           hint: "ここには、繰り返し（while）を記述します",
         },
         {
+          hintType: "B",
           hintTitle: "繰り返し（while）の書き方がわからない",
           hint: "文法の説明",
         },
         {
+          hintType: "C",
           hintTitle: "どのような繰り返しの設定にしたら良いかわからない",
           hint: "",
         },
@@ -156,8 +172,7 @@ export const Hint = () => {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography variant="h6">{hint.hintTitle}</Typography>
-                  <Typography variant="body1">{hint.hint}</Typography>
+                  <HintCompProvider hintType={hint.hintType} />
                 </AccordionDetails>
               </Accordion>
             );

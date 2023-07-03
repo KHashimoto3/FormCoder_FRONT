@@ -1,15 +1,18 @@
-import { useState } from "react";
 import { TypeA } from "./hintComponents/TypeA";
 import { TypeB } from "./hintComponents/TypeB";
 import { TypeC } from "./hintComponents/TypeC";
 
-export const HintCompProvider = () => {
-  const [formType] = useState<string>("C");
-  if (formType == "A") {
+type Props = {
+  hintType: string;
+};
+
+export const HintCompProvider = (props: Props) => {
+  const hintType = props.hintType;
+  if (hintType == "A") {
     return <TypeA />;
-  } else if (formType == "B") {
+  } else if (hintType == "B") {
     return <TypeB />;
-  } else if (formType == "C") {
+  } else if (hintType == "C") {
     return <TypeC />;
   } else {
     alert(
