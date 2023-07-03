@@ -4,12 +4,12 @@ import { TypeB } from "./hintComponents/TypeB";
 import { TypeC } from "./hintComponents/TypeC";
 
 export const HintCompProvider = () => {
-  const [formType] = useState<string>("d");
-  if (formType == "a") {
+  const [formType] = useState<string>("C");
+  if (formType == "A") {
     return <TypeA />;
-  } else if (formType == "b") {
+  } else if (formType == "B") {
     return <TypeB />;
-  } else if (formType == "c") {
+  } else if (formType == "C") {
     return <TypeC />;
   } else {
     alert(
