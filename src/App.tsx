@@ -3,7 +3,6 @@ import { TopPage } from "./components/pages/TopPage";
 import { FormPage } from "./components/pages/FormPage";
 import { TitleBar } from "./components/common/TitleBar";
 import { HintProvider } from "./components/features/hint/HintProvider";
-import { HintCompProvider } from "./components/features/hint/HintCompProvider";
 
 function App() {
   return (
