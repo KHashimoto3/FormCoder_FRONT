@@ -70,7 +70,7 @@ export const Form = () => {
         },
         {
           id: 4,
-          partType: "ELIF",
+          partType: "ELS",
           explanation: "パートの解説",
           childrenPart: [
             {
