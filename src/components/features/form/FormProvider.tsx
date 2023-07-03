@@ -6,6 +6,7 @@ import { While } from "./formComponents/While";
 import { Function } from "./formComponents/Function";
 import { Main } from "./formComponents/Main";
 import { If } from "./formComponents/If";
+import { Elseif } from "./formComponents/Elseif";
 
 type Props = {
   partType: string;
@@ -60,6 +61,12 @@ export const FormProvider = (props: Props) => {
         childrenPart={formData.childrenPart}
       />
     );
+  } else if (formData.partType == "ELIF") {
+    <Elseif
+      partType={formData.partType}
+      explanation={formData.explanation}
+      childrenPart={formData.childrenPart}
+    />;
   } else {
     alert(
       "データエラー：存在しない種類のフォームを使用しようとしています。フォームデータを確認してください。"
