@@ -40,7 +40,7 @@ export const Form = () => {
         },
         {
           id: 3,
-          partType: "FOR",
+          partType: "IF",
           explanation: "パートの解説",
           childrenPart: [
             {
@@ -70,13 +70,35 @@ export const Form = () => {
         },
         {
           id: 4,
+          partType: "ELS",
+          explanation: "パートの解説",
+          childrenPart: [
+            {
+              id: 1,
+              partType: "PROC",
+              explanation: "パートの解説",
+              childrenPart: "none",
+              inputData: "入力される内容",
+            },
+          ],
+          inputData: "入力される内容",
+        },
+        {
+          id: 5,
+          partType: "IFE",
+          explanation: "パートの解説",
+          childrenPart: "none",
+          inputData: "入力される内容",
+        },
+        {
+          id: 6,
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
           inputData: "入力される内容",
         },
         {
-          id: 1,
+          id: 7,
           partType: "WHL",
           explanation: "パートの解説",
           childrenPart: [
