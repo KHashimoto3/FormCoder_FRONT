@@ -39,7 +39,12 @@ export const TitleBar = (props: Props) => {
     return (
       <AppBar
         position="static"
-        sx={{ background: "#fff", borderRadius: "10px" }}
+        sx={{
+          background: "#fff",
+          borderRadius: "10px",
+          position: "fixed",
+          marginTop: "15px",
+        }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -163,7 +168,12 @@ export const TitleBar = (props: Props) => {
     return (
       <AppBar
         position="static"
-        sx={{ background: "#fff", borderRadius: "10px" }}
+        sx={{
+          background: "#fff",
+          borderRadius: "10px",
+          position: "fixed",
+          marginTop: "15px",
+        }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
