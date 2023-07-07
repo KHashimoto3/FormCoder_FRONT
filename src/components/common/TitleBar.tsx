@@ -51,6 +51,7 @@ export const TitleBar = (props: Props) => {
           borderRadius: "10px",
           position: "fixed",
           marginTop: "15px",
+          zIndex: "1000",
         }}
       >
         <Container maxWidth="xl">
@@ -180,6 +181,7 @@ export const TitleBar = (props: Props) => {
           borderRadius: "10px",
           position: "fixed",
           marginTop: "15px",
+          zIndex: "1000",
         }}
       >
         <Container maxWidth="xl">
