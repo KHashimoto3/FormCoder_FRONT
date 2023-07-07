@@ -1,9 +1,16 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 
 export const Top = () => {
   const backgroundStyle = {
     background:
       "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(236,246,255,1) 100%)",
+  };
+
+  const buttonStyle = {
+    color: "#fff",
+    background:
+      "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
+    boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
   return (
@@ -14,6 +21,15 @@ export const Top = () => {
             <Typography variant="h3" sx={{ fontWeight: "bold" }}>
               フォームを使ったプログラミング学習
             </Typography>
+            <Button
+              style={buttonStyle}
+              size="large"
+              onClick={() => {
+                alert("ボタンが押されました。");
+              }}
+            >
+              サンプルフォームを見る
+            </Button>
           </Box>
         </Grid>
         <Grid item xs={6}>
