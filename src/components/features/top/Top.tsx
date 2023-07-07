@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 
 export const Top = () => {
   const backgroundStyle = {
@@ -18,18 +18,22 @@ export const Top = () => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Box sx={{ textAlign: "center", paddingTop: "200px" }}>
-            <Typography variant="h3" sx={{ fontWeight: "bold" }}>
-              フォームを使ったプログラミング学習
-            </Typography>
-            <Button
-              style={buttonStyle}
-              size="large"
-              onClick={() => {
-                alert("ボタンが押されました。");
-              }}
-            >
-              サンプルフォームを見る
-            </Button>
+            <Stack spacing={3}>
+              <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+                フォームを使ったプログラミング学習
+              </Typography>
+              <Box>
+                <Button
+                  style={buttonStyle}
+                  size="large"
+                  onClick={() => {
+                    alert("ボタンが押されました。");
+                  }}
+                >
+                  サンプルフォームを見る
+                </Button>
+              </Box>
+            </Stack>
           </Box>
         </Grid>
         <Grid item xs={6}>
