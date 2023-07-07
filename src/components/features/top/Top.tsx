@@ -1,6 +1,9 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 export const Top = () => {
+  const history = useHistory();
+
   const backgroundStyle = {
     background:
       "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(236,246,255,1) 100%)",
@@ -27,7 +30,7 @@ export const Top = () => {
                   style={buttonStyle}
                   size="large"
                   onClick={() => {
-                    alert("ボタンが押されました。");
+                    history.push("/form");
                   }}
                 >
                   サンプルフォームを見る
