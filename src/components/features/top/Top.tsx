@@ -35,7 +35,7 @@ export const Top = () => {
                   }}
                 >
                   <PlayCircleOutlineIcon />
-                  サンプルフォームを見る
+                  サンプルのフォームを見る
                 </Button>
               </Box>
             </Stack>
