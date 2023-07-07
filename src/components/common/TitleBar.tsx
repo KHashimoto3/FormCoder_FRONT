@@ -35,11 +35,24 @@ export const TitleBar = (props: Props) => {
     setAnchorElUser(null);
   };
 
+  const buttonStyle = {
+    color: "#fff",
+    background:
+      "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
+    boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
+  };
+
   if (barType == "nomal") {
     return (
       <AppBar
         position="static"
-        sx={{ background: "#fff", borderRadius: "10px" }}
+        sx={{
+          background: "#fff",
+          borderRadius: "10px",
+          position: "fixed",
+          marginTop: "15px",
+          zIndex: "1000",
+        }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -163,7 +176,13 @@ export const TitleBar = (props: Props) => {
     return (
       <AppBar
         position="static"
-        sx={{ background: "#fff", borderRadius: "10px" }}
+        sx={{
+          background: "#fff",
+          borderRadius: "10px",
+          position: "fixed",
+          marginTop: "15px",
+          zIndex: "1000",
+        }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -192,7 +211,7 @@ export const TitleBar = (props: Props) => {
             </Box>
 
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <Button variant="contained">保存して終了</Button>
+              <Button style={buttonStyle}>保存して終了</Button>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
