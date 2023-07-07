@@ -1,4 +1,5 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { useHistory } from "react-router-dom";
 
 export const Top = () => {
@@ -33,6 +34,7 @@ export const Top = () => {
                     history.push("/form");
                   }}
                 >
+                  <PlayCircleOutlineIcon />
                   サンプルフォームを見る
                 </Button>
               </Box>
@@ -41,7 +43,7 @@ export const Top = () => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={{ textAlign: "center", paddingTop: "200px" }}>
-            <h1>左側</h1>
+            <h1>イメージ画像</h1>
           </Box>
         </Grid>
       </Grid>
