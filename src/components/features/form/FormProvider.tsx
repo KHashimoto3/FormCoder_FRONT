@@ -14,7 +14,7 @@ type Props = {
   partType: string;
   explanation: string;
   childrenPart: string | FormData[];
-  inputData: string;
+  inputIdx: number;
 };
 
 export const FormProvider = (props: Props) => {

@@ -77,7 +77,7 @@ export const For = (props: Props) => {
                   partType={childrenPart.partType}
                   explanation={childrenPart.explanation}
                   childrenPart={childrenPart.childrenPart}
-                  inputData={childrenPart.inputData}
+                  inputIdx={childrenPart.inputIdx}
                 />
                 <br />
               </>

@@ -9,7 +9,7 @@ export const Form = () => {
       partType: "PROC",
       explanation: "パートの解説",
       childrenPart: "none",
-      inputData: "入力される内容",
+      inputIdx: 0,
     },
     {
       id: 1,
@@ -21,10 +21,10 @@ export const Form = () => {
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputData: "入力される内容",
+          inputIdx: 0,
         },
       ],
-      inputData: "入力される内容",
+      inputIdx: 0,
     },
     {
       id: 2,
@@ -36,7 +36,7 @@ export const Form = () => {
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputData: "入力される内容",
+          inputIdx: 0,
         },
         {
           id: 3,
@@ -53,20 +53,20 @@ export const Form = () => {
                   partType: "PROC",
                   explanation: "パートの解説",
                   childrenPart: "none",
-                  inputData: "入力される内容",
+                  inputIdx: 0,
                 },
               ],
-              inputData: "入力される内容",
+              inputIdx: 0,
             },
             {
               id: 1,
               partType: "PROC",
               explanation: "パートの解説",
               childrenPart: "none",
-              inputData: "入力される内容",
+              inputIdx: 0,
             },
           ],
-          inputData: "入力される内容",
+          inputIdx: 0,
         },
         {
           id: 4,
@@ -78,24 +78,24 @@ export const Form = () => {
               partType: "PROC",
               explanation: "パートの解説",
               childrenPart: "none",
-              inputData: "入力される内容",
+              inputIdx: 0,
             },
           ],
-          inputData: "入力される内容",
+          inputIdx: 0,
         },
         {
           id: 5,
           partType: "IFE",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputData: "入力される内容",
+          inputIdx: 0,
         },
         {
           id: 6,
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputData: "入力される内容",
+          inputIdx: 0,
         },
         {
           id: 7,
@@ -107,13 +107,13 @@ export const Form = () => {
               partType: "PROC",
               explanation: "パートの解説",
               childrenPart: "none",
-              inputData: "入力される内容",
+              inputIdx: 0,
             },
           ],
-          inputData: "入力される内容",
+          inputIdx: 0,
         },
       ],
-      inputData: "入力される内容",
+      inputIdx: 0,
     },
   ];
 
@@ -127,7 +127,7 @@ export const Form = () => {
               partType={data.partType}
               explanation={data.explanation}
               childrenPart={data.childrenPart}
-              inputData={data.inputData}
+              inputIdx={data.inputIdx}
             />
             <br />
           </>
