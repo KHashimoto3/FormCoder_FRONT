@@ -1,12 +1,11 @@
 import { Dispatch, SetStateAction, createContext, useState } from "react";
+import { inputData } from "../../types/inputData";
 
 export const InputContext = createContext(
   {} as {
-    inputArray: string[];
-    setInputArray: Dispatch<SetStateAction<string[]>>;
-    inputArrayCnt: number;
-    setInputArrayCnt: Dispatch<SetStateAction<number>>;
-    upDateInputArray: (idx: number, newStr: string) => void;
+    inputArray: inputData[];
+    setInputArray: Dispatch<SetStateAction<inputData[]>>;
+    upDateInputArray: (idx: number, newInput: string[]) => void;
   }
 );
 
@@ -14,12 +13,13 @@ export const inputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
   //eslint-disable-next-line
   children,
 }) => {
-  const [inputArray, setInputArray] = useState<string[]>([]);
-  const [inputArrayCnt, setInputArrayCnt] = useState<number>(0);
+  const [inputArray, setInputArray] = useState<inputData[]>([]);
 
-  const upDateInputArray = (idx: number, newStr: string) => {
+  const upDateInputArray = (idx: number, newInput: string[]) => {
     setInputArray(
-      inputArray.map((input, index) => (index == idx ? newStr : input))
+      inputArray.map((input, index) =>
+        index === idx ? { inputDataArray: newInput } : input
+      )
     );
   };
 
@@ -28,8 +28,6 @@ export const inputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         inputArray,
         setInputArray,
-        inputArrayCnt,
-        setInputArrayCnt,
         upDateInputArray,
       }}
     >
