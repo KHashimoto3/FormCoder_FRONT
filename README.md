@@ -7,7 +7,7 @@
 ## 使用技術
 フロントエンド：HTML, CSS, Typescript, React, MUI  
 バックエンド（予定）：Go  
-データベース（予定）：Dynamo DB  
+データベース（予定）：GCP Firestore  
 環境構築：Vite, npm  
 コード管理：Git  
 コード品質管理：ESLint, Prettier  
