@@ -5,5 +5,13 @@ jobs:
     name: Pull Request Check
     runs-on: ubuntu-20.04
     steps:
-      - name: step1
+      - name: start
         run: echo hello world!
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: install
+        run: npm install
+      - name: build check
+        run: npm run build
+      - name: finish
+        run: echo check finish!
