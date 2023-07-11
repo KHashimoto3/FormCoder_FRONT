@@ -22,8 +22,6 @@ type Props = {
 };
 
 export const TitleBar = (props: Props) => {
-  const barType = props.barType;
-  const formName = props.formName;
   const [anchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -33,13 +31,6 @@ export const TitleBar = (props: Props) => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const buttonStyle = {
-    color: "#fff",
-    background:
-      "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
-    boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
   return (
