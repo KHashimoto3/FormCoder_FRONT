@@ -3,5 +3,5 @@ export type FormData = {
   partType: string;
   explanation: string;
   childrenPart: string | FormData[];
-  inputData: string;
+  inputIdx: number;
 };
