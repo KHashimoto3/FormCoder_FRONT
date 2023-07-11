@@ -18,7 +18,9 @@ export const inputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
   const upDateInputArray = (idx: number, newInput: string[]) => {
     setInputArray(
       inputArray.map((input, index) =>
-        index === idx ? { inputDataArray: newInput } : input
+        index === idx
+          ? { partType: input.partType, inputDataArray: newInput }
+          : input
       )
     );
   };
