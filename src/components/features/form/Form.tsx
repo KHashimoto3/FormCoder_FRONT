@@ -1,8 +1,12 @@
 import { FormProvider } from "./FormProvider";
 import { FormData } from "../../types/formData";
 import { inputData } from "../../types/inputData";
+import { useContext, useEffect } from "react";
+import { InputContext } from "./InputArrayProvider";
 
 export const Form = () => {
+  const [inputArray, setInputArray] = useContext(InputContext);
+
   const sampleInputData: inputData[] = [
     {
       partType: "PROC",
@@ -25,6 +29,12 @@ export const Form = () => {
       inputDataArray: [""],
     },
   ];
+
+  useEffect(() => {
+    sampleInputData.map((input) => {
+      setInputArray([...inputArray, input]);
+    });
+  }, []);
 
   //開発で使用するサンプルのフォームデータ
   const sampleFormData: FormData[] = [
