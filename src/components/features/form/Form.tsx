@@ -12,21 +12,6 @@ export const Form = () => {
       inputIdx: 0,
     },
     {
-      id: 1,
-      partType: "FUN",
-      explanation: "パートの解説",
-      childrenPart: [
-        {
-          id: 1,
-          partType: "PROC",
-          explanation: "パートの解説",
-          childrenPart: "none",
-          inputIdx: 0,
-        },
-      ],
-      inputIdx: 0,
-    },
-    {
       id: 2,
       partType: "MAIN",
       explanation: "パートの解説",
@@ -45,36 +30,6 @@ export const Form = () => {
           childrenPart: [
             {
               id: 1,
-              partType: "FOR",
-              explanation: "パートの解説",
-              childrenPart: [
-                {
-                  id: 1,
-                  partType: "PROC",
-                  explanation: "パートの解説",
-                  childrenPart: "none",
-                  inputIdx: 0,
-                },
-              ],
-              inputIdx: 0,
-            },
-            {
-              id: 1,
-              partType: "PROC",
-              explanation: "パートの解説",
-              childrenPart: "none",
-              inputIdx: 0,
-            },
-          ],
-          inputIdx: 0,
-        },
-        {
-          id: 4,
-          partType: "ELS",
-          explanation: "パートの解説",
-          childrenPart: [
-            {
-              id: 1,
               partType: "PROC",
               explanation: "パートの解説",
               childrenPart: "none",
@@ -88,28 +43,6 @@ export const Form = () => {
           partType: "IFE",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputIdx: 0,
-        },
-        {
-          id: 6,
-          partType: "PROC",
-          explanation: "パートの解説",
-          childrenPart: "none",
-          inputIdx: 0,
-        },
-        {
-          id: 7,
-          partType: "WHL",
-          explanation: "パートの解説",
-          childrenPart: [
-            {
-              id: 1,
-              partType: "PROC",
-              explanation: "パートの解説",
-              childrenPart: "none",
-              inputIdx: 0,
-            },
-          ],
           inputIdx: 0,
         },
       ],
