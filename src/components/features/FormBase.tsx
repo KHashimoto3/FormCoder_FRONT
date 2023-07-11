@@ -109,7 +109,7 @@ export const FormBase = () => {
 
   return (
     <div>
-      <Box>
+      <Box sx={{ marginTop: "80px" }}>
         <Grid container spacing={2}>
           <Grid item xs={5}>
             <Hint />

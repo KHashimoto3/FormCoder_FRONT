@@ -180,7 +180,7 @@ export const TitleBar = (props: Props) => {
           background: "#fff",
           borderRadius: "10px",
           position: "fixed",
-          marginTop: "15px",
+          marginTop: "-55px",
           zIndex: "1000",
         }}
       >
