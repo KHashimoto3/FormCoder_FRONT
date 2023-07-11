@@ -16,12 +16,7 @@ import PersonIcon from "@mui/icons-material/Person";
 const pages = ["FormCoderとは", "フォーム一覧"];
 const settings = ["私の成績", "アカウント設定", "ログアウト"];
 
-type Props = {
-  barType: string;
-  formName: string;
-};
-
-export const TitleBar = (props: Props) => {
+export const TitleBar = () => {
   const [anchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 

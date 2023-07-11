@@ -9,11 +9,11 @@ function App() {
     <HintProvider>
       <BrowserRouter>
         <Route exact path="/">
-          <TitleBar barType="nomal" formName="" />
+          <TitleBar />
           <TopPage />
         </Route>
         <Route path="/learn">
-          <TitleBar barType="nomal" formName="" />
+          <TitleBar />
           <p>学習ページがきます。</p>
         </Route>
         <Route path="/form">
