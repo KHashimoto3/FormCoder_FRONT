@@ -1,7 +1,31 @@
 import { FormProvider } from "./FormProvider";
 import { FormData } from "../../types/formData";
+import { inputData } from "../../types/inputData";
 
 export const Form = () => {
+  const sampleInputData: inputData[] = [
+    {
+      partType: "PROC",
+      inputDataArray: [""],
+    },
+    {
+      partType: "PROC",
+      inputDataArray: [""],
+    },
+    {
+      partType: "IF",
+      inputDataArray: [""],
+    },
+    {
+      partType: "PROC",
+      inputDataArray: [""],
+    },
+    {
+      partType: "IFE",
+      inputDataArray: [""],
+    },
+  ];
+
   //開発で使用するサンプルのフォームデータ
   const sampleFormData: FormData[] = [
     {
@@ -33,20 +57,20 @@ export const Form = () => {
               partType: "PROC",
               explanation: "パートの解説",
               childrenPart: "none",
-              inputIdx: 0,
+              inputIdx: 3,
             },
           ],
-          inputIdx: 0,
+          inputIdx: 2,
         },
         {
           id: 5,
           partType: "IFE",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputIdx: 0,
+          inputIdx: 4,
         },
       ],
-      inputIdx: 0,
+      inputIdx: 1,
     },
   ];
 
