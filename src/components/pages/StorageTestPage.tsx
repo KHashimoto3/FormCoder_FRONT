@@ -12,7 +12,7 @@ export const StorageTestPage = () => {
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
       type: "application/json",
     });
-    uploadBytes(storageRef, blob).then((snapshot) => {
+    uploadBytes(storageRef, blob).then(() => {
       alert("アップロード完了しました！");
     });
   };
