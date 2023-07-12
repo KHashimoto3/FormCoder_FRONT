@@ -11,8 +11,6 @@ export const IfEnd = (props: Props) => {
     fontSize: "16pt",
   };
 
-  console.log(props.partType);
-
   return (
     <>
       <pre style={preStyle}>{"}\n"}</pre>
