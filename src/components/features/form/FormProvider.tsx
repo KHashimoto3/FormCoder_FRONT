@@ -91,14 +91,7 @@ export const FormProvider = (props: Props) => {
       />
     );
   } else if (formData.partType == "IFE") {
-    return (
-      <IfEnd
-        partType={formData.partType}
-        explanation={formData.explanation}
-        childrenPart={formData.childrenPart}
-        inputIdx={formData.inputIdx}
-      />
-    );
+    return <IfEnd />;
   } else {
     alert(
       "データエラー：存在しない種類のフォームを使用しようとしています。フォームデータを確認してください。"
