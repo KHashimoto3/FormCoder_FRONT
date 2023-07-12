@@ -5,6 +5,7 @@ export const InputContext = createContext(
   {} as {
     inputArray: inputData[];
     setInputArray: Dispatch<SetStateAction<inputData[]>>;
+    initInputArray: (inputArray: inputData[]) => void;
     upDateInputArray: (idx: number, newInput: string[]) => void;
   }
 );
@@ -14,6 +15,12 @@ export const inputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [inputArray, setInputArray] = useState<inputData[]>([]);
+
+  const initInputArray = (inputArray: inputData[]) => {
+    inputArray.map((inputData) => {
+      setInputArray([...inputArray, inputData]);
+    });
+  };
 
   const upDateInputArray = (idx: number, newInput: string[]) => {
     setInputArray(
@@ -30,6 +37,7 @@ export const inputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         inputArray,
         setInputArray,
+        initInputArray,
         upDateInputArray,
       }}
     >

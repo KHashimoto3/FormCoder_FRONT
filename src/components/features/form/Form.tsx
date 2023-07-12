@@ -5,7 +5,8 @@ import { useContext, useEffect } from "react";
 import { InputContext } from "./InputArrayProvider";
 
 export const Form = () => {
-  const { inputArray, setInputArray } = useContext(InputContext);
+  const { inputArray, setInputArray, initInputArray, upDateInputArray } =
+    useContext(InputContext);
 
   const sampleInputData: inputData[] = [
     {
@@ -31,9 +32,7 @@ export const Form = () => {
   ];
 
   useEffect(() => {
-    sampleInputData.map((input) => {
-      setInputArray([...inputArray, input]);
-    });
+    initInputArray(sampleInputData);
   }, []);
 
   //開発で使用するサンプルのフォームデータ
