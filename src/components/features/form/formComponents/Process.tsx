@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { HintContext } from "../../hint/HintProvider";
+import { InputArrayProvider, InputContext } from "../InputArrayProvider";
 
 type Props = {
   partType: string;
@@ -9,6 +10,8 @@ type Props = {
 export const Process = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
+
+  const { upDateInputArray } = useContext(InputContext);
 
   const partType = props.partType;
   const explanation = props.explanation;
