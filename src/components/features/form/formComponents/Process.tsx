@@ -16,14 +16,10 @@ export const Process = (props: Props) => {
 
   const [input, setInput] = useState<string>("");
 
-  console.log("props.idx：" + props.inputIdx);
-
   //upDateInputArrayにstringの配列を渡す
   const updateInput = (idx: number, input: string) => {
-    console.log("idx：" + idx);
     const str: string[] = [input];
     upDateInputArray(idx, str);
-    console.log("現在：", inputArray);
   };
 
   const partType = props.partType;

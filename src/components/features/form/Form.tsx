@@ -34,8 +34,6 @@ export const Form = () => {
     initInputArray(sampleInputData);
   }, []);
 
-  console.log(inputArray);
-
   //開発で使用するサンプルのフォームデータ
   const sampleFormData: FormData[] = [
     {
