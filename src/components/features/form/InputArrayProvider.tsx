@@ -10,7 +10,7 @@ export const InputContext = createContext(
   }
 );
 
-export const inputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
+export const InputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
   //eslint-disable-next-line
   children,
 }) => {
