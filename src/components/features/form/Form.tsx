@@ -55,7 +55,7 @@ export const Form = () => {
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputIdx: 0,
+          inputIdx: 1,
         },
         {
           id: 3,
@@ -80,7 +80,7 @@ export const Form = () => {
           inputIdx: 4,
         },
       ],
-      inputIdx: 1,
+      inputIdx: -1,
     },
   ];
 
