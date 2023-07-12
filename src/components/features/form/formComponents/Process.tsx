@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { HintContext } from "../../hint/HintProvider";
-import { InputArrayProvider, InputContext } from "../InputArrayProvider";
+import { InputContext } from "../InputArrayProvider";
 
 type Props = {
   partType: string;
@@ -12,7 +12,19 @@ export const Process = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
 
-  const { upDateInputArray } = useContext(InputContext);
+  const { inputArray, upDateInputArray } = useContext(InputContext);
+
+  const [input, setInput] = useState<string>("");
+
+  console.log("props.idx：" + props.inputIdx);
+
+  //upDateInputArrayにstringの配列を渡す
+  const updateInput = (idx: number, input: string) => {
+    console.log("idx：" + idx);
+    const str: string[] = [input];
+    upDateInputArray(idx, str);
+    console.log("現在：", inputArray);
+  };
 
   const partType = props.partType;
   const explanation = props.explanation;
@@ -24,6 +36,13 @@ export const Process = (props: Props) => {
         setCurrentPartType(partType);
         setHintTypeC(explanation);
       }}
+      value={input}
+      onChange={(
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      ) => {
+        setInput(event.target.value);
+      }}
+      onBlur={() => updateInput(props.inputIdx, input)}
     ></textarea>
   );
 };
