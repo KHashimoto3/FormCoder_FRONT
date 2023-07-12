@@ -22,13 +22,18 @@ export const FormProvider = (props: Props) => {
   //受け取ったpartTypeによって、表示するフォームを変更する
   if (formData.partType == "MAIN") {
     return (
-      <Main partType={formData.partType} childrenPart={formData.childrenPart} />
+      <Main
+        partType={formData.partType}
+        childrenPart={formData.childrenPart}
+        inputIdx={formData.inputIdx}
+      />
     );
   } else if (formData.partType == "PROC") {
     return (
       <Process
         partType={formData.partType}
         explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
       />
     );
   } else if (formData.partType == "FOR") {
@@ -37,6 +42,7 @@ export const FormProvider = (props: Props) => {
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
+        inputIdx={formData.inputIdx}
       />
     );
   } else if (formData.partType == "WHL") {
@@ -45,6 +51,7 @@ export const FormProvider = (props: Props) => {
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
+        inputIdx={formData.inputIdx}
       />
     );
   } else if (formData.partType == "FUN") {
@@ -53,6 +60,7 @@ export const FormProvider = (props: Props) => {
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
+        inputIdx={formData.inputIdx}
       />
     );
   } else if (formData.partType == "IF") {
@@ -61,6 +69,7 @@ export const FormProvider = (props: Props) => {
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
+        inputIdx={formData.inputIdx}
       />
     );
   } else if (formData.partType == "ELIF") {
@@ -69,6 +78,7 @@ export const FormProvider = (props: Props) => {
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
+        inputIdx={formData.inputIdx}
       />
     );
   } else if (formData.partType == "ELS") {
@@ -77,16 +87,11 @@ export const FormProvider = (props: Props) => {
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
+        inputIdx={formData.inputIdx}
       />
     );
   } else if (formData.partType == "IFE") {
-    return (
-      <IfEnd
-        partType={formData.partType}
-        explanation={formData.explanation}
-        childrenPart={formData.childrenPart}
-      />
-    );
+    return <IfEnd />;
   } else {
     alert(
       "データエラー：存在しない種類のフォームを使用しようとしています。フォームデータを確認してください。"
@@ -95,6 +100,7 @@ export const FormProvider = (props: Props) => {
       <Process
         partType={formData.partType}
         explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
       />
     );
   }

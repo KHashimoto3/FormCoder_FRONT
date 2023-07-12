@@ -1,7 +1,39 @@
 import { FormProvider } from "./FormProvider";
 import { FormData } from "../../types/formData";
+import { inputData } from "../../types/inputData";
+import { useContext, useEffect } from "react";
+import { InputContext } from "./InputArrayProvider";
 
 export const Form = () => {
+  const { initInputArray } = useContext(InputContext);
+
+  const sampleInputData: inputData[] = [
+    {
+      partType: "PROC",
+      inputDataArray: [""],
+    },
+    {
+      partType: "PROC",
+      inputDataArray: [""],
+    },
+    {
+      partType: "IF",
+      inputDataArray: [""],
+    },
+    {
+      partType: "PROC",
+      inputDataArray: [""],
+    },
+    {
+      partType: "IFE",
+      inputDataArray: [""],
+    },
+  ];
+
+  useEffect(() => {
+    initInputArray(sampleInputData);
+  }, []);
+
   //開発で使用するサンプルのフォームデータ
   const sampleFormData: FormData[] = [
     {
@@ -9,21 +41,6 @@ export const Form = () => {
       partType: "PROC",
       explanation: "パートの解説",
       childrenPart: "none",
-      inputIdx: 0,
-    },
-    {
-      id: 1,
-      partType: "FUN",
-      explanation: "パートの解説",
-      childrenPart: [
-        {
-          id: 1,
-          partType: "PROC",
-          explanation: "パートの解説",
-          childrenPart: "none",
-          inputIdx: 0,
-        },
-      ],
       inputIdx: 0,
     },
     {
@@ -36,7 +53,7 @@ export const Form = () => {
           partType: "PROC",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputIdx: 0,
+          inputIdx: 1,
         },
         {
           id: 3,
@@ -45,75 +62,23 @@ export const Form = () => {
           childrenPart: [
             {
               id: 1,
-              partType: "FOR",
-              explanation: "パートの解説",
-              childrenPart: [
-                {
-                  id: 1,
-                  partType: "PROC",
-                  explanation: "パートの解説",
-                  childrenPart: "none",
-                  inputIdx: 0,
-                },
-              ],
-              inputIdx: 0,
-            },
-            {
-              id: 1,
               partType: "PROC",
               explanation: "パートの解説",
               childrenPart: "none",
-              inputIdx: 0,
+              inputIdx: 3,
             },
           ],
-          inputIdx: 0,
-        },
-        {
-          id: 4,
-          partType: "ELS",
-          explanation: "パートの解説",
-          childrenPart: [
-            {
-              id: 1,
-              partType: "PROC",
-              explanation: "パートの解説",
-              childrenPart: "none",
-              inputIdx: 0,
-            },
-          ],
-          inputIdx: 0,
+          inputIdx: 2,
         },
         {
           id: 5,
           partType: "IFE",
           explanation: "パートの解説",
           childrenPart: "none",
-          inputIdx: 0,
-        },
-        {
-          id: 6,
-          partType: "PROC",
-          explanation: "パートの解説",
-          childrenPart: "none",
-          inputIdx: 0,
-        },
-        {
-          id: 7,
-          partType: "WHL",
-          explanation: "パートの解説",
-          childrenPart: [
-            {
-              id: 1,
-              partType: "PROC",
-              explanation: "パートの解説",
-              childrenPart: "none",
-              inputIdx: 0,
-            },
-          ],
-          inputIdx: 0,
+          inputIdx: 4,
         },
       ],
-      inputIdx: 0,
+      inputIdx: -1,
     },
   ];
 
