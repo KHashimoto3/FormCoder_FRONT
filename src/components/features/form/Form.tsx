@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { InputContext } from "./InputArrayProvider";
 
 export const Form = () => {
-  const { inputArray, initInputArray } = useContext(InputContext);
+  const { initInputArray } = useContext(InputContext);
 
   const sampleInputData: inputData[] = [
     {

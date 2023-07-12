@@ -12,7 +12,7 @@ export const Process = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
 
-  const { inputArray, upDateInputArray } = useContext(InputContext);
+  const { upDateInputArray } = useContext(InputContext);
 
   const [input, setInput] = useState<string>("");
 
