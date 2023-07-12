@@ -8,6 +8,7 @@ type Props = {
   partType: string;
   explanation: string;
   childrenPart: string | FormData[];
+  inputIdx: number;
 };
 
 export const While = (props: Props) => {
