@@ -4,6 +4,7 @@ import { FormPage } from "./components/pages/FormPage";
 import { TitleBar } from "./components/common/TitleBar";
 import { HintProvider } from "./components/features/hint/HintProvider";
 import { InputArrayProvider } from "./components/features/form/InputArrayProvider";
+import { StorageTestPage } from "./components/pages/StorageTestPage";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route path="/form">
             <FormPage />
+          </Route>
+          <Route path="/storagetest">
+            <StorageTestPage />
           </Route>
         </BrowserRouter>
       </InputArrayProvider>
