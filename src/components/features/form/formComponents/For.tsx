@@ -8,6 +8,7 @@ type Props = {
   partType: string;
   explanation: string;
   childrenPart: string | FormData[];
+  inputIdx: number;
 };
 
 export const For = (props: Props) => {
@@ -30,7 +31,7 @@ export const For = (props: Props) => {
     alert(
       "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。"
     );
-    return <Process partType="PROC" explanation="" />;
+    return <Process partType="PROC" explanation="" inputIdx={-1} />;
   } else if (Array.isArray(props.childrenPart)) {
     const childrenPartArray: FormData[] = props.childrenPart;
     return (

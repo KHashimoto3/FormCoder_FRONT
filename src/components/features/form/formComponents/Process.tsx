@@ -5,6 +5,7 @@ import { InputArrayProvider, InputContext } from "../InputArrayProvider";
 type Props = {
   partType: string;
   explanation: string;
+  inputIdx: number;
 };
 
 export const Process = (props: Props) => {
