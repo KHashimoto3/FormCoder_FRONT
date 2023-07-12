@@ -1,4 +1,4 @@
-import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
 const storage = getStorage();
@@ -11,6 +11,9 @@ export const StorageTestPage = () => {
     const obj = { text: text };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
       type: "application/json",
+    });
+    uploadBytes(storageRef, blob).then((snapshot) => {
+      alert("アップロード完了しました！");
     });
   };
 
