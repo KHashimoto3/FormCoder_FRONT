@@ -23,13 +23,9 @@ export const InputArrayProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const upDateInputArray = (idx: number, newInput: string[]) => {
-    setInputArray(
-      inputArray.map((input, index) =>
-        index === idx
-          ? { partType: input.partType, inputDataArray: newInput }
-          : input
-      )
-    );
+    console.log("入力するのは：" + newInput + "場所は：" + idx);
+    inputArray[idx].inputDataArray = newInput;
+    console.log("更新後：" + inputArray[idx]);
   };
 
   return (
