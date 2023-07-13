@@ -1,4 +1,4 @@
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { storage } from "../../firebase";
 
@@ -16,12 +16,38 @@ export const StorageTestPage = () => {
     });
   };
 
+  const downloadFileTest = () => {
+    getDownloadURL(ref(storage, "test/test.json"))
+      .then((url) => {
+        console.log(url);
+      })
+      .catch((error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/object-not-found":
+            alert("ファイルが見つかりません！");
+            break;
+          case "storage/unauthorized":
+            alert("このファイルへのアクセス権限がありません！");
+            break;
+          case "storage/canceled":
+            alert("ユーザーはアップロードをキャンセルしました。");
+            break;
+          case "storage/unknown":
+            alert("不明なエラーが発生しました！");
+            break;
+        }
+      });
+  };
+
   return (
     <>
       <h1>Cloud Storage テスト用ページです。</h1>
       <button onClick={() => uploadFileTest("アップロード完了！")}>
         １度だけ押してください（アップロード）
       </button>
+      <button onClick={() => downloadFileTest()}>ダウンロードします。</button>
     </>
   );
 };
