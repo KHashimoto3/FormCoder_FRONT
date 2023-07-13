@@ -1,7 +1,6 @@
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
-// Get a reference to the storage service, which is used to create references in your storage bucket
-const storage = getStorage();
+import { storage } from "../../firebase";
 
 // Create a storage reference from our storage service
 const storageRef = ref(storage, "test/test.json");
