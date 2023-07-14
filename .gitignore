@@ -26,3 +26,7 @@ dist-ssr
 # Firebase
 .firebase
 src/firebase.ts
+
+# data
+src/assets/formData
+src/assets/hintData.json
