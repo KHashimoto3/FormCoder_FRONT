@@ -8,6 +8,7 @@
 フロントエンド：HTML, CSS, Typescript, React, MUI  
 バックエンド（予定）：Go  
 データベース（予定）：GCP Firestore  
+ファイル保存：Cloud Storage
 環境構築：Vite, npm  
 コード管理：Git  
 コード品質管理：ESLint, Prettier  
