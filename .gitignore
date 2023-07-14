@@ -29,3 +29,4 @@ src/firebase.ts
 
 # data
 src/assets/formData
+src/assets/hintData.json
