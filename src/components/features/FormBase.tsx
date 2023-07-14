@@ -28,7 +28,7 @@ export const FormBase = () => {
           background: "#fff",
           borderRadius: "10px",
           position: "fixed",
-          marginTop: "15px",
+          marginTop: "-70px",
           zIndex: "1000",
         }}
       >
@@ -69,7 +69,7 @@ export const FormBase = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Box>
+      <Box sx={{ marginTop: "100px" }}>
         <Grid container spacing={2}>
           <Grid item xs={5}>
             <Hint />
