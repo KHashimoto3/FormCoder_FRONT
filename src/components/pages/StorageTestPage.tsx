@@ -19,7 +19,7 @@ export const StorageTestPage = () => {
   const downloadFileTest = () => {
     getDownloadURL(ref(storage, "test/test.json"))
       .then((url) => {
-        console.log(url);
+        getJsonFile(url);
       })
       .catch((error) => {
         // A full list of error codes is available at
@@ -39,6 +39,13 @@ export const StorageTestPage = () => {
             break;
         }
       });
+  };
+
+  const getJsonFile = (url: string) => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => console.log(json))
+      .catch(() => alert("エラーが発生しました。"));
   };
 
   return (
