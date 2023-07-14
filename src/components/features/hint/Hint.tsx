@@ -14,6 +14,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { HintCompProvider } from "./HintCompProvider";
 
+import { storage } from "../../../firebase";
+import { getDownloadURL, ref } from "firebase/storage";
+
 interface HintList {
   hintType: string;
   hintTitle: string;
@@ -31,107 +34,69 @@ export const Hint = () => {
   const { hintTypeC } = useContext(HintContext);
 
   //TODO: GCPのFirestoreからヒントデータを取ってくる
-  const hintData: HintData[] = [
-    {
-      partType: "DAMY",
-      partTitle: "ヒント非表示",
-      hintList: [
-        {
-          hintType: "A",
-          hintTitle: "つまずきに応じたヒントを出します",
-          hint: "ヒントの説明",
-        },
-      ],
-    },
-    {
-      partType: "PROC",
-      partTitle: "計算・代入",
-      hintList: [
-        {
-          hintType: "A",
-          hintTitle: "何を書くパートなのかわからない",
-          hint: "ここには、計算・代入の処理を記述します",
-        },
-        {
-          hintType: "B",
-          hintTitle: "計算・代入の処理の書き方がわからない",
-          hint: "文法の説明",
-        },
-        {
-          hintType: "C",
-          hintTitle: "何を計算、代入したらいいかわからない",
-          hint: "",
-        },
-      ],
-    },
-    {
-      partType: "FOR",
-      partTitle: "繰り返し（for）",
-      hintList: [
-        {
-          hintType: "A",
-          hintTitle: "何を書くパートなのかわからない",
-          hint: "ここには、繰り返し（for）を記述します",
-        },
-        {
-          hintType: "B",
-          hintTitle: "繰り返し（for）の書き方がわからない",
-          hint: "文法の説明",
-        },
-        {
-          hintType: "C",
-          hintTitle: "どのような繰り返しの設定にしたらいいかわからない",
-          hint: "",
-        },
-      ],
-    },
-    {
-      partType: "FUN",
-      partTitle: "関数定義",
-      hintList: [
-        {
-          hintType: "A",
-          hintTitle: "何を書くパートなのかわからない",
-          hint: "ここには、関数定義を記述します",
-        },
-        {
-          hintType: "B",
-          hintTitle: "関数定義の書き方がわからない",
-          hint: "文法の説明",
-        },
-        {
-          hintType: "C",
-          hintTitle: "どのような関数を定義したらいいかわからない",
-          hint: "",
-        },
-      ],
-    },
-    {
-      partType: "WHL",
-      partTitle: "繰り返し（while）",
-      hintList: [
-        {
-          hintType: "A",
-          hintTitle: "何を書くパートなのかわからない",
-          hint: "ここには、繰り返し（while）を記述します",
-        },
-        {
-          hintType: "B",
-          hintTitle: "繰り返し（while）の書き方がわからない",
-          hint: "文法の説明",
-        },
-        {
-          hintType: "C",
-          hintTitle: "どのような繰り返しの設定にしたら良いかわからない",
-          hint: "",
-        },
-      ],
-    },
-  ];
+  const [hintData, setHintData] = useState<HintData[]>([]);
+
+  const damyHintData: HintData = {
+    partType: "DAMY",
+    partTitle: "ヒント読みこ中",
+    hintList: [
+      {
+        hintType: "A",
+        hintTitle: "つまずきに応じたヒントを出します",
+        hint: "ヒントの説明",
+      },
+    ],
+  };
 
   //TypeCのヒントを展開するためのIdx
   const [hintTypeCIdx, setHintTypeCIdx] = useState<number>(0);
-  const [currentHintData, setCurrentHintData] = useState<HintData>(hintData[0]);
+  const [currentHintData, setCurrentHintData] =
+    useState<HintData>(damyHintData);
+
+  //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
+  useEffect(() => {
+    getHintData("hintData");
+  }, []);
+
+  const getHintData = (fileName: string) => {
+    const refUrl = "hint/" + fileName + ".json";
+    getFileUrl(refUrl);
+  };
+
+  const getFileUrl = (refUrl: string) => {
+    getDownloadURL(ref(storage, refUrl))
+      .then((url) => {
+        getJsonFile(url);
+      })
+      .catch((error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/object-not-found":
+            alert("ファイルが見つかりません！");
+            break;
+          case "storage/unauthorized":
+            alert("このファイルへのアクセス権限がありません！");
+            break;
+          case "storage/canceled":
+            alert("ユーザーはアップロードをキャンセルしました。");
+            break;
+          case "storage/unknown":
+            alert("不明なエラーが発生しました！");
+            break;
+        }
+      });
+  };
+
+  const getJsonFile = async (url: string) => {
+    await fetch(url)
+      .then((res) => res.json())
+      .then((json) => {
+        const data = json.hintData;
+        setHintData(data);
+        setCurrentHintData(data[0]);
+      });
+  };
 
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
