@@ -9,6 +9,7 @@ import { If } from "./formComponents/If";
 import { Elseif } from "./formComponents/Elseif";
 import { Else } from "./formComponents/Else";
 import { IfEnd } from "./formComponents/IfEnd";
+import { Struct } from "./formComponents/Struct";
 
 type Props = {
   partType: string;
@@ -92,6 +93,14 @@ export const FormProvider = (props: Props) => {
     );
   } else if (formData.partType == "IFE") {
     return <IfEnd />;
+  } else if (formData.partType == "STRC") {
+    return (
+      <Struct
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
   } else {
     alert(
       "データエラー：存在しない種類のフォームを使用しようとしています。フォームデータを確認してください。"
