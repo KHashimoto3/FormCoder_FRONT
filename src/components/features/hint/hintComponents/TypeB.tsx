@@ -1,6 +1,12 @@
 import { Typography } from "@mui/material";
 
-export const TypeB = () => {
+type Props = {
+  imgUrl: string;
+};
+
+export const TypeB = (props: Props) => {
+  const imgUrl = props.imgUrl;
+
   const grammerCodeStyle = {
     backgroundColor: "#363636",
     fontSize: "14pt",

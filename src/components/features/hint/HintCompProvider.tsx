@@ -9,13 +9,13 @@ type Props = {
 };
 
 export const HintCompProvider = (props: Props) => {
-  const hintType = props.hint.hintType;
-  if (hintType == "A") {
-    return <TypeA />;
-  } else if (hintType == "B") {
-    return <TypeB />;
-  } else if (hintType == "C") {
-    return <TypeC />;
+  const hint = props.hint;
+  if (hint.hintType == "A") {
+    return <TypeA hintText={hint.hint} />;
+  } else if (hint.hintType == "B") {
+    return <TypeB imgUrl={hint.hint} />;
+  } else if (hint.hintType == "C") {
+    return <TypeC explanation={hint.hint} />;
   } else {
     alert(
       "データ不正エラー：無効なヒントタイプがヒントデータに使用されています。管理者に連絡してください。"
