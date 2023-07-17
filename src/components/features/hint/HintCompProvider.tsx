@@ -2,22 +2,12 @@ import { TypeA } from "./hintComponents/TypeA";
 import { TypeB } from "./hintComponents/TypeB";
 import { TypeC } from "./hintComponents/TypeC";
 
+import { HintData } from "../../types/hintData";
+
 type Props = {
   hintData: HintData;
   hintType: string;
 };
-
-interface HintData {
-  partType: string;
-  partTitle: string;
-  hintList: HintList[];
-}
-
-interface HintList {
-  hintType: string;
-  hintTitle: string;
-  hint: string;
-}
 
 export const HintCompProvider = (props: Props) => {
   const hintType = props.hintType;

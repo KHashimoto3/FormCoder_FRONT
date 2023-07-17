@@ -17,17 +17,7 @@ import { HintCompProvider } from "./HintCompProvider";
 import { storage } from "../../../firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 
-interface HintList {
-  hintType: string;
-  hintTitle: string;
-  hint: string;
-}
-
-interface HintData {
-  partType: string;
-  partTitle: string;
-  hintList: HintList[];
-}
+import { HintData } from "../../types/hintData";
 
 export const Hint = () => {
   const { currentPartType } = useContext(HintContext);
