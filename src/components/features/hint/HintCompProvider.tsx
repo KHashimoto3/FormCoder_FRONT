@@ -6,14 +6,17 @@ import { HintList } from "../../types/hintData";
 
 type Props = {
   hint: HintList;
+  partType: string;
 };
 
 export const HintCompProvider = (props: Props) => {
   const hint = props.hint;
+  const partType = props.partType;
+
   if (hint.hintType == "A") {
     return <TypeA hintText={hint.hint} />;
   } else if (hint.hintType == "B") {
-    return <TypeB imgUrl={hint.hint} />;
+    return <TypeB partType={partType} />;
   } else if (hint.hintType == "C") {
     return <TypeC explanation={hint.hint} />;
   } else {

@@ -1,36 +1,54 @@
 import { Typography } from "@mui/material";
+import { getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../../../../firebase";
+import { useEffect, useState } from "react";
 
 type Props = {
-  imgUrl: string;
+  partType: string;
 };
 
 export const TypeB = (props: Props) => {
-  const imgUrl = props.imgUrl;
+  const partType = props.partType;
+  const [imgUrl, setImgUrl] = useState<string>("");
 
-  const grammerCodeStyle = {
-    backgroundColor: "#363636",
-    fontSize: "14pt",
-    color: "#fff",
-    width: "100%",
+  //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
+  useEffect(() => {
+    getHintData("nothing");
+  }, []);
+
+  const getHintData = (fileName: string) => {
+    const refUrl = "hint/partB/" + fileName + ".png";
+    getFileUrl(refUrl);
   };
 
-  const sampleCode =
-    'for ("カウンタ変数の初期化"; "継続条件"; "カウンタの増減") {\n   //継続条件を満たす間繰り返す処理\n}';
+  const getFileUrl = (refUrl: string) => {
+    getDownloadURL(ref(storage, refUrl))
+      .then((url) => {
+        setImgUrl(url);
+      })
+      .catch((error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/object-not-found":
+            alert("ファイルが見つかりません！");
+            break;
+          case "storage/unauthorized":
+            alert("このファイルへのアクセス権限がありません！");
+            break;
+          case "storage/canceled":
+            alert("ユーザーはアップロードをキャンセルしました。");
+            break;
+          case "storage/unknown":
+            alert("不明なエラーが発生しました！");
+            break;
+        }
+      });
+  };
 
   return (
     <>
-      <Typography variant="h6">for文の書き方</Typography>
-      <textarea style={grammerCodeStyle} cols={40} rows={4}>
-        {sampleCode}
-      </textarea>
-      <br />
-      <Typography variant="body1">
-        カウンタ変数の初期化：何回目のループかをカウントする変数を初期化します。通常は0で初期化します。
-        <br />
-        継続条件：ループの中身に書く処理を、何の条件を満たす間行うかを条件式で設定します。
-        <br />
-        カウンタの増減：ループの中身の処理を一回実行した時に、カウンタ変数をどのように増減するかを設定します。通常は１つずつ増やすカウントアップを行います。
-      </Typography>
+      <img src={imgUrl} style={{ width: "90%" }} alt="解説画像" />
     </>
   );
 };
