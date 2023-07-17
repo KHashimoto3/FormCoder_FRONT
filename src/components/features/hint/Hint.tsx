@@ -120,10 +120,7 @@ export const Hint = () => {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <HintCompProvider
-                    hintData={currentHintData}
-                    hintType={hint.hintType}
-                  />
+                  <HintCompProvider hint={hint} />
                 </AccordionDetails>
               </Accordion>
             );

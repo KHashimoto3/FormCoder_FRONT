@@ -2,15 +2,14 @@ import { TypeA } from "./hintComponents/TypeA";
 import { TypeB } from "./hintComponents/TypeB";
 import { TypeC } from "./hintComponents/TypeC";
 
-import { HintData } from "../../types/hintData";
+import { HintList } from "../../types/hintData";
 
 type Props = {
-  hintData: HintData;
-  hintType: string;
+  hint: HintList;
 };
 
 export const HintCompProvider = (props: Props) => {
-  const hintType = props.hintType;
+  const hintType = props.hint.hintType;
   if (hintType == "A") {
     return <TypeA />;
   } else if (hintType == "B") {

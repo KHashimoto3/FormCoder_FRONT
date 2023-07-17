@@ -4,7 +4,7 @@ export type HintData = {
   hintList: HintList[];
 };
 
-type HintList = {
+export type HintList = {
   hintType: string;
   hintTitle: string;
   hint: string;
