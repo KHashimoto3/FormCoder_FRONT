@@ -109,7 +109,7 @@ export const Hint = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4">STEP1: ステップ名</Typography>
+      <Typography variant="h4">{currentHintData.partTitle}</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
           {currentHintData.hintList.map((hint, index) => {
