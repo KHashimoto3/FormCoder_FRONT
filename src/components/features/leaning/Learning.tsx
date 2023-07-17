@@ -1,3 +1,24 @@
+import { Box, Button } from "@mui/material";
+
 export const Learning = () => {
-  return <h1>学習ページ（フォーム選択）です。</h1>;
+  return (
+    <Box sx={{ height: "1000px", paddingTop: "100px" }}>
+      <Button
+        size="large"
+        onClick={() => {
+          window.open("/form?id=1", "_blank");
+        }}
+      >
+        実験用フォーム1
+      </Button>
+      <Button
+        size="large"
+        onClick={() => {
+          window.open("/form?id=1", "_blank");
+        }}
+      >
+        実験用フォーム2
+      </Button>
+    </Box>
+  );
 };
