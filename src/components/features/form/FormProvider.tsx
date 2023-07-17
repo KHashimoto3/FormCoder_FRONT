@@ -11,6 +11,7 @@ import { Else } from "./formComponents/Else";
 import { IfEnd } from "./formComponents/IfEnd";
 import { Struct } from "./formComponents/Struct";
 import { Include } from "./formComponents/Include";
+import { Define } from "./formComponents/Define";
 
 type Props = {
   partType: string;
@@ -105,6 +106,14 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "INC") {
     return (
       <Include
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "DEF") {
+    return (
+      <Define
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
