@@ -1,11 +1,14 @@
 import { Typography } from "@mui/material";
 
-export const TypeA = () => {
+type Props = {
+  hintText: string;
+};
+
+export const TypeA = (props: Props) => {
+  const hintText = props.hintText;
   return (
     <>
-      <Typography variant="h6">
-        ここには、繰り返し（for）を記述します
-      </Typography>
+      <Typography variant="h6">{hintText}</Typography>
       <Typography variant="body1">目的の説明</Typography>
     </>
   );

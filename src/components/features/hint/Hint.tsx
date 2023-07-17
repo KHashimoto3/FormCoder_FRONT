@@ -17,17 +17,7 @@ import { HintCompProvider } from "./HintCompProvider";
 import { storage } from "../../../firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 
-interface HintList {
-  hintType: string;
-  hintTitle: string;
-  hint: string;
-}
-
-interface HintData {
-  partType: string;
-  partTitle: string;
-  hintList: HintList[];
-}
+import { HintData } from "../../types/hintData";
 
 export const Hint = () => {
   const { currentPartType } = useContext(HintContext);
@@ -109,7 +99,7 @@ export const Hint = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4">STEP1: ステップ名</Typography>
+      <Typography variant="h4">{currentHintData.partTitle}</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div>
           {currentHintData.hintList.map((hint, index) => {
@@ -130,7 +120,10 @@ export const Hint = () => {
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <HintCompProvider hintType={hint.hintType} />
+                  <HintCompProvider
+                    hint={hint}
+                    partType={currentHintData.partType}
+                  />
                 </AccordionDetails>
               </Accordion>
             );

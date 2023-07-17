@@ -1,10 +1,15 @@
 import { Typography } from "@mui/material";
 
-export const TypeC = () => {
+type Props = {
+  explanation: string;
+};
+
+export const TypeC = (props: Props) => {
+  const explanation = props.explanation;
   return (
     <>
       <Typography variant="h6">解説</Typography>
-      <Typography variant="body1">目的の説明</Typography>
+      <Typography variant="body1">{explanation}</Typography>
     </>
   );
 };
