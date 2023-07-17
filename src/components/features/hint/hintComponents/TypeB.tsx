@@ -13,7 +13,7 @@ export const TypeB = (props: Props) => {
 
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
-    getHintData("nothing");
+    getHintData(partType);
   }, []);
 
   const getHintData = (fileName: string) => {
@@ -32,15 +32,19 @@ export const TypeB = (props: Props) => {
         switch (error.code) {
           case "storage/object-not-found":
             alert("ファイルが見つかりません！");
+            getHintData("nothing");
             break;
           case "storage/unauthorized":
             alert("このファイルへのアクセス権限がありません！");
+            getHintData("nothing");
             break;
           case "storage/canceled":
             alert("ユーザーはアップロードをキャンセルしました。");
+            getHintData("nothing");
             break;
           case "storage/unknown":
             alert("不明なエラーが発生しました！");
+            getHintData("nothing");
             break;
         }
       });
