@@ -5,6 +5,7 @@ import { TitleBar } from "./components/common/TitleBar";
 import { HintProvider } from "./components/features/hint/HintProvider";
 import { InputArrayProvider } from "./components/features/form/InputArrayProvider";
 import { StorageTestPage } from "./components/pages/StorageTestPage";
+import { LearningPage } from "./components/pages/LearningPage";
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
             <TitleBar />
             <TopPage />
           </Route>
-          <Route path="/learn">
+          <Route path="/learning">
             <TitleBar />
-            <p>学習ページがきます。</p>
+            <LearningPage />
           </Route>
           <Route path="/form">
             <FormPage />

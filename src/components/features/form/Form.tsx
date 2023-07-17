@@ -38,10 +38,18 @@ export const Form = () => {
 
   useEffect(() => {
     initInputArray(sampleInputData);
-    getFormData("sampleForm");
+
+    //リクエストパラメータのフォーム名を取得し、フォームを取得する
+    const url = new URL(window.location.href);
+    const formName = url.searchParams.get("form");
+    if (formName == null) {
+      alert("フォームの種類が選択されていません。フォーム選択画面に戻ります。");
+      window.location.href = "/learning";
+    }
+    getFormData(formName);
   }, []);
 
-  const getFormData = (formName: string) => {
+  const getFormData = (formName: string | null) => {
     const refUrl = "form/" + formName + ".json";
     getFileUrl(refUrl);
   };
@@ -56,16 +64,24 @@ export const Form = () => {
         // https://firebase.google.com/docs/storage/web/handle-errors
         switch (error.code) {
           case "storage/object-not-found":
-            alert("ファイルが見つかりません！");
+            alert("ファイルが見つかりません！フォーム選択画面に戻ります。");
+            window.location.href = "/learning";
             break;
           case "storage/unauthorized":
-            alert("このファイルへのアクセス権限がありません！");
+            alert(
+              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。"
+            );
+            window.location.href = "/learning";
             break;
           case "storage/canceled":
-            alert("ユーザーはアップロードをキャンセルしました。");
+            alert(
+              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。"
+            );
+            window.location.href = "/learning";
             break;
           case "storage/unknown":
-            alert("不明なエラーが発生しました！");
+            alert("不明なエラーが発生しました！フォーム選択画面に戻ります。");
+            window.location.href = "/learning";
             break;
         }
       });
