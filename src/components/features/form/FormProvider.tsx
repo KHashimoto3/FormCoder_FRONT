@@ -9,6 +9,17 @@ import { If } from "./formComponents/If";
 import { Elseif } from "./formComponents/Elseif";
 import { Else } from "./formComponents/Else";
 import { IfEnd } from "./formComponents/IfEnd";
+import { Struct } from "./formComponents/Struct";
+import { Include } from "./formComponents/Include";
+import { Define } from "./formComponents/Define";
+import { Data } from "./formComponents/Data";
+import { StrDec } from "./formComponents/StrDec";
+import { Input } from "./formComponents/Input";
+import { Output } from "./formComponents/Output";
+import { StrIn } from "./formComponents/StrIn";
+import { StructOut } from "./formComponents/StructOut";
+import { StructIn } from "./formComponents/StructIn";
+import { StrPro } from "./formComponents/StrPro";
 
 type Props = {
   partType: string;
@@ -92,6 +103,94 @@ export const FormProvider = (props: Props) => {
     );
   } else if (formData.partType == "IFE") {
     return <IfEnd />;
+  } else if (formData.partType == "STRC") {
+    return (
+      <Struct
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "INC") {
+    return (
+      <Include
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "DEF") {
+    return (
+      <Define
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "DAT") {
+    return (
+      <Data
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "STRDC") {
+    return (
+      <StrDec
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "INP") {
+    return (
+      <Input
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "OUP") {
+    return (
+      <Output
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "STRIN") {
+    return (
+      <StrIn
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "STRCIN") {
+    return (
+      <StructIn
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "STROU") {
+    return (
+      <StructOut
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "STRP") {
+    return (
+      <StrPro
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
   } else {
     alert(
       "データエラー：存在しない種類のフォームを使用しようとしています。フォームデータを確認してください。"
