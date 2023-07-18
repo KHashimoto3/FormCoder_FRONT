@@ -17,6 +17,8 @@ import { StrDec } from "./formComponents/StrDec";
 import { Input } from "./formComponents/Input";
 import { Output } from "./formComponents/Output";
 import { StrIn } from "./formComponents/StrIn";
+import { StructOut } from "./formComponents/StructOut";
+import { StructIn } from "./formComponents/StructIn";
 
 type Props = {
   partType: string;
@@ -159,6 +161,22 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRIN") {
     return (
       <StrIn
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "STRCIN") {
+    return (
+      <StructIn
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "STROU") {
+    return (
+      <StructOut
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
