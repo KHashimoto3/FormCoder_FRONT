@@ -14,6 +14,8 @@ import { Include } from "./formComponents/Include";
 import { Define } from "./formComponents/Define";
 import { Data } from "./formComponents/Data";
 import { StrDec } from "./formComponents/StrDec";
+import { Input } from "./formComponents/Input";
+import { Output } from "./formComponents/Output";
 
 type Props = {
   partType: string;
@@ -132,6 +134,22 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRDC") {
     return (
       <StrDec
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "INP") {
+    return (
+      <Input
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "OUP") {
+    return (
+      <Output
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
