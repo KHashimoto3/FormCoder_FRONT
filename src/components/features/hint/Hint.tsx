@@ -36,8 +36,8 @@ export const Hint = () => {
     hintList: [
       {
         hintType: "A",
-        hintTitle: "つまずきに応じたヒントを出します",
-        hint: "ヒントの説明",
+        hintTitle: "つまずきの種類が表示されます",
+        hint: "つまずきに応じたヒントがここに表示されます。",
       },
     ],
   };
