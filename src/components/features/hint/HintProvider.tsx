@@ -4,6 +4,8 @@ export const HintContext = createContext(
   {} as {
     currentPartType: string;
     setCurrentPartType: Dispatch<SetStateAction<string>>;
+    currentHintStep: number;
+    setCurrentHintStep: Dispatch<SetStateAction<number>>;
     hintTypeC: string;
     setHintTypeC: Dispatch<SetStateAction<string>>;
   }
@@ -15,9 +17,17 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [currentPartType, setCurrentPartType] = useState<string>("FOR");
   const [hintTypeC, setHintTypeC] = useState<string>("テストヒントC");
+  const [currentHintStep, setCurrentHintStep] = useState<number>(0);
   return (
     <HintContext.Provider
-      value={{ currentPartType, setCurrentPartType, hintTypeC, setHintTypeC }}
+      value={{
+        currentPartType,
+        setCurrentPartType,
+        currentHintStep,
+        setCurrentHintStep,
+        hintTypeC,
+        setHintTypeC,
+      }}
     >
       {children}
     </HintContext.Provider>
