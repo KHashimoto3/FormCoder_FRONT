@@ -6,6 +6,7 @@ import { InputContext } from "./InputArrayProvider";
 
 import { storage } from "../../../firebase";
 import { getDownloadURL, ref } from "firebase/storage";
+import { Typography } from "@mui/material";
 
 export const Form = () => {
   const { initInputArray } = useContext(InputContext);
@@ -97,30 +98,35 @@ export const Form = () => {
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "500px",
-        overflowX: "hidden",
-        overflowY: "scroll",
-        border: "0.5px solid #9e9e9e",
-        padding: "10px",
-      }}
-    >
-      {formData.map((data) => {
-        return (
-          <>
-            <FormProvider
-              key={data.id}
-              partType={data.partType}
-              explanation={data.explanation}
-              childrenPart={data.childrenPart}
-              inputIdx={data.inputIdx}
-            />
-            <br />
-          </>
-        );
-      })}
-    </div>
+    <>
+      <Typography variant="body1" sx={{ border: "0.5px solid #9e9e9e" }}>
+        編集中：src/main.c
+      </Typography>
+      <div
+        style={{
+          width: "100%",
+          height: "500px",
+          overflowX: "hidden",
+          overflowY: "scroll",
+          border: "0.5px solid #9e9e9e",
+          padding: "10px",
+        }}
+      >
+        {formData.map((data) => {
+          return (
+            <>
+              <FormProvider
+                key={data.id}
+                partType={data.partType}
+                explanation={data.explanation}
+                childrenPart={data.childrenPart}
+                inputIdx={data.inputIdx}
+              />
+              <br />
+            </>
+          );
+        })}
+      </div>
+    </>
   );
 };
