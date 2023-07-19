@@ -97,7 +97,16 @@ export const Form = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        width: "100%",
+        height: "500px",
+        overflowX: "hidden",
+        overflowY: "scroll",
+        border: "0.5px solid #9e9e9e",
+        padding: "10px",
+      }}
+    >
       {formData.map((data) => {
         return (
           <>
@@ -112,6 +121,6 @@ export const Form = () => {
           </>
         );
       })}
-    </>
+    </div>
   );
 };

@@ -122,7 +122,14 @@ export const Hint = () => {
     <Container maxWidth="md">
       <Typography variant="h4">{currentHintData.partTitle}</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
-        <div>
+        <div
+          style={{
+            width: "100%",
+            height: "400px",
+            overflowX: "hidden",
+            overflowY: "scroll",
+          }}
+        >
           {currentHintData.hintList.map((hint, index) => {
             if (hint.hint == "") {
               hint.hint = hintTypeC;
@@ -142,7 +149,7 @@ export const Hint = () => {
                   <Typography variant="h5">
                     つまずき{index + 1}：{hint.hintTitle}
                   </Typography>
-                  <Button onClick={() => changeExpandFlag(index)}>
+                  <Button>
                     <UnfoldMoreIcon />
                   </Button>
                 </AccordionSummary>
