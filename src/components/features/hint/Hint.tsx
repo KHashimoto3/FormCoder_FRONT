@@ -23,7 +23,6 @@ export const Hint = () => {
   const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
-  //TODO: GCPのFirestoreからヒントデータを取ってくる
   const [hintData, setHintData] = useState<HintData[]>([]);
 
   const damyHintData: HintData = {
