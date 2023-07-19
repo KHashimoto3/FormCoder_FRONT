@@ -15,6 +15,8 @@ export const Process = (props: Props) => {
 
   const { upDateInputArray } = useContext(InputContext);
 
+  const { setCurrentHintStep } = useContext(HintContext);
+
   const [input, setInput] = useState<string>("");
 
   //interval
@@ -27,6 +29,18 @@ export const Process = (props: Props) => {
     () => {
       console.log("render:", count);
       setCount(count + 1);
+      if (count < 6) {
+        setCurrentHintStep(-1);
+      } else if (count < 18) {
+        setCurrentHintStep(0);
+      } else if (count < 36) {
+        setCurrentHintStep(1);
+      } else if (count < 60) {
+        setCurrentHintStep(2);
+      } else if (count >= 60) {
+        console.log("時間切れです！！");
+        setCurrentHintStep(2);
+      }
     },
     isRunning ? delay : null
   );

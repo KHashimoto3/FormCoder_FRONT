@@ -25,7 +25,7 @@ export const Hint = () => {
 
   const { currentHintStep } = useContext(HintContext);
   //ヒントのアコーディオン開閉状況を管理
-  const [expandFlags, setExpandFlags] = useState<Array<boolean>>([]);
+  //const [expandFlags, setExpandFlags] = useState<Array<boolean>>([]);
 
   const [hintData, setHintData] = useState<HintData[]>([]);
 
@@ -51,13 +51,15 @@ export const Hint = () => {
     getHintData("hintData");
   }, []);
 
-  //ヒントデータが変わるか、ヒントのステップが変わった場合に、アコーディオンの開閉状況を変更
+  /*ヒントデータが変わるか、ヒントのステップが変わった場合に、アコーディオンの開閉状況を変更
   useEffect(() => {
     const initialExpandFlags = currentHintData.hintList.map((_, idx) =>
       idx == currentHintStep ? true : false
     );
+    console.log("配列" + initialExpandFlags);
     setExpandFlags(initialExpandFlags);
   }, [currentHintData.hintList, currentHintStep]);
+*/
 
   const getHintData = (fileName: string) => {
     const refUrl = "hint/" + fileName + ".json";
@@ -108,13 +110,13 @@ export const Hint = () => {
     });
   }, [currentPartType]);
 
-  const changeExpandFlag = (idx: number) => {
+  /*const changeExpandFlag = (idx: number) => {
     setExpandFlags((prevExpandFlags) => {
       const newExpandFlags = [...prevExpandFlags];
       newExpandFlags[idx] = !newExpandFlags[idx];
       return newExpandFlags;
     });
-  };
+  };*/
 
   return (
     <Container maxWidth="md">
@@ -126,8 +128,12 @@ export const Hint = () => {
               hint.hint = hintTypeC;
               setHintTypeCIdx(hintTypeCIdx + 1);
             }
+
             return (
-              <Accordion key={hint.hint} expanded={expandFlags[index]}>
+              <Accordion
+                key={hint.hint}
+                expanded={index <= currentHintStep ? true : false}
+              >
                 <AccordionSummary
                   aria-controls="panel1a-content"
                   id="panel1a-header"

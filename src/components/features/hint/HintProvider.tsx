@@ -17,7 +17,7 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [currentPartType, setCurrentPartType] = useState<string>("FOR");
   const [hintTypeC, setHintTypeC] = useState<string>("テストヒントC");
-  const [currentHintStep, setCurrentHintStep] = useState<number>(0);
+  const [currentHintStep, setCurrentHintStep] = useState<number>(-1);
   return (
     <HintContext.Provider
       value={{
