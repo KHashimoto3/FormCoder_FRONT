@@ -30,7 +30,6 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
       partType: currentPartType,
       hintStep: currentHintStep,
     };
-
     setHintFBArray([...hintFBArray, newHintFBData]);
   };
 

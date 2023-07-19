@@ -11,7 +11,7 @@ import {
   AccordionDetails,
   Grid,
 } from "@mui/material";
-import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 
 import { HintCompProvider } from "./HintCompProvider";
 
@@ -27,6 +27,8 @@ export const Hint = () => {
   const { currentHintStep } = useContext(HintContext);
   //ヒントのアコーディオン開閉状況を管理
   //const [expandFlags, setExpandFlags] = useState<Array<boolean>>([]);
+
+  const { appendHintFBArray } = useContext(HintContext);
 
   const [hintData, setHintData] = useState<HintData[]>([]);
 
@@ -166,8 +168,8 @@ export const Hint = () => {
                       <Typography variant="h6">{hint.hintTitle}</Typography>
                     </Grid>
                     <Grid item xs={1}>
-                      <Button>
-                        <UnfoldMoreIcon />
+                      <Button onClick={() => appendHintFBArray()}>
+                        <TipsAndUpdatesIcon />
                       </Button>
                     </Grid>
                   </Grid>
