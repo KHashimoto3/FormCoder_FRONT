@@ -10,7 +10,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
 import { HintCompProvider } from "./HintCompProvider";
 
@@ -24,6 +24,8 @@ export const Hint = () => {
   const { hintTypeC } = useContext(HintContext);
 
   const { currentHintStep } = useContext(HintContext);
+  //ヒントのアコーディオン開閉状況を管理
+  const [expandFlags, setExpandFlags] = useState<Array<boolean>>([]);
 
   const [hintData, setHintData] = useState<HintData[]>([]);
 
@@ -48,6 +50,14 @@ export const Hint = () => {
   useEffect(() => {
     getHintData("hintData");
   }, []);
+
+  //ヒントデータが変わるか、ヒントのステップが変わった場合に、アコーディオンの開閉状況を変更
+  useEffect(() => {
+    const initialExpandFlags = currentHintData.hintList.map((_, idx) =>
+      idx == currentHintStep ? true : false
+    );
+    setExpandFlags(initialExpandFlags);
+  }, [currentHintData.hintList, currentHintStep]);
 
   const getHintData = (fileName: string) => {
     const refUrl = "hint/" + fileName + ".json";
@@ -98,6 +108,14 @@ export const Hint = () => {
     });
   }, [currentPartType]);
 
+  const changeExpandFlag = (idx: number) => {
+    setExpandFlags((prevExpandFlags) => {
+      const newExpandFlags = [...prevExpandFlags];
+      newExpandFlags[idx] = !newExpandFlags[idx];
+      return newExpandFlags;
+    });
+  };
+
   return (
     <Container maxWidth="md">
       <Typography variant="h4">{currentHintData.partTitle}</Typography>
@@ -109,7 +127,7 @@ export const Hint = () => {
               setHintTypeCIdx(hintTypeCIdx + 1);
             }
             return (
-              <Accordion key={hint.hint} expanded={true}>
+              <Accordion key={hint.hint} expanded={expandFlags[index]}>
                 <AccordionSummary
                   aria-controls="panel1a-content"
                   id="panel1a-header"
@@ -118,6 +136,9 @@ export const Hint = () => {
                   <Typography variant="h5">
                     つまずき{index + 1}：{hint.hintTitle}
                   </Typography>
+                  <Button onClick={() => changeExpandFlag(index)}>
+                    <UnfoldMoreIcon />
+                  </Button>
                 </AccordionSummary>
                 <AccordionDetails>
                   <HintCompProvider
