@@ -23,6 +23,8 @@ export const Hint = () => {
   const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
+  const { currentHintStep } = useContext(HintContext);
+
   const [hintData, setHintData] = useState<HintData[]>([]);
 
   const damyHintData: HintData = {
@@ -107,9 +109,8 @@ export const Hint = () => {
               setHintTypeCIdx(hintTypeCIdx + 1);
             }
             return (
-              <Accordion key={hint.hint}>
+              <Accordion key={hint.hint} expanded={true}>
                 <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                   sx={{ backgroundColor: "#e3f4ff" }}
