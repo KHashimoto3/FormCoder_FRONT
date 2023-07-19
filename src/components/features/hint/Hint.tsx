@@ -9,6 +9,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Grid,
 } from "@mui/material";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
@@ -144,14 +145,32 @@ export const Hint = () => {
                 <AccordionSummary
                   aria-controls="panel1a-content"
                   id="panel1a-header"
-                  sx={{ backgroundColor: "#e3f4ff" }}
+                  sx={{
+                    background:
+                      "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(215, 236, 251, 1))",
+                  }}
                 >
-                  <Typography variant="h5">
-                    つまずき{index + 1}：{hint.hintTitle}
-                  </Typography>
-                  <Button>
-                    <UnfoldMoreIcon />
-                  </Button>
+                  <Grid container spacing={0.5}>
+                    <Grid
+                      item
+                      xs={2}
+                      sx={{
+                        textAlign: "center",
+                        color: "#4293f5",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      <Typography variant="h4">{index + 1}</Typography>
+                    </Grid>
+                    <Grid item xs={9}>
+                      <Typography variant="h6">{hint.hintTitle}</Typography>
+                    </Grid>
+                    <Grid item xs={1}>
+                      <Button>
+                        <UnfoldMoreIcon />
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </AccordionSummary>
                 <AccordionDetails>
                   <HintCompProvider
