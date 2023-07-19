@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, createContext, useState } from "react";
+import { HintFBData } from "../../types/hintFBData";
 
 export const HintContext = createContext(
   {} as {
@@ -8,6 +9,9 @@ export const HintContext = createContext(
     setCurrentHintStep: Dispatch<SetStateAction<number>>;
     hintTypeC: string;
     setHintTypeC: Dispatch<SetStateAction<string>>;
+    hintFBArray: HintFBData[];
+    setHintFBArray: Dispatch<SetStateAction<HintFBData[]>>;
+    appendHintFBArray: () => void;
   }
 );
 
@@ -18,6 +22,18 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
   const [currentPartType, setCurrentPartType] = useState<string>("FOR");
   const [hintTypeC, setHintTypeC] = useState<string>("テストヒントC");
   const [currentHintStep, setCurrentHintStep] = useState<number>(-1);
+  const [hintFBArray, setHintFBArray] = useState<HintFBData[]>([]);
+
+  const appendHintFBArray = () => {
+    const newHintFBData: HintFBData = {
+      id: 0,
+      partType: currentPartType,
+      hintStep: currentHintStep,
+    };
+
+    setHintFBArray([...hintFBArray, newHintFBData]);
+  };
+
   return (
     <HintContext.Provider
       value={{
@@ -27,6 +43,9 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
         setCurrentHintStep,
         hintTypeC,
         setHintTypeC,
+        hintFBArray,
+        setHintFBArray,
+        appendHintFBArray,
       }}
     >
       {children}
