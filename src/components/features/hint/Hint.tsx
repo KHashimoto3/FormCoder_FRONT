@@ -10,7 +10,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
 import { HintCompProvider } from "./HintCompProvider";
 
@@ -23,7 +23,10 @@ export const Hint = () => {
   const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
-  //TODO: GCPのFirestoreからヒントデータを取ってくる
+  const { currentHintStep } = useContext(HintContext);
+  //ヒントのアコーディオン開閉状況を管理
+  //const [expandFlags, setExpandFlags] = useState<Array<boolean>>([]);
+
   const [hintData, setHintData] = useState<HintData[]>([]);
 
   const damyHintData: HintData = {
@@ -47,6 +50,16 @@ export const Hint = () => {
   useEffect(() => {
     getHintData("hintData");
   }, []);
+
+  /*ヒントデータが変わるか、ヒントのステップが変わった場合に、アコーディオンの開閉状況を変更
+  useEffect(() => {
+    const initialExpandFlags = currentHintData.hintList.map((_, idx) =>
+      idx == currentHintStep ? true : false
+    );
+    console.log("配列" + initialExpandFlags);
+    setExpandFlags(initialExpandFlags);
+  }, [currentHintData.hintList, currentHintStep]);
+*/
 
   const getHintData = (fileName: string) => {
     const refUrl = "hint/" + fileName + ".json";
@@ -97,20 +110,38 @@ export const Hint = () => {
     });
   }, [currentPartType]);
 
+  /*const changeExpandFlag = (idx: number) => {
+    setExpandFlags((prevExpandFlags) => {
+      const newExpandFlags = [...prevExpandFlags];
+      newExpandFlags[idx] = !newExpandFlags[idx];
+      return newExpandFlags;
+    });
+  };*/
+
   return (
     <Container maxWidth="md">
       <Typography variant="h4">{currentHintData.partTitle}</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
-        <div>
+        <div
+          style={{
+            width: "100%",
+            height: "400px",
+            overflowX: "hidden",
+            overflowY: "scroll",
+          }}
+        >
           {currentHintData.hintList.map((hint, index) => {
             if (hint.hint == "") {
               hint.hint = hintTypeC;
               setHintTypeCIdx(hintTypeCIdx + 1);
             }
+
             return (
-              <Accordion key={hint.hint}>
+              <Accordion
+                key={hint.hint}
+                expanded={index <= currentHintStep ? true : false}
+              >
                 <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                   sx={{ backgroundColor: "#e3f4ff" }}
@@ -118,6 +149,9 @@ export const Hint = () => {
                   <Typography variant="h5">
                     つまずき{index + 1}：{hint.hintTitle}
                   </Typography>
+                  <Button>
+                    <UnfoldMoreIcon />
+                  </Button>
                 </AccordionSummary>
                 <AccordionDetails>
                   <HintCompProvider
