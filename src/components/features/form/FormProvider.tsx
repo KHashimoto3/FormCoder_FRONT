@@ -151,7 +151,7 @@ export const FormProvider = (props: Props) => {
         inputIdx={formData.inputIdx}
       />
     );
-  } else if (formData.partType == "OUP") {
+  } else if (formData.partType == "OUT") {
     return (
       <Output
         partType={formData.partType}
@@ -175,7 +175,7 @@ export const FormProvider = (props: Props) => {
         inputIdx={formData.inputIdx}
       />
     );
-  } else if (formData.partType == "STROU") {
+  } else if (formData.partType == "STRCOU") {
     return (
       <StructOut
         partType={formData.partType}
