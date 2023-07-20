@@ -72,6 +72,10 @@ export const Struct = (props: Props) => {
           onFocus={() => {
             setCurrentPartType(partType);
             setHintTypeC(explanation);
+            setIsRunning(true);
+          }}
+          onBlur={() => {
+            setIsRunning(false);
           }}
         />{" "}
         {"{\n"}
@@ -83,6 +87,7 @@ export const Struct = (props: Props) => {
           onFocus={() => {
             setCurrentPartType(partType);
             setHintTypeC(explanation);
+            setIsRunning(true);
           }}
           value={input}
           onChange={(
@@ -90,7 +95,10 @@ export const Struct = (props: Props) => {
           ) => {
             setInput(event.target.value);
           }}
-          onBlur={() => updateInput(props.inputIdx, input)}
+          onBlur={() => {
+            updateInput(props.inputIdx, input);
+            setIsRunning(false);
+          }}
         ></textarea>
       </div>
       <pre style={preStyle}>{"}"}</pre>

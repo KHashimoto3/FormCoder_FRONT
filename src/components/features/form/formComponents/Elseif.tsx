@@ -73,6 +73,10 @@ export const Elseif = (props: Props) => {
             onFocus={() => {
               setCurrentPartType(partType);
               setHintTypeC(explanation);
+              setIsRunning(true);
+            }}
+            onBlur={() => {
+              setIsRunning(false);
             }}
           />
           {") {\n"}
