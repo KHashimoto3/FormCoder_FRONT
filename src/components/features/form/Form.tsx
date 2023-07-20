@@ -1,6 +1,5 @@
 import { FormProvider } from "./FormProvider";
 import { FormData } from "../../types/formData";
-import { inputData } from "../../types/inputData";
 import { useContext, useEffect, useState } from "react";
 import { InputContext } from "./InputArrayProvider";
 

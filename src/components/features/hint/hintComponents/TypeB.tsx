@@ -31,7 +31,6 @@ export const TypeB = (props: Props) => {
         // https://firebase.google.com/docs/storage/web/handle-errors
         switch (error.code) {
           case "storage/object-not-found":
-            alert("ファイルが見つかりません！");
             getHintData("nothing");
             break;
           case "storage/unauthorized":
