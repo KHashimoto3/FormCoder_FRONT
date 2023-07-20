@@ -14,57 +14,6 @@ export const Form = () => {
   //フォームデータを格納するstate
   const [formData, setFormData] = useState<FormData[]>([]);
 
-  const sampleInputData: inputData[] = [
-    {
-      partType: "INC",
-      inputDataArray: [""],
-    },
-    {
-      partType: "DEF",
-      inputDataArray: [""],
-    },
-    {
-      partType: "DAT",
-      inputDataArray: [""],
-    },
-    {
-      partType: "STRIN",
-      inputDataArray: [""],
-    },
-    {
-      partType: "STRP",
-      inputDataArray: [""],
-    },
-    {
-      partType: "OUT",
-      inputDataArray: [""],
-    },
-    {
-      partType: "IF",
-      inputDataArray: [""],
-    },
-    {
-      partType: "OUT",
-      inputDataArray: [""],
-    },
-    {
-      partType: "ELIF",
-      inputDataArray: [""],
-    },
-    {
-      partType: "OUT",
-      inputDataArray: [""],
-    },
-    {
-      partType: "ELS",
-      inputDataArray: [""],
-    },
-    {
-      partType: "IFE",
-      inputDataArray: [""],
-    },
-  ];
-
   useEffect(() => {
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
     const url = new URL(window.location.href);
@@ -77,8 +26,7 @@ export const Form = () => {
     //フォームデータの取得
     getFormData(formName);
     //入力テンプレートの取得
-    initInputArray(sampleInputData);
-    //getInputTmp(formName);
+    getInputTmp(formName);
   }, []);
 
   const getFormData = (formName: string | null) => {
@@ -171,6 +119,7 @@ export const Form = () => {
       .then((res) => res.json())
       .then((json) => {
         const data = json.tmpData;
+        console.log("デバッグ" + data);
         initInputArray(data);
       });
   };
