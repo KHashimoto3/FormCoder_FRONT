@@ -15,14 +15,13 @@ export const Process = (props: Props) => {
 
   const { upDateInputArray } = useContext(InputContext);
 
-  const { setCurrentHintStep } = useContext(HintContext);
-
   const [input, setInput] = useState<string>("");
 
-  //interval
+  //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
   const [delay, setDelay] = useState<number>(1000);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const { setCurrentHintStep } = useContext(HintContext);
 
   //intervalを使うためのカスタムフック
   useInterval(

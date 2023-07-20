@@ -1,6 +1,5 @@
 import { FormProvider } from "./FormProvider";
 import { FormData } from "../../types/formData";
-import { inputData } from "../../types/inputData";
 import { useContext, useEffect, useState } from "react";
 import { InputContext } from "./InputArrayProvider";
 
@@ -14,32 +13,7 @@ export const Form = () => {
   //フォームデータを格納するstate
   const [formData, setFormData] = useState<FormData[]>([]);
 
-  const sampleInputData: inputData[] = [
-    {
-      partType: "PROC",
-      inputDataArray: [""],
-    },
-    {
-      partType: "PROC",
-      inputDataArray: [""],
-    },
-    {
-      partType: "IF",
-      inputDataArray: [""],
-    },
-    {
-      partType: "PROC",
-      inputDataArray: [""],
-    },
-    {
-      partType: "IFE",
-      inputDataArray: [""],
-    },
-  ];
-
   useEffect(() => {
-    initInputArray(sampleInputData);
-
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
     const url = new URL(window.location.href);
     const formName = url.searchParams.get("form");
@@ -47,18 +21,27 @@ export const Form = () => {
       alert("フォームの種類が選択されていません。フォーム選択画面に戻ります。");
       window.location.href = "/learning";
     }
+
+    //フォームデータの取得
     getFormData(formName);
+    //入力テンプレートの取得
+    getInputTmp(formName);
   }, []);
 
   const getFormData = (formName: string | null) => {
     const refUrl = "form/" + formName + ".json";
-    getFileUrl(refUrl);
+    getFormFileUrl(refUrl);
   };
 
-  const getFileUrl = (refUrl: string) => {
+  const getInputTmp = (formName: string | null) => {
+    const refUrl = "form/" + formName + "_tmp.json";
+    getTmpFileUrl(refUrl);
+  };
+
+  const getFormFileUrl = (refUrl: string) => {
     getDownloadURL(ref(storage, refUrl))
       .then((url) => {
-        getJsonFile(url);
+        getFormFile(url);
       })
       .catch((error) => {
         // A full list of error codes is available at
@@ -88,12 +71,55 @@ export const Form = () => {
       });
   };
 
-  const getJsonFile = async (url: string) => {
+  const getTmpFileUrl = (refUrl: string) => {
+    getDownloadURL(ref(storage, refUrl))
+      .then((url) => {
+        getTmpFile(url);
+      })
+      .catch((error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/object-not-found":
+            alert("ファイルが見つかりません！フォーム選択画面に戻ります。");
+            window.location.href = "/learning";
+            break;
+          case "storage/unauthorized":
+            alert(
+              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。"
+            );
+            window.location.href = "/learning";
+            break;
+          case "storage/canceled":
+            alert(
+              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。"
+            );
+            window.location.href = "/learning";
+            break;
+          case "storage/unknown":
+            alert("不明なエラーが発生しました！フォーム選択画面に戻ります。");
+            window.location.href = "/learning";
+            break;
+        }
+      });
+  };
+
+  const getFormFile = async (url: string) => {
     await fetch(url)
       .then((res) => res.json())
       .then((json) => {
         const data = json.formData;
         setFormData(data);
+      });
+  };
+
+  const getTmpFile = async (url: string) => {
+    await fetch(url)
+      .then((res) => res.json())
+      .then((json) => {
+        const data = json.tmpData;
+        console.log("デバッグ" + data);
+        initInputArray(data);
       });
   };
 
