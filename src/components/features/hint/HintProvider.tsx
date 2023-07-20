@@ -30,7 +30,7 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
   const appendHintFBArray = (step: number) => {
     //console.log("FB配列更新前: " + JSON.stringify(hintFBArray));
     const newHintFBData: HintFBData = {
-      id: 0,
+      id: currentHintId,
       partType: currentPartType,
       hintStep: step,
     };
