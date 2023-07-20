@@ -25,6 +25,7 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
   const [hintFBArray, setHintFBArray] = useState<HintFBData[]>([]);
 
   const appendHintFBArray = () => {
+    //console.log("FB配列更新前: " + JSON.stringify(hintFBArray));
     const newHintFBData: HintFBData = {
       id: 0,
       partType: currentPartType,
