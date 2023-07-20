@@ -16,10 +16,17 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { storage } from "../../firebase";
+import { ref, uploadBytes } from "firebase/storage";
+import { HintContext } from "./hint/HintProvider";
+
+// Create a storage reference from our storage service
 
 export const FormBase = () => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
+  const { hintFBArray } = useContext(HintContext);
 
   const handleClickOpen = () => {
     setDialogOpen(true);
@@ -27,6 +34,18 @@ export const FormBase = () => {
 
   const handleClose = () => {
     setDialogOpen(false);
+  };
+
+  const saveLearningData = () => {
+    const storageRef = ref(storage, "record/recordTest.json");
+    const obj = { fbData: hintFBArray };
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {
+      type: "application/json",
+    });
+    uploadBytes(storageRef, blob).then(() => {
+      alert("アップロード完了しました！");
+      handleClose();
+    });
   };
 
   const buttonStyle = {
@@ -101,7 +120,11 @@ export const FormBase = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>キャンセル</Button>
-          <Button variant="contained" onClick={handleClose} autoFocus>
+          <Button
+            variant="contained"
+            onClick={() => saveLearningData()}
+            autoFocus
+          >
             保存して終了
           </Button>
         </DialogActions>
