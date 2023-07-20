@@ -16,11 +16,27 @@ export const Form = () => {
 
   const sampleInputData: inputData[] = [
     {
-      partType: "PROC",
+      partType: "INC",
       inputDataArray: [""],
     },
     {
-      partType: "PROC",
+      partType: "DEF",
+      inputDataArray: [""],
+    },
+    {
+      partType: "DAT",
+      inputDataArray: [""],
+    },
+    {
+      partType: "STRIN",
+      inputDataArray: [""],
+    },
+    {
+      partType: "STRP",
+      inputDataArray: [""],
+    },
+    {
+      partType: "OUT",
       inputDataArray: [""],
     },
     {
@@ -28,7 +44,19 @@ export const Form = () => {
       inputDataArray: [""],
     },
     {
-      partType: "PROC",
+      partType: "OUT",
+      inputDataArray: [""],
+    },
+    {
+      partType: "ELIF",
+      inputDataArray: [""],
+    },
+    {
+      partType: "OUT",
+      inputDataArray: [""],
+    },
+    {
+      partType: "ELS",
       inputDataArray: [""],
     },
     {
