@@ -11,7 +11,7 @@ export const HintContext = createContext(
     setHintTypeC: Dispatch<SetStateAction<string>>;
     hintFBArray: HintFBData[];
     setHintFBArray: Dispatch<SetStateAction<HintFBData[]>>;
-    appendHintFBArray: () => void;
+    appendHintFBArray: (step: number) => void;
   }
 );
 
@@ -24,12 +24,12 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
   const [currentHintStep, setCurrentHintStep] = useState<number>(-1);
   const [hintFBArray, setHintFBArray] = useState<HintFBData[]>([]);
 
-  const appendHintFBArray = () => {
+  const appendHintFBArray = (step: number) => {
     //console.log("FB配列更新前: " + JSON.stringify(hintFBArray));
     const newHintFBData: HintFBData = {
       id: 0,
       partType: currentPartType,
-      hintStep: currentHintStep,
+      hintStep: step,
     };
     setHintFBArray([...hintFBArray, newHintFBData]);
   };

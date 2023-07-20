@@ -168,7 +168,7 @@ export const Hint = () => {
                       <Typography variant="h6">{hint.hintTitle}</Typography>
                     </Grid>
                     <Grid item xs={1}>
-                      <Button onClick={() => appendHintFBArray()}>
+                      <Button onClick={() => appendHintFBArray(index + 1)}>
                         <TipsAndUpdatesIcon />
                       </Button>
                     </Grid>
@@ -186,10 +186,18 @@ export const Hint = () => {
         </div>
         <hr />
         <Stack spacing={2}>
-          <Button size="small" variant="contained">
+          <Button
+            size="small"
+            variant="contained"
+            onClick={() => appendHintFBArray(-10)}
+          >
             知りたい情報はこの中にない
           </Button>
-          <Button size="small" variant="contained">
+          <Button
+            size="small"
+            variant="contained"
+            onClick={() => appendHintFBArray(-100)}
+          >
             今はつまずいていない
           </Button>
         </Stack>
