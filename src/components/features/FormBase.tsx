@@ -10,6 +10,7 @@ import {
   DialogTitle,
   Grid,
   IconButton,
+  TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -27,6 +28,9 @@ export const FormBase = () => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const { hintFBArray } = useContext(HintContext);
+
+  //フォームの名前の入力欄
+  const [userName, setUserName] = useState<string>("");
 
   const handleClickOpen = () => {
     setDialogOpen(true);
@@ -115,8 +119,16 @@ export const FormBase = () => {
         <DialogTitle id="alert-dialog-title">{"学習データの保存"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            学習データを保存して終了するには「保存して終了」をクリックしてください。
+            学習データを保存して終了するには、あなたの名前を入力した後に「保存して終了」をクリックしてください。
           </DialogContentText>
+          <TextField
+            id="outlined-basic"
+            placeholder="あなたの名前"
+            variant="outlined"
+            value={userName}
+            onChange={(event) => setUserName(event.target.value)}
+            sx={{ width: "60%" }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>キャンセル</Button>
