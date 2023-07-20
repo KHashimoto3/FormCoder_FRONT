@@ -3,6 +3,11 @@ import {
   Box,
   Button,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   IconButton,
   Toolbar,
@@ -11,8 +16,19 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
+import { useState } from "react";
 
 export const FormBase = () => {
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
+  const handleClickOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+
   const buttonStyle = {
     color: "#fff",
     background:
@@ -59,7 +75,9 @@ export const FormBase = () => {
             </Box>
 
             <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
-              <Button style={buttonStyle}>保存して終了</Button>
+              <Button onClick={handleClickOpen} style={buttonStyle}>
+                保存して終了
+              </Button>
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <IconButton sx={{ p: 0 }}>
@@ -69,6 +87,28 @@ export const FormBase = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Box sx={{ marginTop: "100px" }}>
         <Grid container spacing={2}>
           <Grid item xs={5}>
