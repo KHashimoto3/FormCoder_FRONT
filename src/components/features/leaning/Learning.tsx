@@ -14,7 +14,7 @@ export const Learning = () => {
       <Button
         size="large"
         onClick={() => {
-          window.open("/form", "_blank");
+          window.open("/form?form=experiment2", "_blank");
         }}
       >
         実験用フォーム2
