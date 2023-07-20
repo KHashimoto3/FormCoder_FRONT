@@ -21,6 +21,7 @@ import { useContext, useState } from "react";
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { HintContext } from "./hint/HintProvider";
+import { InputContext } from "./form/InputArrayProvider";
 
 // Create a storage reference from our storage service
 
@@ -28,6 +29,7 @@ export const FormBase = () => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const { hintFBArray } = useContext(HintContext);
+  const { inputArray } = useContext(InputContext);
 
   //フォームの名前の入力欄
   const [userName, setUserName] = useState<string>("");
@@ -42,7 +44,7 @@ export const FormBase = () => {
 
   const saveLearningData = (userName: string) => {
     const storageRef = ref(storage, "record/" + userName + ".json");
-    const obj = { fbData: hintFBArray };
+    const obj = { fbData: hintFBArray, input: inputArray };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
       type: "application/json",
     });
