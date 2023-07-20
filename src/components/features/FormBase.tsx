@@ -40,8 +40,8 @@ export const FormBase = () => {
     setDialogOpen(false);
   };
 
-  const saveLearningData = () => {
-    const storageRef = ref(storage, "record/recordTest.json");
+  const saveLearningData = (userName: string) => {
+    const storageRef = ref(storage, "record/" + userName + ".json");
     const obj = { fbData: hintFBArray };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
       type: "application/json",
@@ -134,7 +134,7 @@ export const FormBase = () => {
           <Button onClick={handleClose}>キャンセル</Button>
           <Button
             variant="contained"
-            onClick={() => saveLearningData()}
+            onClick={() => saveLearningData(userName)}
             autoFocus
           >
             保存して終了
