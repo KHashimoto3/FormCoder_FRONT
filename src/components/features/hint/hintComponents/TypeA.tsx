@@ -9,7 +9,6 @@ export const TypeA = (props: Props) => {
   return (
     <>
       <Typography variant="h6">{hintText}</Typography>
-      <Typography variant="body1">目的の説明</Typography>
     </>
   );
 };
