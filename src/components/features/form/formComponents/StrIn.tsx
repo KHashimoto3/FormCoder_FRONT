@@ -4,6 +4,7 @@ import { InputContext } from "../InputArrayProvider";
 import useInterval from "../hooks/useinterval";
 
 type Props = {
+  id: number;
   partType: string;
   explanation: string;
   inputIdx: number;
