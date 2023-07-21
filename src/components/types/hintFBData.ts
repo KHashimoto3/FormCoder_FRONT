@@ -1,5 +1,6 @@
 export type HintFBData = {
   id: number;
   partType: string;
-  hintStep: number;
+  currentHintStep: number;
+  ClickedHintStep: number;
 };

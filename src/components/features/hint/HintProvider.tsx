@@ -32,7 +32,8 @@ export const HintProvider: React.FC<{ children: React.ReactNode }> = ({
     const newHintFBData: HintFBData = {
       id: currentHintId,
       partType: currentPartType,
-      hintStep: step,
+      currentHintStep: currentHintStep + 1,
+      ClickedHintStep: step,
     };
     setHintFBArray([...hintFBArray, newHintFBData]);
   };
