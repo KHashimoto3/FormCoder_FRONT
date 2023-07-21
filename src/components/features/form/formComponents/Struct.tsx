@@ -13,6 +13,7 @@ type Props = {
 export const Struct = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
+  const { setCurrentHintId } = useContext(HintContext);
 
   const [input, setInput] = useState<string>("");
 
@@ -20,7 +21,7 @@ export const Struct = (props: Props) => {
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
-  const [delay, setDelay] = useState<number>(1000);
+  const [delay] = useState<number>(1000);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const { setCurrentHintStep } = useContext(HintContext);
 
@@ -51,6 +52,7 @@ export const Struct = (props: Props) => {
     upDateInputArray(idx, str);
   };
 
+  const formId = props.id;
   const partType = props.partType;
   const explanation = props.explanation;
 
@@ -71,6 +73,7 @@ export const Struct = (props: Props) => {
           type="text"
           size={5}
           onFocus={() => {
+            setCurrentHintId(formId);
             setCurrentPartType(partType);
             setHintTypeC(explanation);
             setIsRunning(true);

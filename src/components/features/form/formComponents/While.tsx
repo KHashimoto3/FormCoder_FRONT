@@ -16,10 +16,11 @@ type Props = {
 export const While = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
+  const { setCurrentHintId } = useContext(HintContext);
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
-  const [delay, setDelay] = useState<number>(1000);
+  const [delay] = useState<number>(1000);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const { setCurrentHintStep } = useContext(HintContext);
 
@@ -44,6 +45,7 @@ export const While = (props: Props) => {
     isRunning ? delay : null
   );
 
+  const formId = props.id;
   const partType = props.partType;
   const explanation = props.explanation;
 
@@ -72,6 +74,7 @@ export const While = (props: Props) => {
             type="text"
             size={5}
             onFocus={() => {
+              setCurrentHintId(formId);
               setCurrentPartType(partType);
               setHintTypeC(explanation);
               setIsRunning(true);

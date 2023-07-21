@@ -15,7 +15,9 @@ type Props = {
 export const Function = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
+  const { setCurrentHintId } = useContext(HintContext);
 
+  const formId = props.id;
   const partType = props.partType;
   const explanation = props.explanation;
 
@@ -43,6 +45,7 @@ export const Function = (props: Props) => {
             type="text"
             size={5}
             onFocus={() => {
+              setCurrentHintId(formId);
               setCurrentPartType(partType);
               setHintTypeC(explanation);
             }}

@@ -13,6 +13,7 @@ type Props = {
 export const StrPro = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
+  const { setCurrentHintId } = useContext(HintContext);
 
   const { upDateInputArray } = useContext(InputContext);
 
@@ -51,6 +52,7 @@ export const StrPro = (props: Props) => {
     upDateInputArray(idx, str);
   };
 
+  const formId = props.id;
   const partType = props.partType;
   const explanation = props.explanation;
   return (
@@ -58,6 +60,7 @@ export const StrPro = (props: Props) => {
       cols={40}
       rows={4}
       onFocus={() => {
+        setCurrentHintId(formId);
         setCurrentPartType(partType);
         setHintTypeC(explanation);
         setIsRunning(true);
