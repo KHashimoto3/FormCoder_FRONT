@@ -33,11 +33,11 @@ export const Top = () => {
                   style={buttonStyle}
                   size="large"
                   onClick={() => {
-                    history.push("/form");
+                    history.push("/learning");
                   }}
                 >
                   <PlayCircleOutlineIcon />
-                  サンプルのフォームを見る
+                  フォーム一覧へ
                 </Button>
               </Box>
             </Stack>
