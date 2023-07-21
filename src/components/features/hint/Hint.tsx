@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { forwardRef, useContext, useEffect, useState } from "react";
 import { HintContext } from "./HintProvider";
 
 import {
@@ -20,6 +20,16 @@ import { getDownloadURL, ref } from "firebase/storage";
 
 import { HintData } from "../../types/hintData";
 
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export const Hint = () => {
   const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
@@ -31,6 +41,18 @@ export const Hint = () => {
   const { appendHintFBArray } = useContext(HintContext);
 
   const [hintData, setHintData] = useState<HintData[]>([]);
+
+  const [snackOpen, setSnackOpen] = useState<boolean>(false);
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackOpen(false);
+  };
 
   const damyHintData: HintData = {
     partType: "DAMY",
@@ -123,6 +145,11 @@ export const Hint = () => {
 
   return (
     <Container maxWidth="md">
+      <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          ヒントへのフィードバックを送信しました！
+        </Alert>
+      </Snackbar>
       <Typography variant="h4">{currentHintData.partTitle}</Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div
@@ -168,7 +195,12 @@ export const Hint = () => {
                       <Typography variant="h6">{hint.hintTitle}</Typography>
                     </Grid>
                     <Grid item xs={1}>
-                      <Button onClick={() => appendHintFBArray(index + 1)}>
+                      <Button
+                        onClick={() => {
+                          appendHintFBArray(index + 1);
+                          setSnackOpen(true);
+                        }}
+                      >
                         <TipsAndUpdatesIcon />
                       </Button>
                     </Grid>
@@ -189,14 +221,20 @@ export const Hint = () => {
           <Button
             size="small"
             variant="contained"
-            onClick={() => appendHintFBArray(-10)}
+            onClick={() => {
+              appendHintFBArray(-10);
+              setSnackOpen(true);
+            }}
           >
             知りたい情報はこの中にない
           </Button>
           <Button
             size="small"
             variant="contained"
-            onClick={() => appendHintFBArray(-100)}
+            onClick={() => {
+              appendHintFBArray(-100);
+              setSnackOpen(true);
+            }}
           >
             今はつまずいていない
           </Button>
