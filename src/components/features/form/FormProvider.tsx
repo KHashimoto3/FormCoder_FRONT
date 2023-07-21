@@ -20,6 +20,7 @@ import { StrIn } from "./formComponents/StrIn";
 import { StructOut } from "./formComponents/StructOut";
 import { StructIn } from "./formComponents/StructIn";
 import { StrPro } from "./formComponents/StrPro";
+import { Static } from "./formComponents/Static";
 
 type Props = {
   id: number;
@@ -32,7 +33,16 @@ type Props = {
 export const FormProvider = (props: Props) => {
   const formData = props;
   //受け取ったpartTypeによって、表示するフォームを変更する
-  if (formData.partType == "MAIN") {
+  if (formData.partType == "STATIC") {
+    return (
+      <Static
+        id={formData.id}
+        partType={formData.partType}
+        explanation={formData.explanation}
+        inputIdx={formData.inputIdx}
+      />
+    );
+  } else if (formData.partType == "MAIN") {
     return (
       <Main
         id={formData.id}
