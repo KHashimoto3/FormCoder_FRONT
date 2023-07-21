@@ -12,11 +12,23 @@ import {
   Tooltip,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import { useHistory } from "react-router-dom";
 
-const pages = ["FormCoderとは", "フォーム一覧"];
+interface Pages {
+  pageName: string;
+  pagePath: string;
+}
+
+const pages: Pages[] = [
+  { pageName: "FormCoderとは", pagePath: "/" },
+  { pageName: "フォーム一覧", pagePath: "/learning" },
+];
+
 const settings = ["私の成績", "アカウント設定", "ログアウト"];
 
 export const TitleBar = () => {
+  const history = useHistory();
+
   const [anchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -84,8 +96,8 @@ export const TitleBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.pageName}>
+                  <Typography textAlign="center">{page.pageName}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -111,15 +123,16 @@ export const TitleBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.pageName}
                 sx={{
                   my: 2,
                   color: "#000",
                   display: "block",
                   fontSize: "14pt",
                 }}
+                onClick={() => history.push(page.pagePath)}
               >
-                {page}
+                {page.pageName}
               </Button>
             ))}
           </Box>
