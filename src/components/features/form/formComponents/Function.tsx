@@ -5,6 +5,7 @@ import { Process } from "./Process";
 import { HintContext } from "../../hint/HintProvider";
 
 type Props = {
+  id: number;
   partType: string;
   explanation: string;
   childrenPart: string | FormData[];
@@ -14,7 +15,9 @@ type Props = {
 export const Function = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
+  const { setCurrentHintId } = useContext(HintContext);
 
+  const formId = props.id;
   const partType = props.partType;
   const explanation = props.explanation;
 
@@ -31,7 +34,7 @@ export const Function = (props: Props) => {
     alert(
       "データ不正エラー：Functionフォームの中には、少なくとも１つの子要素が必要です。"
     );
-    return <Process partType="PROC" explanation="" inputIdx={-1} />;
+    return <Process id={-1} partType="PROC" explanation="" inputIdx={-1} />;
   } else if (Array.isArray(props.childrenPart)) {
     const childrenPartArray: FormData[] = props.childrenPart;
     return (
@@ -42,6 +45,7 @@ export const Function = (props: Props) => {
             type="text"
             size={5}
             onFocus={() => {
+              setCurrentHintId(formId);
               setCurrentPartType(partType);
               setHintTypeC(explanation);
             }}
@@ -93,6 +97,7 @@ export const Function = (props: Props) => {
               <>
                 <FormProvider
                   key={childrenPart.id}
+                  id={childrenPart.id}
                   partType={childrenPart.partType}
                   explanation={childrenPart.explanation}
                   childrenPart={childrenPart.childrenPart}

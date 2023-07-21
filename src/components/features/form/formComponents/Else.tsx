@@ -1,8 +1,10 @@
+import { child } from "firebase/database";
 import { FormData } from "../../../types/formData";
 import { FormProvider } from "../FormProvider";
 import { Process } from "./Process";
 
 type Props = {
+  id: number;
   partType: string;
   explanation: string;
   childrenPart: string | FormData[];
@@ -19,7 +21,7 @@ export const Else = (props: Props) => {
     alert(
       "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。"
     );
-    return <Process partType="PROC" explanation="" inputIdx={-1} />;
+    return <Process id={-1} partType="PROC" explanation="" inputIdx={-1} />;
   } else if (Array.isArray(props.childrenPart)) {
     const childrenPartArray: FormData[] = props.childrenPart;
     return (
@@ -33,6 +35,7 @@ export const Else = (props: Props) => {
               <>
                 <FormProvider
                   key={childrenPart.id}
+                  id={childrenPart.id}
                   partType={childrenPart.partType}
                   explanation={childrenPart.explanation}
                   childrenPart={childrenPart.childrenPart}

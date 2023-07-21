@@ -22,6 +22,7 @@ import { StructIn } from "./formComponents/StructIn";
 import { StrPro } from "./formComponents/StrPro";
 
 type Props = {
+  id: number;
   partType: string;
   explanation: string;
   childrenPart: string | FormData[];
@@ -34,6 +35,7 @@ export const FormProvider = (props: Props) => {
   if (formData.partType == "MAIN") {
     return (
       <Main
+        id={formData.id}
         partType={formData.partType}
         childrenPart={formData.childrenPart}
         inputIdx={formData.inputIdx}
@@ -42,6 +44,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "PROC") {
     return (
       <Process
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -50,6 +53,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "FOR") {
     return (
       <For
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
@@ -59,6 +63,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "WHL") {
     return (
       <While
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
@@ -68,6 +73,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "FUN") {
     return (
       <Function
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
@@ -77,6 +83,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "IF") {
     return (
       <If
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
@@ -86,6 +93,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "ELIF") {
     return (
       <Elseif
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
@@ -95,6 +103,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "ELS") {
     return (
       <Else
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         childrenPart={formData.childrenPart}
@@ -106,6 +115,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRC") {
     return (
       <Struct
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -114,6 +124,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "INC") {
     return (
       <Include
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -122,6 +133,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "DEF") {
     return (
       <Define
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -130,6 +142,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "DAT") {
     return (
       <Data
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -138,6 +151,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRDC") {
     return (
       <StrDec
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -146,6 +160,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "INP") {
     return (
       <Input
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -154,6 +169,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "OUT") {
     return (
       <Output
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -162,6 +178,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRIN") {
     return (
       <StrIn
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -170,6 +187,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRCIN") {
     return (
       <StructIn
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -178,6 +196,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRCOU") {
     return (
       <StructOut
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -186,6 +205,7 @@ export const FormProvider = (props: Props) => {
   } else if (formData.partType == "STRP") {
     return (
       <StrPro
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}
@@ -197,6 +217,7 @@ export const FormProvider = (props: Props) => {
     );
     return (
       <Process
+        id={formData.id}
         partType={formData.partType}
         explanation={formData.explanation}
         inputIdx={formData.inputIdx}

@@ -4,6 +4,7 @@ import { InputContext } from "../InputArrayProvider";
 import useInterval from "../hooks/useinterval";
 
 type Props = {
+  id: number;
   partType: string;
   explanation: string;
   inputIdx: number;
@@ -12,6 +13,7 @@ type Props = {
 export const Include = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
+  const { setCurrentHintId } = useContext(HintContext);
 
   const { upDateInputArray } = useContext(InputContext);
 
@@ -19,7 +21,7 @@ export const Include = (props: Props) => {
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
-  const [delay, setDelay] = useState<number>(1000);
+  const [delay] = useState<number>(1000);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const { setCurrentHintStep } = useContext(HintContext);
 
@@ -50,6 +52,7 @@ export const Include = (props: Props) => {
     upDateInputArray(idx, str);
   };
 
+  const formId = props.id;
   const partType = props.partType;
   const explanation = props.explanation;
   return (
@@ -57,6 +60,7 @@ export const Include = (props: Props) => {
       cols={40}
       rows={4}
       onFocus={() => {
+        setCurrentHintId(formId);
         setCurrentPartType(partType);
         setHintTypeC(explanation);
         setIsRunning(true);
