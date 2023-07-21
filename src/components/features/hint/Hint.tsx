@@ -147,7 +147,7 @@ export const Hint = () => {
     <Container maxWidth="md">
       <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          ヒントへのフィードバックを送信しました！
+          ヒントへのフィードバックを記録しました！
         </Alert>
       </Snackbar>
       <Typography variant="h4">{currentHintData.partTitle}</Typography>
