@@ -21,7 +21,7 @@ export const StrPro = (props: Props) => {
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
-  const [delay, setDelay] = useState<number>(1000);
+  const [delay] = useState<number>(1000);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const { setCurrentHintStep } = useContext(HintContext);
 

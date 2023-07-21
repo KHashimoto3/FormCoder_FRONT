@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../../firebase";
 import { useEffect, useState } from "react";
