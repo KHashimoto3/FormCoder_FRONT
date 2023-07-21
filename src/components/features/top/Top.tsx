@@ -2,6 +2,8 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { useHistory } from "react-router-dom";
 
+import systemImg from "../../../assets/system_img.png";
+
 export const Top = () => {
   const history = useHistory();
 
@@ -42,8 +44,8 @@ export const Top = () => {
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <Box sx={{ textAlign: "center", paddingTop: "200px" }}>
-            <h1>イメージ画像</h1>
+          <Box sx={{ textAlign: "center", paddingTop: "150px" }}>
+            <img style={{ width: "95%" }} src={systemImg} alt="画面イメージ" />
           </Box>
         </Grid>
       </Grid>
