@@ -44,10 +44,7 @@ export const Hint = () => {
 
   const [snackOpen, setSnackOpen] = useState<boolean>(false);
 
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
+  const handleClose = (reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -145,8 +142,16 @@ export const Hint = () => {
 
   return (
     <Container maxWidth="md">
-      <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={6000}
+        onClose={() => handleClose()}
+      >
+        <Alert
+          onClose={() => handleClose()}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
           ヒントへのフィードバックを記録しました！
         </Alert>
       </Snackbar>
