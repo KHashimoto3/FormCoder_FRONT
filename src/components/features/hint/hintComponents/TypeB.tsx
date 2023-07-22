@@ -13,10 +13,11 @@ export const TypeB = (props: Props) => {
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
     getHintData(partType);
-  }, []);
+  }, [partType]);
 
   const getHintData = (fileName: string) => {
     const refUrl = "hint/partB/" + fileName + ".png";
+    console.log("partBデータの取得：" + refUrl);
     getFileUrl(refUrl);
   };
 
