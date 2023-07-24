@@ -43,7 +43,13 @@ export const FormBase = () => {
   };
 
   const saveLearningData = (userName: string) => {
-    const storageRef = ref(storage, "record/" + userName + ".json");
+    //リクエストパラメータのフォーム名を取得し、フォームを取得する
+    const url = new URL(window.location.href);
+    const formName = url.searchParams.get("form");
+    const storageRef = ref(
+      storage,
+      "record/" + userName + "_" + formName + ".json"
+    );
     const obj = { fbData: hintFBArray, input: inputArray };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
       type: "application/json",
