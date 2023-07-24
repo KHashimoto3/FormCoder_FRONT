@@ -17,7 +17,7 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { HintContext } from "./hint/HintProvider";
@@ -27,6 +27,8 @@ import { InputContext } from "./form/InputArrayProvider";
 
 export const FormBase = () => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
+  const [formName, setFormName] = useState<string>("フォーム名");
 
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
@@ -41,6 +43,17 @@ export const FormBase = () => {
   const handleClose = () => {
     setDialogOpen(false);
   };
+
+  useEffect(() => {
+    //リクエストパラメータのフォーム名を取得し、フォームを取得する
+    const url = new URL(window.location.href);
+    const formName = url.searchParams.get("form");
+    if (formName == null) {
+      setFormName("フォーム名");
+    } else {
+      setFormName(formName);
+    }
+  }, []);
 
   const saveLearningData = (userName: string) => {
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
@@ -99,7 +112,7 @@ export const FormBase = () => {
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Typography variant="h5" sx={{ color: "#000" }}>
-                フォーム名
+                {formName}
               </Typography>
             </Box>
 
