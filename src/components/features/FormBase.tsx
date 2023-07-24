@@ -137,7 +137,7 @@ export const FormBase = () => {
             onClick={() => saveLearningData(userName)}
             autoFocus
           >
-            保存して終了
+            保存
           </Button>
         </DialogActions>
       </Dialog>
