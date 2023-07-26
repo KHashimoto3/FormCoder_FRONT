@@ -33,8 +33,10 @@ export const FormBase = () => {
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
 
-  //フォームの名前の入力欄
+  //保存モーダル
   const [userName, setUserName] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
+  const [helper, setHelper] = useState<string>("");
 
   const handleClickOpen = () => {
     setDialogOpen(true);
@@ -56,6 +58,14 @@ export const FormBase = () => {
   }, []);
 
   const saveLearningData = (userName: string) => {
+    //入力がない場合はエラーを出す
+    if (userName == "") {
+      setError(true);
+      setHelper("名前の入力は必須です。");
+      return;
+    }
+    setError(false);
+    setHelper("");
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
     const url = new URL(window.location.href);
     const formName = url.searchParams.get("form");
@@ -147,6 +157,8 @@ export const FormBase = () => {
             value={userName}
             onChange={(event) => setUserName(event.target.value)}
             sx={{ width: "60%" }}
+            error={error}
+            helperText={helper}
           />
         </DialogContent>
         <DialogActions>
