@@ -27,7 +27,7 @@ function App() {
           <Route path="/storagetest">
             <StorageTestPage />
           </Route>
-          <Route path="/result-check">
+          <Route path="/reason-check">
             <ReasonCheckPage />
           </Route>
         </BrowserRouter>
