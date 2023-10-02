@@ -1,4 +1,9 @@
-import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Typography,
+} from "@mui/material";
 
 export const ErrorReason = () => {
   const checkPoint = [
@@ -19,8 +24,12 @@ export const ErrorReason = () => {
 
   return (
     <>
-      <h3>エラーが出てコンパイルができないまたは実行時に例外が発生する</h3>
-      <p>該当するものがあったらチェックしてください。</p>
+      <Typography variant="h6">
+        エラーが出てコンパイルができないまたは実行時に例外が発生する
+      </Typography>
+      <Typography variant="body1">
+        該当するものがあったらチェックしてください。
+      </Typography>
       <FormGroup>
         {checkPoint.map((point, index) => {
           return (

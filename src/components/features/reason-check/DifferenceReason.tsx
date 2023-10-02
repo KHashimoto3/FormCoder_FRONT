@@ -1,4 +1,9 @@
-import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Typography,
+} from "@mui/material";
 
 export const DifferenceReason = () => {
   const checkPoint = [
@@ -15,8 +20,12 @@ export const DifferenceReason = () => {
   ];
   return (
     <>
-      <h3>エラーは出ないが、実行した結果の値が実行例と違う。</h3>
-      <p>該当するものがあったらチェックしてください。</p>
+      <Typography variant="h6">
+        エラーは出ないが、実行した結果の値が実行例と違う。
+      </Typography>
+      <Typography variant="body1">
+        該当するものがあったらチェックしてください。
+      </Typography>
       <FormGroup>
         {checkPoint.map((point, index) => {
           return (
