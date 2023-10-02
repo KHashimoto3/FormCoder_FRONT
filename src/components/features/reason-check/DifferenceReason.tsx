@@ -21,7 +21,7 @@ export const DifferenceReason = () => {
   return (
     <>
       <Typography variant="h6">
-        エラーは出ないが、実行した結果の値が実行例と違う。
+        エラーは出ないが、実行した結果の値が実行例と違う
       </Typography>
       <Typography variant="body1">
         該当するものがあったらチェックしてください。
