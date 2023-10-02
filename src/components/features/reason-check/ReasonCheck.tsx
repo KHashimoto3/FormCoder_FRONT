@@ -18,7 +18,7 @@ export const ReasonCheck = () => {
         </Typography>
         <ErrorReason />
       </div>
-      <div>
+      <div style={{ marginTop: "30px" }}>
         <Typography
           variant="h5"
           sx={{ background: "#3279a8", color: "#ffffff" }}
