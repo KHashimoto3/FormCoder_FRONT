@@ -1,7 +1,5 @@
+import { ReasonCheck } from "../features/reason-check/ReasonCheck";
+
 export const ReasonCheckPage = () => {
-  return (
-    <>
-      <h1>原因チェックページです。</h1>
-    </>
-  );
+  return <ReasonCheck />;
 };
