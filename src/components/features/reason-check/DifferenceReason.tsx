@@ -1,9 +1,17 @@
 import {
+  Button,
   Checkbox,
-  FormControlLabel,
-  FormGroup,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
 } from "@mui/material";
+
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export const DifferenceReason = () => {
   const checkPoint = [
@@ -27,19 +35,32 @@ export const DifferenceReason = () => {
       <Typography variant="body1">
         該当するものがあったらチェックしてください。
       </Typography>
-      <FormGroup>
-        {checkPoint.map((point, index) => {
-          return (
-            <>
-              <FormControlLabel
-                key={index}
-                control={<Checkbox />}
-                label={point}
-              />
-            </>
-          );
-        })}
-      </FormGroup>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-aria-label="sample table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">該当チェック</TableCell>
+              <TableCell align="center">チェック項目</TableCell>
+              <TableCell align="center">操作</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {checkPoint.map((point, index) => {
+              return (
+                <TableRow key={index}>
+                  <TableCell align="center">
+                    <Checkbox {...label} />
+                  </TableCell>
+                  <TableCell>{point}</TableCell>
+                  <TableCell align="center">
+                    <Button variant="contained">詳しく</Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };
