@@ -44,7 +44,7 @@ export const ErrorReason = () => {
             <TableRow>
               <TableCell align="center">該当チェック</TableCell>
               <TableCell align="center">チェック項目</TableCell>
-              <TableCell align="center">サンプル</TableCell>
+              <TableCell align="center">操作</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -56,7 +56,7 @@ export const ErrorReason = () => {
                   </TableCell>
                   <TableCell>{point}</TableCell>
                   <TableCell align="center">
-                    <Button variant="contained">サンプル</Button>
+                    <Button variant="contained">詳しく</Button>
                   </TableCell>
                 </TableRow>
               );
