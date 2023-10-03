@@ -6,8 +6,8 @@
 2023年6月〜2024年3月（目標）
 ## 使用技術
 フロントエンド：HTML, CSS, Typescript, React, MUI  
-バックエンド（予定）：Go  
-データベース（予定）：GCP Firestore  
+バックエンド：Nest.js（Typescript）  
+データベース：MySQL
 ファイル保存：Cloud Storage
 環境構築：Vite, npm  
 コード管理：Git  
