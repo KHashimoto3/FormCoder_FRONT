@@ -7,8 +7,8 @@
 ## 使用技術
 フロントエンド：HTML, CSS, Typescript, React, MUI  
 バックエンド：Nest.js（Typescript）  
-データベース：MySQL
-ファイル保存：Cloud Storage
+データベース：MySQL  
+ファイル保存：Cloud Storage  
 環境構築：Vite, npm  
 コード管理：Git  
 コード品質管理：ESLint, Prettier  
