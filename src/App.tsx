@@ -6,6 +6,7 @@ import { HintProvider } from "./components/features/hint/HintProvider";
 import { InputArrayProvider } from "./components/features/form/InputArrayProvider";
 import { StorageTestPage } from "./components/pages/StorageTestPage";
 import { LearningPage } from "./components/pages/LearningPage";
+import { ReasonCheckPage } from "./components/pages/ReasonCheckPage";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path="/storagetest">
             <StorageTestPage />
+          </Route>
+          <Route path="/reason-check">
+            <ReasonCheckPage />
           </Route>
         </BrowserRouter>
       </InputArrayProvider>
