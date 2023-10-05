@@ -42,7 +42,7 @@ export const While = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null
+    isRunning ? delay : null,
   );
 
   const formId = props.id;
@@ -60,7 +60,7 @@ export const While = (props: Props) => {
   //子要素がなければエラーを出し、あればその子要素を表示する
   if (typeof props.childrenPart == "string") {
     alert(
-      "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。"
+      "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。",
     );
     return <Process id={-1} partType="PROC" explanation="" inputIdx={-1} />;
   } else if (Array.isArray(props.childrenPart)) {

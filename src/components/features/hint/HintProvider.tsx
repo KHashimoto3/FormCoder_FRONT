@@ -14,7 +14,7 @@ export const HintContext = createContext(
     hintFBArray: HintFBData[];
     setHintFBArray: Dispatch<SetStateAction<HintFBData[]>>;
     appendHintFBArray: (step: number) => void;
-  }
+  },
 );
 
 export const HintProvider: React.FC<{ children: React.ReactNode }> = ({

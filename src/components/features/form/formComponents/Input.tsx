@@ -43,7 +43,7 @@ export const Input = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null
+    isRunning ? delay : null,
   );
 
   //upDateInputArrayにstringの配列を渡す
@@ -67,7 +67,7 @@ export const Input = (props: Props) => {
       }}
       value={input}
       onChange={(
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
       ) => {
         setInput(event.target.value);
       }}

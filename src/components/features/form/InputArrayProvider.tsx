@@ -7,7 +7,7 @@ export const InputContext = createContext(
     setInputArray: Dispatch<SetStateAction<inputData[]>>;
     initInputArray: (inputArray: inputData[]) => void;
     upDateInputArray: (idx: number, newInput: string[]) => void;
-  }
+  },
 );
 
 export const InputArrayProvider: React.FC<{ children: React.ReactNode }> = ({

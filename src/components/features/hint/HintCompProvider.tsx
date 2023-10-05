@@ -21,7 +21,7 @@ export const HintCompProvider = (props: Props) => {
     return <TypeC explanation={hint.hint} />;
   } else {
     alert(
-      "データ不正エラー：無効なヒントタイプがヒントデータに使用されています。管理者に連絡してください。"
+      "データ不正エラー：無効なヒントタイプがヒントデータに使用されています。管理者に連絡してください。",
     );
     return <h1>エラー：管理者への連絡が必要です。</h1>;
   }
