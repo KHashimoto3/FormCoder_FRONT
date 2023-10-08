@@ -23,11 +23,12 @@ import { HintData } from "../../types/hintData";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(
-  function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  },
-);
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const Hint = () => {
   const { currentPartType } = useContext(HintContext);
@@ -154,7 +155,9 @@ export const Hint = () => {
           ヒントへのフィードバックを記録しました！
         </Alert>
       </Snackbar>
-      <Typography variant="h4">{currentHintData.partTitle}</Typography>
+      <Typography variant="h4" data-testid="hint-title">
+        {currentHintData.partTitle}
+      </Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div
           style={{
