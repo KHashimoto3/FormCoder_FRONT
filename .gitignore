@@ -25,8 +25,11 @@ dist-ssr
 
 # Firebase
 .firebase
-src/.env
+.env
 
 # data
 src/assets/formData
 src/assets/hintData.json
+/test-results/
+/playwright-report/
+/playwright/.cache/

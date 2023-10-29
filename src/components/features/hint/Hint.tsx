@@ -154,7 +154,9 @@ export const Hint = () => {
           ヒントへのフィードバックを記録しました！
         </Alert>
       </Snackbar>
-      <Typography variant="h4">{currentHintData.partTitle}</Typography>
+      <Typography variant="h4" data-testid="hint-title">
+        {currentHintData.partTitle}
+      </Typography>
       <Container maxWidth="md" sx={{ marginBottom: "30px" }}>
         <div
           style={{

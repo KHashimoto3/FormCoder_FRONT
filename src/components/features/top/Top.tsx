@@ -25,7 +25,11 @@ export const Top = () => {
         <Grid item xs={6}>
           <Box sx={{ textAlign: "center", paddingTop: "200px" }}>
             <Stack spacing={3}>
-              <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+              <Typography
+                data-testid="home-title"
+                variant="h3"
+                sx={{ fontWeight: "bold" }}
+              >
                 フォームを使ったプログラミング学習
               </Typography>
               <Box>
