@@ -25,7 +25,7 @@ dist-ssr
 
 # Firebase
 .firebase
-src/firebase.ts
+src/.env
 
 # data
 src/assets/formData
