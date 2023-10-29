@@ -9,7 +9,7 @@ test("トップページにアクセスすると、タイトルの文字が表�
   await expect(title).toContainText("フォームを使ったプログラミング学習");
 });
 
-/*test("存在するフォームにアクセスすると、「ヒント非表示」が表示される。", async ({
+test("存在するフォームにアクセスすると、「ヒント非表示」が表示される。", async ({
   page,
 }) => {
   await page.goto("http://localhost:5173/form?form=experiment1");
@@ -26,4 +26,3 @@ test("存在しないフォームにアクセスすると、フォームの読�
   //ヒントのタイトルに、「ヒント非表示」が表示されていることを確認する。
   await expect(hintTitle).toContainText("ヒント読みこ中");
 });
-*/
