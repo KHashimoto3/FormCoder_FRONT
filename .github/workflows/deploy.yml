@@ -23,9 +23,8 @@ jobs:
           echo "FIREBASE_PROJECT_ID==${{ secrets.FIREBASE_PROJECT_ID }}" >> .env
           echo "FIREBASE_MESSAGING_SENDER_ID==${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> .env
           echo "FIREBASE_APP_ID==${{ secrets.FIREBASE_APP_ID }}" >> .env
-      #- name: Vite build
-      #  run: |
-      #    npm run build
+      - name: Vite build
+        run: echo "hello"
       - name: deploy to Firebase Hosting
         run: |
                   firebase deploy --token $FIREBASE_TOKEN
