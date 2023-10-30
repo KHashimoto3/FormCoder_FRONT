@@ -26,5 +26,5 @@ jobs:
       - name: Vite build
         run: npm run build
       - name: deploy to Firebase Hosting
-        run: 
+        run: |
         firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
