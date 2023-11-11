@@ -77,13 +77,13 @@ export const Form = (props: Props) => {
             break;
           case "storage/unauthorized":
             alert(
-              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。"
+              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。",
             );
             window.location.href = "/learning";
             break;
           case "storage/canceled":
             alert(
-              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。"
+              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。",
             );
             window.location.href = "/learning";
             break;
@@ -110,13 +110,13 @@ export const Form = (props: Props) => {
             break;
           case "storage/unauthorized":
             alert(
-              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。"
+              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。",
             );
             window.location.href = "/learning";
             break;
           case "storage/canceled":
             alert(
-              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。"
+              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。",
             );
             window.location.href = "/learning";
             break;
