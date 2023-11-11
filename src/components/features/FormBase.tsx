@@ -124,9 +124,6 @@ export const FormBase = () => {
             {"学習データを読み込んでいます・・・"}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              しばらくお待ちください。
-            </DialogContentText>
             <Box sx={{ textAlign: "center" }}>
               <RotatingLines
                 strokeColor="grey"
