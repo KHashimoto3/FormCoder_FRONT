@@ -14,6 +14,11 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
+
+import { useCookies } from "react-cookie";
+
 interface Pages {
   pageName: string;
   pagePath: string;
@@ -38,6 +43,21 @@ export const TitleBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
+
+  console.log(cookies.userId);
+
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        alert("ログアウトしました。");
+        removeCookie("userId");
+      })
+      .catch((error) => {
+        alert("ログアウトに失敗しました。");
+      });
   };
 
   const [userLogin, setUserLogin] = useState(false);
@@ -146,7 +166,7 @@ export const TitleBar = () => {
             ))}
           </Box>
 
-          {userLogin ? (
+          {cookies.userId ? (
             <>
               <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
                 <Typography variant="body1" sx={{ color: "#000" }}>
@@ -176,7 +196,7 @@ export const TitleBar = () => {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={logout}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}

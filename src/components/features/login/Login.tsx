@@ -2,6 +2,7 @@ import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
+import { useCookies } from "react-cookie";
 
 export const Login = () => {
   const buttonStyle = {
@@ -13,7 +14,8 @@ export const Login = () => {
 
   const [userMail, setUserMail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
-  const [loginUser, setLoginUser] = useState<string>("");
+
+  const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
 
   const login = () => {
     signInWithEmailAndPassword(auth, userMail, userPassword)
@@ -21,7 +23,7 @@ export const Login = () => {
         // Signed in
         const user = userCredential.user;
         alert("ログインしました。ユーザIDは、" + user.uid + "です。");
-        setLoginUser(user.uid);
+        setCookie("userId", user.uid);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -39,7 +41,7 @@ export const Login = () => {
     signOut(auth)
       .then(() => {
         alert("ログアウトしました。");
-        setLoginUser("");
+        removeCookie("userId");
       })
       .catch((error) => {
         alert("ログアウトに失敗しました。");
@@ -90,11 +92,11 @@ export const Login = () => {
             新規登録
           </Button>
         </Stack>
-        {loginUser && (
+        {cookies.userId ? (
           <Button variant="outlined" fullWidth onClick={logout}>
             ログアウト
           </Button>
-        )}
+        ) : null}
       </Container>
     </div>
   );
