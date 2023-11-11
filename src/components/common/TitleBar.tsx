@@ -65,6 +65,7 @@ export const TitleBar = () => {
       .then(() => {
         alert("ログアウトしました。");
         removeCookie("userId");
+        location.href = "/";
       })
       .catch((error) => {
         alert("ログアウトに失敗しました。");

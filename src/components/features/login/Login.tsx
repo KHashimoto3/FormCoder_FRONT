@@ -24,6 +24,7 @@ export const Login = () => {
         const user = userCredential.user;
         alert("ログインしました。ユーザIDは、" + user.uid + "です。");
         setCookie("userId", user.uid);
+        location.href = "/";
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -34,17 +35,6 @@ export const Login = () => {
             "。エラーメッセージ：" +
             errorMessage
         );
-      });
-  };
-
-  const logout = () => {
-    signOut(auth)
-      .then(() => {
-        alert("ログアウトしました。");
-        removeCookie("userId");
-      })
-      .catch((error) => {
-        alert("ログアウトに失敗しました。");
       });
   };
 
@@ -92,11 +82,6 @@ export const Login = () => {
             新規登録
           </Button>
         </Stack>
-        {cookies.userId ? (
-          <Button variant="outlined" fullWidth onClick={logout}>
-            ログアウト
-          </Button>
-        ) : null}
       </Container>
     </div>
   );
