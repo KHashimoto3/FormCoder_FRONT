@@ -28,6 +28,7 @@ export const Login = () => {
   const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
 
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
+  const [inputMissed, setInputMissed] = useState<boolean>(false);
 
   const checkUserMail = () => {
     if (userMail === "") {
@@ -48,9 +49,11 @@ export const Login = () => {
   const login = () => {
     //エラーがないことを確認
     if (userMail === "" || userPassword === "") {
-      alert("入力内容に誤りがあります。");
+      setInputMissed(true);
       return;
     }
+    setInputMissed(false);
+
     signInWithEmailAndPassword(auth, userMail, userPassword)
       .then((userCredential) => {
         // Signed in
@@ -59,9 +62,7 @@ export const Login = () => {
         setCookie("userId", user.uid);
         location.href = "/";
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      .catch(() => {
         setLoginFailed(true);
       });
   };
@@ -79,6 +80,15 @@ export const Login = () => {
             sx={{ marginBottom: "20px" }}
           >
             ログインに失敗しました。メールアドレスまたはパスワードに誤りがあります。
+          </Alert>
+        )}
+        {inputMissed && (
+          <Alert
+            variant="filled"
+            severity="warning"
+            sx={{ marginBottom: "20px" }}
+          >
+            未入力の項目があります。
           </Alert>
         )}
         <Stack spacing={2}>
