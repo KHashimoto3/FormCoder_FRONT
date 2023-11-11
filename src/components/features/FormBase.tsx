@@ -82,7 +82,7 @@ export const FormBase = () => {
     const formName = url.searchParams.get("form");
     const storageRef = ref(
       storage,
-      "record/" + userName + "_" + formName + ".json"
+      "record/" + userName + "_" + formName + ".json",
     );
     const obj = { fbData: hintFBArray, input: inputArray };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
