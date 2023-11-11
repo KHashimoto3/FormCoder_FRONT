@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { FormCard } from "./FormCard";
 import { FormCardList } from "../../types/formCardList";
 
@@ -20,7 +20,12 @@ export const Learning = () => {
 
   return (
     <Box sx={{ height: "1000px", paddingTop: "160px" }}>
-      <Typography variant="h4" component="div" gutterBottom>
+      <Typography
+        variant="h4"
+        component="div"
+        gutterBottom
+        sx={{ fontWeight: "bold" }}
+      >
         すべてのフォーム
       </Typography>
       <Grid container spacing={1}>
