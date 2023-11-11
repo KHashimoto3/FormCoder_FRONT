@@ -147,35 +147,42 @@ export const TitleBar = () => {
           </Box>
 
           {userLogin ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="アカウントメニューを開く">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <PersonIcon fontSize="large" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+            <>
+              <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
+                <Typography variant="body1" sx={{ color: "#000" }}>
+                  ユーザー名
+                </Typography>
+              </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="アカウントメニューを開く">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <PersonIcon fontSize="large" />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </>
           ) : (
             <Button
               variant="contained"
