@@ -1,6 +1,6 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export const Login = () => {
   const buttonStyle = {
@@ -12,6 +12,26 @@ export const Login = () => {
 
   const [userMail, setUserMail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
+
+  const login = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, userMail, userPassword)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        alert("ログインしました。ユーザIDは、" + user.uid + "です。");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(
+          "ログインに失敗しました。エラーコード：" +
+            errorCode +
+            "。エラーメッセージ：" +
+            errorMessage
+        );
+      });
+  };
 
   return (
     <div>
@@ -39,7 +59,12 @@ export const Login = () => {
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
           />
-          <Button variant="contained" sx={buttonStyle} fullWidth>
+          <Button
+            variant="contained"
+            sx={buttonStyle}
+            fullWidth
+            onClick={login}
+          >
             {" "}
             ログイン{" "}
           </Button>
