@@ -25,6 +25,7 @@ export const Login = () => {
             variant="standard"
             required
             fullWidth
+            value={userId}
             onChange={(e) => setUserId(e.target.value)}
           />
           <TextField
@@ -34,6 +35,7 @@ export const Login = () => {
             variant="standard"
             required
             fullWidth
+            value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
           />
           <Button variant="contained" sx={buttonStyle} fullWidth>
