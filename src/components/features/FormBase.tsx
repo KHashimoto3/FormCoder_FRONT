@@ -23,6 +23,8 @@ import { ref, uploadBytes } from "firebase/storage";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
+import { RotatingLines } from "react-loader-spinner";
+
 // Create a storage reference from our storage service
 
 export const FormBase = () => {
@@ -125,6 +127,15 @@ export const FormBase = () => {
             <DialogContentText id="alert-dialog-description">
               しばらくお待ちください。
             </DialogContentText>
+            <Box sx={{ textAlign: "center" }}>
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="96"
+                visible={true}
+              />
+            </Box>
           </DialogContent>
         </Dialog>
         <Container maxWidth="xl">
