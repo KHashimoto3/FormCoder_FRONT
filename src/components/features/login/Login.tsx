@@ -1,4 +1,11 @@
-import { Button, Container, Stack, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
@@ -17,7 +24,33 @@ export const Login = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
 
+  const [userMailError, setUserMailError] = useState<boolean>(false);
+  const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
+
+  const [loginFailed, setLoginFailed] = useState<boolean>(false);
+
+  const checkUserMail = () => {
+    if (userMail === "") {
+      setUserMailError(true);
+    } else {
+      setUserMailError(false);
+    }
+  };
+
+  const checkUserPassword = () => {
+    if (userPassword === "") {
+      setUserPasswordError(true);
+    } else {
+      setUserPasswordError(false);
+    }
+  };
+
   const login = () => {
+    //エラーがないことを確認
+    if (userMail === "" || userPassword === "") {
+      alert("入力内容に誤りがあります。");
+      return;
+    }
     signInWithEmailAndPassword(auth, userMail, userPassword)
       .then((userCredential) => {
         // Signed in
@@ -29,12 +62,7 @@ export const Login = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(
-          "ログインに失敗しました。エラーコード：" +
-            errorCode +
-            "。エラーメッセージ：" +
-            errorMessage
-        );
+        setLoginFailed(true);
       });
   };
 
@@ -44,6 +72,15 @@ export const Login = () => {
         <Typography variant="h4" component="div" gutterBottom>
           ログイン
         </Typography>
+        {loginFailed && (
+          <Alert
+            variant="filled"
+            severity="error"
+            sx={{ marginBottom: "20px" }}
+          >
+            ログインに失敗しました。メールアドレスまたはパスワードに誤りがあります。
+          </Alert>
+        )}
         <Stack spacing={2}>
           <TextField
             id="user-mail"
@@ -52,6 +89,8 @@ export const Login = () => {
             required
             fullWidth
             value={userMail}
+            error={userMailError}
+            onBlur={() => checkUserMail()}
             onChange={(e) => setUserMail(e.target.value)}
           />
           <TextField
@@ -62,6 +101,8 @@ export const Login = () => {
             required
             fullWidth
             value={userPassword}
+            error={userPasswordError}
+            onBlur={() => checkUserPassword()}
             onChange={(e) => setUserPassword(e.target.value)}
           />
           <Button
