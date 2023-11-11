@@ -1,6 +1,7 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 export const Login = () => {
   const buttonStyle = {
@@ -12,14 +13,15 @@ export const Login = () => {
 
   const [userMail, setUserMail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
+  const [loginUser, setLoginUser] = useState<string>("");
 
   const login = () => {
-    const auth = getAuth();
     signInWithEmailAndPassword(auth, userMail, userPassword)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         alert("ログインしました。ユーザIDは、" + user.uid + "です。");
+        setLoginUser(user.uid);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -30,6 +32,17 @@ export const Login = () => {
             "。エラーメッセージ：" +
             errorMessage
         );
+      });
+  };
+
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        alert("ログアウトしました。");
+        setLoginUser("");
+      })
+      .catch((error) => {
+        alert("ログアウトに失敗しました。");
       });
   };
 
@@ -77,6 +90,11 @@ export const Login = () => {
             新規登録
           </Button>
         </Stack>
+        {loginUser && (
+          <Button variant="outlined" fullWidth onClick={logout}>
+            ログアウト
+          </Button>
+        )}
       </Container>
     </div>
   );
