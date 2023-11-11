@@ -41,15 +41,15 @@ export const Form = (props: Props) => {
     //入力テンプレートの取得
     getInputTmp(formName);
 
-    //setLoading(false);
+    setLoading(false);
     console.log("ローディングモーダルを非表示");
   }, []);
 
   //formDataが更新されたら、setLoadingをfalseにする
   useEffect(() => {
     if (formData.length > 0) {
-      sleep(600);
-      setLoading(false);
+      sleep(1000);
+      //setLoading(false);
     }
   }, [formData]);
 
