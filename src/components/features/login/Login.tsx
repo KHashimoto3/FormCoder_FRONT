@@ -1,5 +1,6 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export const Login = () => {
   const buttonStyle = {
@@ -9,7 +10,7 @@ export const Login = () => {
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
-  const [userId, setUserId] = useState<string>("");
+  const [userMail, setUserMail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
 
   return (
@@ -20,13 +21,13 @@ export const Login = () => {
         </Typography>
         <Stack spacing={2}>
           <TextField
-            id="user-id"
-            label="ユーザID"
+            id="user-mail"
+            label="メールアドレス"
             variant="standard"
             required
             fullWidth
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
+            value={userMail}
+            onChange={(e) => setUserMail(e.target.value)}
           />
           <TextField
             id="user-password"
