@@ -7,11 +7,23 @@ import { storage } from "../../../firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 import { Typography } from "@mui/material";
 
-export const Form = () => {
+type Props = {
+  setLoading: (loading: boolean) => void;
+};
+
+export const Form = (props: Props) => {
+  const { setLoading } = props;
+
   const { initInputArray } = useContext(InputContext);
 
   //フォームデータを格納するstate
   const [formData, setFormData] = useState<FormData[]>([]);
+
+  //待機を行う処理
+  const sleep = (waitMsec: number) => {
+    const startMsec = new Date().getTime();
+    while (new Date().getTime() - startMsec < waitMsec);
+  };
 
   useEffect(() => {
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
@@ -22,11 +34,23 @@ export const Form = () => {
       window.location.href = "/learning";
     }
 
+    console.log("ローディングモーダルを表示");
     //フォームデータの取得
     getFormData(formName);
     //入力テンプレートの取得
     getInputTmp(formName);
+
+    //setLoading(false);
+    console.log("ローディングモーダルを非表示");
   }, []);
+
+  //formDataが更新されたら、setLoadingをfalseにする
+  useEffect(() => {
+    if (formData.length > 0) {
+      sleep(1000);
+      setLoading(false);
+    }
+  }, [formData]);
 
   const getFormData = (formName: string | null) => {
     const refUrl = "form/" + formName + ".json";
