@@ -18,8 +18,7 @@ export const FormCard = (props: Props) => {
     <div>
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
-          sx={{ height: 140 }}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          sx={{ height: 140, backgroundColor: "#a1d43b" }}
           title="green iguana"
         />
         <CardContent>
@@ -31,7 +30,11 @@ export const FormCard = (props: Props) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={() => window.open(props.url, "_blank")}>
+          <Button
+            size="medium"
+            variant="contained"
+            onClick={() => window.open(props.url, "_blank")}
+          >
             始める
           </Button>
         </CardActions>
