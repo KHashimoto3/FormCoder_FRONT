@@ -15,7 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
 import { auth } from "../../firebase";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 import { useCookies } from "react-cookie";
 
@@ -47,7 +47,18 @@ export const TitleBar = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
 
-  console.log(cookies.userId);
+  //ログイン状態かどうかを確認する（cookieとauthの整合性を保つため）
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in
+      console.log("ログイン中");
+      console.log(user.uid);
+    } else {
+      // User is signed out
+      removeCookie("userId");
+      console.log("ログアウト済みです。");
+    }
+  });
 
   const logout = () => {
     signOut(auth)
