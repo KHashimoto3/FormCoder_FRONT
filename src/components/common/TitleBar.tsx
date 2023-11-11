@@ -40,6 +40,15 @@ export const TitleBar = () => {
     setAnchorElUser(null);
   };
 
+  const [userLogin, setUserLogin] = useState(false);
+
+  const buttonStyle = {
+    color: "#fff",
+    background:
+      "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
+    boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
+  };
+
   return (
     <AppBar
       position="static"
@@ -137,35 +146,45 @@ export const TitleBar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="アカウントメニューを開く">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <PersonIcon fontSize="large" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+          {userLogin ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="アカウントメニューを開く">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <PersonIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
+            <Button
+              variant="contained"
+              style={buttonStyle}
+              onClick={() => history.push("/login")}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              ログイン
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
