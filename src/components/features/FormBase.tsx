@@ -23,6 +23,8 @@ import { ref, uploadBytes } from "firebase/storage";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
+import { RotatingLines } from "react-loader-spinner";
+
 // Create a storage reference from our storage service
 
 export const FormBase = () => {
@@ -38,12 +40,21 @@ export const FormBase = () => {
   const [error, setError] = useState<boolean>(false);
   const [helper, setHelper] = useState<string>("");
 
+  //ローディングモーダル
+  const [loading, setLoading] = useState<boolean>(true);
+
+  //保存モーダルの開閉
   const handleClickOpen = () => {
     setDialogOpen(true);
   };
 
   const handleClose = () => {
     setDialogOpen(false);
+  };
+
+  //ローディングモーダルを閉じる
+  const handleLoadingClose = () => {
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -102,6 +113,28 @@ export const FormBase = () => {
           zIndex: "1000",
         }}
       >
+        <Dialog
+          open={loading}
+          onClose={handleLoadingClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          sx={{ zIndex: "10000" }}
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"学習データを読み込んでいます・・・"}
+          </DialogTitle>
+          <DialogContent>
+            <Box sx={{ textAlign: "center" }}>
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="96"
+                visible={true}
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
@@ -178,7 +211,7 @@ export const FormBase = () => {
             <Hint />
           </Grid>
           <Grid item xs={7}>
-            <Form />
+            <Form setLoading={setLoading} />
           </Grid>
         </Grid>
       </Box>
