@@ -11,6 +11,8 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { useCookies } from "react-cookie";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 export const Login = () => {
   const buttonStyle = {
     color: "#fff",
@@ -70,6 +72,18 @@ export const Login = () => {
   return (
     <div>
       <Container maxWidth="sm">
+        <Typography
+          variant="h6"
+          component="div"
+          onClick={() => {
+            location.href = "/";
+          }}
+          sx={{ cursor: "pointer" }}
+          gutterBottom
+        >
+          <ArrowBackIcon sx={{ marginRight: "10px" }} />
+          ホームに戻る
+        </Typography>
         <Typography variant="h4" component="div" gutterBottom>
           ログイン
         </Typography>

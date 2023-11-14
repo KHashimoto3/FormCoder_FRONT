@@ -182,7 +182,7 @@ export const TitleBar = () => {
             <>
               <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
                 <Typography variant="body1" sx={{ color: "#000" }}>
-                  ユーザー名
+                  ようこそ
                 </Typography>
               </Box>
               <Box sx={{ flexGrow: 0 }}>
