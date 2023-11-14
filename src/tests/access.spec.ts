@@ -13,6 +13,7 @@ test("存在するフォームにアクセスすると、「ヒント非表示�
   page,
 }) => {
   await page.goto("http://localhost:5173/form?form=experiment1");
+  await page.waitForTimeout(3000);
   const hintTitle = await page.getByTestId("hint-title");
   //ヒントのタイトルに、「ヒント非表示」が表示されていることを確認する。
   await expect(hintTitle).toContainText("ヒント非表示");
