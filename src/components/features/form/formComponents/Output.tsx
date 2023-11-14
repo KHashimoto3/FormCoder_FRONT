@@ -43,7 +43,7 @@ export const Output = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null,
+    isRunning ? delay : null
   );
 
   //upDateInputArrayにstringの配列を渡す
@@ -57,6 +57,9 @@ export const Output = (props: Props) => {
   const explanation = props.explanation;
   return (
     <textarea
+      style={{
+        fontSize: "16pt",
+      }}
       cols={40}
       rows={4}
       onFocus={() => {
@@ -67,7 +70,7 @@ export const Output = (props: Props) => {
       }}
       value={input}
       onChange={(
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       ) => {
         setInput(event.target.value);
       }}
