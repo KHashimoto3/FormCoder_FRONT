@@ -14,6 +14,11 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
+import { auth } from "../../firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+
+import { useCookies } from "react-cookie";
+
 interface Pages {
   pageName: string;
   pagePath: string;
@@ -38,6 +43,42 @@ export const TitleBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
+
+  //ログイン状態かどうかを確認する（cookieとauthの整合性を保つため）
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in
+      console.log("ログイン中");
+      console.log(user.uid);
+    } else {
+      // User is signed out
+      removeCookie("userId");
+      console.log("ログアウト済みです。");
+    }
+  });
+
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        alert("ログアウトしました。");
+        removeCookie("userId");
+        location.href = "/";
+      })
+      .catch((error) => {
+        alert("ログアウトに失敗しました。");
+      });
+  };
+
+  const [userLogin, setUserLogin] = useState(false);
+
+  const buttonStyle = {
+    color: "#fff",
+    background:
+      "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
+    boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
   return (
@@ -137,35 +178,52 @@ export const TitleBar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="アカウントメニューを開く">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <PersonIcon fontSize="large" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+          {cookies.userId ? (
+            <>
+              <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
+                <Typography variant="body1" sx={{ color: "#000" }}>
+                  ようこそ
+                </Typography>
+              </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="アカウントメニューを開く">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <PersonIcon fontSize="large" />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={logout}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              style={buttonStyle}
+              onClick={() => history.push("/login")}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              ログイン
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

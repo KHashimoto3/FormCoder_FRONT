@@ -7,6 +7,7 @@ import { InputArrayProvider } from "./components/features/form/InputArrayProvide
 import { StorageTestPage } from "./components/pages/StorageTestPage";
 import { LearningPage } from "./components/pages/LearningPage";
 import { ReasonCheckPage } from "./components/pages/ReasonCheckPage";
+import { LoginPage } from "./components/pages/LoginPage";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/reason-check">
             <ReasonCheckPage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
           </Route>
         </BrowserRouter>
       </InputArrayProvider>
