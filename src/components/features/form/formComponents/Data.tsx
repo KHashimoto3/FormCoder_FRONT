@@ -57,6 +57,9 @@ export const Data = (props: Props) => {
   const explanation = props.explanation;
   return (
     <textarea
+      style={{
+        fontSize: "16pt",
+      }}
       cols={40}
       rows={4}
       onFocus={() => {

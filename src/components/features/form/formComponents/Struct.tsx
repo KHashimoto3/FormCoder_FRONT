@@ -86,6 +86,9 @@ export const Struct = (props: Props) => {
       </pre>
       <div style={{ marginLeft: "50px" }}>
         <textarea
+          style={{
+            fontSize: "16pt",
+          }}
           cols={40}
           rows={4}
           onFocus={() => {
