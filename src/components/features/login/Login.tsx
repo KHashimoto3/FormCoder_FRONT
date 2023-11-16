@@ -7,9 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
-import { useCookies } from "react-cookie";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -23,8 +22,6 @@ export const Login = () => {
 
   const [userMail, setUserMail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
-
-  const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
 
   const [userMailError, setUserMailError] = useState<boolean>(false);
   const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
@@ -61,7 +58,6 @@ export const Login = () => {
         // Signed in
         const user = userCredential.user;
         alert("ログインしました。ユーザIDは、" + user.uid + "です。");
-        setCookie("userId", user.uid);
         location.href = "/";
       })
       .catch(() => {
