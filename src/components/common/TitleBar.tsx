@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AppBar,
   Container,
@@ -16,8 +16,6 @@ import { useHistory } from "react-router-dom";
 
 import { auth } from "../../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-
-import { useCookies } from "react-cookie";
 
 interface Pages {
   pageName: string;
@@ -45,34 +43,36 @@ export const TitleBar = () => {
     setAnchorElUser(null);
   };
 
-  const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
+  const [userLogin, setUserLogin] = useState(false);
 
   //ログイン状態かどうかを確認する（cookieとauthの整合性を保つため）
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in
-      console.log("ログイン中");
-      console.log(user.uid);
-    } else {
-      // User is signed out
-      removeCookie("userId");
-      console.log("ログアウト済みです。");
-    }
-  });
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        console.log("ログイン中");
+        console.log(user.uid);
+        setUserLogin(true);
+      } else {
+        // User is signed out
+        setUserLogin(false);
+        console.log("ログアウト済みです。");
+      }
+    });
+  }, []);
 
   const logout = () => {
     signOut(auth)
       .then(() => {
         alert("ログアウトしました。");
-        removeCookie("userId");
+        setUserLogin(false);
         location.href = "/";
       })
       .catch((error) => {
-        alert("ログアウトに失敗しました。");
+        alert("ログアウトに失敗しました。エラーメッセージ：" + error.message);
       });
   };
-
-  const [userLogin, setUserLogin] = useState(false);
 
   const buttonStyle = {
     color: "#fff",
@@ -178,7 +178,7 @@ export const TitleBar = () => {
             ))}
           </Box>
 
-          {cookies.userId ? (
+          {userLogin ? (
             <>
               <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
                 <Typography variant="body1" sx={{ color: "#000" }}>
@@ -208,7 +208,7 @@ export const TitleBar = () => {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={logout}>
+                    <MenuItem key={setting} onClick={() => logout()}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
