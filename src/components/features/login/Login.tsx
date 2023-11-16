@@ -60,8 +60,9 @@ export const Login = () => {
         alert("ログインしました。ユーザIDは、" + user.uid + "です。");
         location.href = "/";
       })
-      .catch(() => {
+      .catch((error) => {
         setLoginFailed(true);
+        console.log("ログインに失敗しました。：" + error.message);
       });
   };
 
