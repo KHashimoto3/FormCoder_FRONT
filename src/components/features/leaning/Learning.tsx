@@ -14,7 +14,7 @@ export const Learning = () => {
       id: 2,
       title: "Experiment2",
       description: "実験用のフォーム2です。",
-      url: "/form?form=experiment2-2",
+      url: "/form?form=experiment2",
     },
   ];
 
