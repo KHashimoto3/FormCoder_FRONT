@@ -36,8 +36,12 @@ export const Learning = () => {
           "Content-Type": "application/json",
         },
       }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
         if (!res.ok) {
           const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
           switch (statusCode) {
             case 400:
               throw new Error("Bad Request");
