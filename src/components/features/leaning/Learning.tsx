@@ -4,7 +4,6 @@ import { FormCardList } from "../../types/formCardList";
 import { useEffect, useState } from "react";
 
 export const Learning = () => {
-  //const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
   const apiBaseUrl = "https://form-coder-api.onrender.com";
   const [formList, setFormList] = useState<FormCardList[]>([]);
 
