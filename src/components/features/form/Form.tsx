@@ -86,7 +86,8 @@ export const Form = (props: Props) => {
         setFormData(data.formData);
       });
     } catch (error) {
-      console.error(error);
+      alert("エラーが発生しました。フォーム選択画面に戻ります。");
+      window.location.href = "/learning";
     }
   };
 
@@ -123,7 +124,7 @@ export const Form = (props: Props) => {
         initInputArray(inputTmp);
       });
     } catch (error) {
-      alert("ファイルが見つかりません！フォーム選択画面に戻ります。");
+      alert("エラーが発生しました。フォーム選択画面に戻ります。");
       window.location.href = "/learning";
     }
   };
