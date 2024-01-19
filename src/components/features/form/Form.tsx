@@ -12,6 +12,8 @@ type Props = {
 };
 
 export const Form = (props: Props) => {
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
   const { setLoading } = props;
 
   const { initInputArray } = useContext(InputContext);
@@ -32,6 +34,7 @@ export const Form = (props: Props) => {
     if (formName == null) {
       alert("フォームの種類が選択されていません。フォーム選択画面に戻ります。");
       window.location.href = "/learning";
+      return;
     }
 
     console.log("ローディングモーダルを表示");
@@ -52,47 +55,46 @@ export const Form = (props: Props) => {
     }
   }, [formData]);
 
-  const getFormData = (formName: string | null) => {
-    const refUrl = "form/" + formName + ".json";
-    getFormFileUrl(refUrl);
+  //フォームデータの取得
+  const getFormData = async (formName: string) => {
+    const url = `${apiBaseUrl}/form?formName=${formName}`;
+    try {
+      await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 401:
+              throw new Error("Unauthorized");
+            case 404:
+              throw new Error("Not Found");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        setFormData(data.formData);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getInputTmp = (formName: string | null) => {
     const refUrl = "form/" + formName + "_tmp.json";
     getTmpFileUrl(refUrl);
-  };
-
-  const getFormFileUrl = (refUrl: string) => {
-    getDownloadURL(ref(storage, refUrl))
-      .then((url) => {
-        getFormFile(url);
-      })
-      .catch((error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case "storage/object-not-found":
-            alert("ファイルが見つかりません！フォーム選択画面に戻ります。");
-            window.location.href = "/learning";
-            break;
-          case "storage/unauthorized":
-            alert(
-              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。",
-            );
-            window.location.href = "/learning";
-            break;
-          case "storage/canceled":
-            alert(
-              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。",
-            );
-            window.location.href = "/learning";
-            break;
-          case "storage/unknown":
-            alert("不明なエラーが発生しました！フォーム選択画面に戻ります。");
-            window.location.href = "/learning";
-            break;
-        }
-      });
   };
 
   const getTmpFileUrl = (refUrl: string) => {
@@ -110,13 +112,13 @@ export const Form = (props: Props) => {
             break;
           case "storage/unauthorized":
             alert(
-              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。",
+              "このファイルへのアクセス権限がありません！フォーム選択画面に戻ります。"
             );
             window.location.href = "/learning";
             break;
           case "storage/canceled":
             alert(
-              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。",
+              "ユーザーはアップロードをキャンセルしました。フォーム選択画面に戻ります。"
             );
             window.location.href = "/learning";
             break;
@@ -125,15 +127,6 @@ export const Form = (props: Props) => {
             window.location.href = "/learning";
             break;
         }
-      });
-  };
-
-  const getFormFile = async (url: string) => {
-    await fetch(url)
-      .then((res) => res.json())
-      .then((json) => {
-        const data = json.formData;
-        setFormData(data);
       });
   };
 
