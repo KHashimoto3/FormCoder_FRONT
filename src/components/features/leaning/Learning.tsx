@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 export const Learning = () => {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  console.log(apiBaseUrl);
   const [formList, setFormList] = useState<FormCardList[]>([]);
 
   useEffect(() => {
