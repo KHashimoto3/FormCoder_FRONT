@@ -60,6 +60,7 @@ export const Learning = () => {
     } catch (error) {
       alert("エラーが発生しました。" + error);
       alert("代わりにサンプルのリストを表示します。");
+      console.log(error);
       setFormList(sampleFormList);
     }
   };
