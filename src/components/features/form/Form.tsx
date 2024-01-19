@@ -87,6 +87,7 @@ export const Form = (props: Props) => {
       });
     } catch (error) {
       alert("エラーが発生しました。フォーム選択画面に戻ります。");
+      console.log(error);
       window.location.href = "/learning";
     }
   };
