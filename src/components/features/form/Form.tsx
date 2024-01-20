@@ -10,7 +10,6 @@ type Props = {
 };
 
 export const Form = (props: Props) => {
-  //const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
   const apiBaseUrl = "https://form-coder-api.onrender.com";
 
   const { setLoading } = props;

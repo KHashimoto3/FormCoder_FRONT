@@ -2,11 +2,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import { FormCard } from "./FormCard";
 import { FormCardList } from "../../types/formCardList";
 import { useEffect, useState } from "react";
+import { FormCardSkelton } from "./FormCardSkelton";
 
 export const Learning = () => {
-  //const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
   const apiBaseUrl = "https://form-coder-api.onrender.com";
   const [formList, setFormList] = useState<FormCardList[]>([]);
+
+  const [skeltonShow, setSkeltonShow] = useState<boolean>(true);
 
   useEffect(() => {
     pullFormList();
@@ -57,6 +59,7 @@ export const Learning = () => {
         }
         const data = await res.json();
         setFormList(data.formList);
+        setSkeltonShow(false);
       });
     } catch (error) {
       alert("エラーが発生しました。" + error);
@@ -76,17 +79,28 @@ export const Learning = () => {
       >
         すべてのフォーム
       </Typography>
-      <Grid container spacing={1}>
-        {formList.map((form) => (
-          <Grid item xs={3} key={form.id}>
-            <FormCard
-              title={form.title}
-              description={form.description}
-              url={form.url}
-            />
+      {skeltonShow ? (
+        <Grid container spacing={1}>
+          <Grid item xs={3}>
+            <FormCardSkelton />
           </Grid>
-        ))}
-      </Grid>
+          <Grid item xs={3}>
+            <FormCardSkelton />
+          </Grid>
+        </Grid>
+      ) : (
+        <Grid container spacing={1}>
+          {formList.map((form) => (
+            <Grid item xs={3} key={form.id}>
+              <FormCard
+                title={form.title}
+                description={form.description}
+                url={form.url}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </Box>
   );
 };
