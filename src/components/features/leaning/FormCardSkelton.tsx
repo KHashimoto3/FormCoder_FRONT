@@ -9,14 +9,14 @@ export const FormCardSkelton = () => {
           <div>
             <Skeleton
               animation="wave"
-              height={10}
+              height={30}
               style={{ marginBottom: 6 }}
             />
             <Skeleton animation="wave" height={10} width="80%" />
           </div>
         </CardContent>
         <CardActions>
-          <Skeleton animation="wave" height={10} width="80%" />
+          <Skeleton animation="wave" height={60} width="30%" />
         </CardActions>
       </Card>
     </div>
