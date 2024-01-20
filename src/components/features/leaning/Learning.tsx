@@ -1,4 +1,4 @@
-import { Box, Grid, Skeleton, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { FormCard } from "./FormCard";
 import { FormCardList } from "../../types/formCardList";
 import { useEffect, useState } from "react";
