@@ -15,9 +15,6 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 
 import { HintCompProvider } from "./HintCompProvider";
 
-import { storage } from "../../../firebase";
-import { getDownloadURL, ref } from "firebase/storage";
-
 import { HintData } from "../../types/hintData";
 
 import Snackbar from "@mui/material/Snackbar";
@@ -30,6 +27,8 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(
 );
 
 export const Hint = () => {
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
+
   const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
@@ -69,57 +68,46 @@ export const Hint = () => {
 
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
-    getHintData("hintData");
+    getHintData();
   }, []);
 
-  /*ヒントデータが変わるか、ヒントのステップが変わった場合に、アコーディオンの開閉状況を変更
-  useEffect(() => {
-    const initialExpandFlags = currentHintData.hintList.map((_, idx) =>
-      idx == currentHintStep ? true : false
-    );
-    console.log("配列" + initialExpandFlags);
-    setExpandFlags(initialExpandFlags);
-  }, [currentHintData.hintList, currentHintStep]);
-*/
-
-  const getHintData = (fileName: string) => {
-    const refUrl = "hint/" + fileName + ".json";
-    getFileUrl(refUrl);
-  };
-
-  const getFileUrl = (refUrl: string) => {
-    getDownloadURL(ref(storage, refUrl))
-      .then((url) => {
-        getJsonFile(url);
-      })
-      .catch((error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case "storage/object-not-found":
-            alert("ファイルが見つかりません！");
-            break;
-          case "storage/unauthorized":
-            alert("このファイルへのアクセス権限がありません！");
-            break;
-          case "storage/canceled":
-            alert("ユーザーはアップロードをキャンセルしました。");
-            break;
-          case "storage/unknown":
-            alert("不明なエラーが発生しました！");
-            break;
+  const getHintData = async () => {
+    const url = `${apiBaseUrl}/hint`;
+    try {
+      await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 401:
+              throw new Error("Unauthorized");
+            case 404:
+              throw new Error("Not Found");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
         }
+        const data = await res.json();
+        setHintData(data.hintData);
+        setCurrentHintData(data.hintData[0]);
       });
-  };
-
-  const getJsonFile = async (url: string) => {
-    await fetch(url)
-      .then((res) => res.json())
-      .then((json) => {
-        const data = json.hintData;
-        setHintData(data);
-        setCurrentHintData(data[0]);
-      });
+    } catch (error) {
+      alert("エラーが発生しました。フォーム選択画面に戻ります。");
+      console.log(error);
+      window.location.href = "/learning";
+    }
   };
 
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
@@ -130,14 +118,6 @@ export const Hint = () => {
       }
     });
   }, [currentPartType]);
-
-  /*const changeExpandFlag = (idx: number) => {
-    setExpandFlags((prevExpandFlags) => {
-      const newExpandFlags = [...prevExpandFlags];
-      newExpandFlags[idx] = !newExpandFlags[idx];
-      return newExpandFlags;
-    });
-  };*/
 
   return (
     <Container maxWidth="md">
