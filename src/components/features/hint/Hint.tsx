@@ -23,13 +23,16 @@ import { HintData } from "../../types/hintData";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(
-  function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  },
-);
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const Hint = () => {
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
+
   const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);
 
@@ -69,8 +72,47 @@ export const Hint = () => {
 
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
-    getHintData("hintData");
+    getHintData();
   }, []);
+
+  const getHintData = async () => {
+    const url = `${apiBaseUrl}/hint`;
+    try {
+      await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 401:
+              throw new Error("Unauthorized");
+            case 404:
+              throw new Error("Not Found");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        setHintData(data.hintData);
+        setCurrentHintData(data.hintData[0]);
+      });
+    } catch (error) {
+      alert("エラーが発生しました。フォーム選択画面に戻ります。");
+      console.log(error);
+      window.location.href = "/learning";
+    }
+  };
 
   /*ヒントデータが変わるか、ヒントのステップが変わった場合に、アコーディオンの開閉状況を変更
   useEffect(() => {
@@ -82,7 +124,7 @@ export const Hint = () => {
   }, [currentHintData.hintList, currentHintStep]);
 */
 
-  const getHintData = (fileName: string) => {
+  /*const getHintData = (fileName: string) => {
     const refUrl = "hint/" + fileName + ".json";
     getFileUrl(refUrl);
   };
@@ -120,7 +162,7 @@ export const Hint = () => {
         setHintData(data);
         setCurrentHintData(data[0]);
       });
-  };
+  };*/
 
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
