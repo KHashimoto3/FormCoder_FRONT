@@ -15,9 +15,6 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 
 import { HintCompProvider } from "./HintCompProvider";
 
-import { storage } from "../../../firebase";
-import { getDownloadURL, ref } from "firebase/storage";
-
 import { HintData } from "../../types/hintData";
 
 import Snackbar from "@mui/material/Snackbar";
@@ -114,56 +111,6 @@ export const Hint = () => {
     }
   };
 
-  /*ヒントデータが変わるか、ヒントのステップが変わった場合に、アコーディオンの開閉状況を変更
-  useEffect(() => {
-    const initialExpandFlags = currentHintData.hintList.map((_, idx) =>
-      idx == currentHintStep ? true : false
-    );
-    console.log("配列" + initialExpandFlags);
-    setExpandFlags(initialExpandFlags);
-  }, [currentHintData.hintList, currentHintStep]);
-*/
-
-  /*const getHintData = (fileName: string) => {
-    const refUrl = "hint/" + fileName + ".json";
-    getFileUrl(refUrl);
-  };
-
-  const getFileUrl = (refUrl: string) => {
-    getDownloadURL(ref(storage, refUrl))
-      .then((url) => {
-        getJsonFile(url);
-      })
-      .catch((error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case "storage/object-not-found":
-            alert("ファイルが見つかりません！");
-            break;
-          case "storage/unauthorized":
-            alert("このファイルへのアクセス権限がありません！");
-            break;
-          case "storage/canceled":
-            alert("ユーザーはアップロードをキャンセルしました。");
-            break;
-          case "storage/unknown":
-            alert("不明なエラーが発生しました！");
-            break;
-        }
-      });
-  };
-
-  const getJsonFile = async (url: string) => {
-    await fetch(url)
-      .then((res) => res.json())
-      .then((json) => {
-        const data = json.hintData;
-        setHintData(data);
-        setCurrentHintData(data[0]);
-      });
-  };*/
-
   //partTypeの変更を検知し、それに合ったヒントをカレントなヒントデータとする
   useEffect(() => {
     hintData.map((hint) => {
@@ -172,14 +119,6 @@ export const Hint = () => {
       }
     });
   }, [currentPartType]);
-
-  /*const changeExpandFlag = (idx: number) => {
-    setExpandFlags((prevExpandFlags) => {
-      const newExpandFlags = [...prevExpandFlags];
-      newExpandFlags[idx] = !newExpandFlags[idx];
-      return newExpandFlags;
-    });
-  };*/
 
   return (
     <Container maxWidth="md">
