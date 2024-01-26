@@ -18,8 +18,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
-import { auth, storage } from "../../firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { auth } from "../../firebase";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
@@ -29,6 +28,8 @@ import { onAuthStateChanged } from "firebase/auth";
 // Create a storage reference from our storage service
 
 export const FormBase = () => {
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
+
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const [formName, setFormName] = useState<string>("フォーム名");
@@ -87,36 +88,52 @@ export const FormBase = () => {
     });
   }, []);
 
-  const saveLearningData = (userName: string) => {
-    //入力がない場合はエラーを出す
+  const saveLearningData = async (userName: string) => {
     if (userName == "") {
       setError(true);
       setHelper("名前の入力は必須です。");
       return;
     }
-    setError(false);
-    setHelper("");
-    //リクエストパラメータのフォーム名を取得し、フォームを取得する
-    const url = new URL(window.location.href);
-    const formName = url.searchParams.get("form");
-    //現在ログインしているユーザーのIDを取得する
+    const url = `${apiBaseUrl}/record`;
     const userId = auth.currentUser?.uid;
     if (userId == null) {
       alert("ログインしていないため、保存できません。");
+      location.href = "/learning";
       return;
     }
-    const storageRef = ref(
-      storage,
-      "record/" + userId + "_" + formName + ".json",
-    );
-    const obj = { fbData: hintFBArray, input: inputArray };
-    const blob = new Blob([JSON.stringify(obj, null, 2)], {
-      type: "application/json",
-    });
-    uploadBytes(storageRef, blob).then(() => {
-      alert("アップロード完了しました！");
-      handleClose();
-    });
+    //TODO: userNameとformNameを渡せるようにAPIを変更する
+    const obj = {
+      userId: userId,
+      formName: formName,
+      fbData: hintFBArray,
+      inputData: inputArray,
+    };
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }).then(async (res) => {
+        if (!res.ok) {
+          const statusCode = res.status;
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        alert("アップロード完了しました！");
+      });
+    } catch (error) {
+      alert("アップロード中にエラーが発生しました。");
+      console.log(error);
+    }
   };
 
   const buttonStyle = {
