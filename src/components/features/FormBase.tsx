@@ -18,8 +18,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
-import { auth, storage } from "../../firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { auth } from "../../firebase";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
@@ -136,38 +135,6 @@ export const FormBase = () => {
       console.log(error);
     }
   };
-
-  /*const saveLearningData = (userName: string) => {
-    //入力がない場合はエラーを出す
-    if (userName == "") {
-      setError(true);
-      setHelper("名前の入力は必須です。");
-      return;
-    }
-    setError(false);
-    setHelper("");
-    //リクエストパラメータのフォーム名を取得し、フォームを取得する
-    const url = new URL(window.location.href);
-    const formName = url.searchParams.get("form");
-    //現在ログインしているユーザーのIDを取得する
-    const userId = auth.currentUser?.uid;
-    if (userId == null) {
-      alert("ログインしていないため、保存できません。");
-      return;
-    }
-    const storageRef = ref(
-      storage,
-      "record/" + userId + "_" + formName + ".json",
-    );
-    const obj = { fbData: hintFBArray, input: inputArray };
-    const blob = new Blob([JSON.stringify(obj, null, 2)], {
-      type: "application/json",
-    });
-    uploadBytes(storageRef, blob).then(() => {
-      alert("アップロード完了しました！");
-      handleClose();
-    });
-  };*/
 
   const buttonStyle = {
     color: "#fff",
