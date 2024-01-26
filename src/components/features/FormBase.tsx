@@ -96,9 +96,15 @@ export const FormBase = () => {
       return;
     }
     const url = `${apiBaseUrl}/record`;
+    const userId = auth.currentUser?.uid;
+    if (userId == null) {
+      alert("ログインしていないため、保存できません。");
+      location.href = "/learning";
+      return;
+    }
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
-      userName: userName,
+      userId: userId,
       formName: formName,
       fbData: hintFBArray,
       inputData: inputArray,
