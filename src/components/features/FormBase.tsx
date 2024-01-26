@@ -45,7 +45,7 @@ export const FormBase = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   //ログイン状態
-  const [userLogin, setUserLogin] = useState<boolean>(false);
+  const [, setUserLogin] = useState<boolean>(false);
 
   //保存モーダルの開閉
   const handleClickOpen = () => {
