@@ -28,6 +28,8 @@ import { RotatingLines } from "react-loader-spinner";
 // Create a storage reference from our storage service
 
 export const FormBase = () => {
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
+
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const [formName, setFormName] = useState<string>("フォーム名");
@@ -68,7 +70,49 @@ export const FormBase = () => {
     }
   }, []);
 
-  const saveLearningData = (userName: string) => {
+  const saveLearningData = async (userName: string) => {
+    if (userName == "") {
+      setError(true);
+      setHelper("名前の入力は必須です。");
+      return;
+    }
+    const url = `${apiBaseUrl}/record`;
+    //TODO: userNameとformNameを渡せるようにAPIを変更する
+    const obj = {
+      userName: userName,
+      formName: formName,
+      fbData: hintFBArray,
+      inputData: inputArray,
+    };
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }).then(async (res) => {
+        if (!res.ok) {
+          const statusCode = res.status;
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        alert("アップロード完了しました！");
+      });
+    } catch (error) {
+      alert("アップロード中にエラーが発生しました。");
+      console.log(error);
+    }
+  };
+
+  /*const saveLearningData = (userName: string) => {
     //入力がない場合はエラーを出す
     if (userName == "") {
       setError(true);
@@ -92,7 +136,7 @@ export const FormBase = () => {
       alert("アップロード完了しました！");
       handleClose();
     });
-  };
+  };*/
 
   const buttonStyle = {
     color: "#fff",
