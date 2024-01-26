@@ -107,7 +107,7 @@ export const FormBase = () => {
     }
     const storageRef = ref(
       storage,
-      "record/" + userId + "_" + formName + ".json"
+      "record/" + userId + "_" + formName + ".json",
     );
     const obj = { fbData: hintFBArray, input: inputArray };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
