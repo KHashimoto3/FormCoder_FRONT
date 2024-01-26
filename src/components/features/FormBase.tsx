@@ -76,7 +76,6 @@ export const FormBase = () => {
       if (user) {
         // User is signed in
         console.log("ログイン中");
-        console.log(user.uid);
         setUserLogin(true);
       } else {
         // User is signed out

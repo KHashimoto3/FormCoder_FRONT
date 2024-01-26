@@ -54,10 +54,9 @@ export const Login = () => {
     setInputMissed(false);
 
     signInWithEmailAndPassword(auth, userMail, userPassword)
-      .then((userCredential) => {
+      .then(() => {
         // Signed in
-        const user = userCredential.user;
-        alert("ログインしました。ユーザIDは、" + user.uid + "です。");
+        alert("ログインしました。");
         location.href = "/";
       })
       .catch((error) => {
