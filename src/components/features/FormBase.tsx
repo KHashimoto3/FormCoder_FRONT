@@ -18,12 +18,13 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
-import { storage } from "../../firebase";
+import { auth, storage } from "../../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
 import { RotatingLines } from "react-loader-spinner";
+import { onAuthStateChanged } from "firebase/auth";
 
 // Create a storage reference from our storage service
 
@@ -42,6 +43,9 @@ export const FormBase = () => {
 
   //ローディングモーダル
   const [loading, setLoading] = useState<boolean>(true);
+
+  //ログイン状態
+  const [, setUserLogin] = useState<boolean>(false);
 
   //保存モーダルの開閉
   const handleClickOpen = () => {
@@ -66,6 +70,21 @@ export const FormBase = () => {
     } else {
       setFormName(formName);
     }
+
+    //ログイン状態を確認する
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        console.log("ログイン中");
+        setUserLogin(true);
+      } else {
+        // User is signed out
+        setUserLogin(false);
+        console.log("ログアウト済みです。");
+        alert("フォームを利用するにはログインが必要です。");
+        location.href = "/learning";
+      }
+    });
   }, []);
 
   const saveLearningData = (userName: string) => {
@@ -80,9 +99,15 @@ export const FormBase = () => {
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
     const url = new URL(window.location.href);
     const formName = url.searchParams.get("form");
+    //現在ログインしているユーザーのIDを取得する
+    const userId = auth.currentUser?.uid;
+    if (userId == null) {
+      alert("ログインしていないため、保存できません。");
+      return;
+    }
     const storageRef = ref(
       storage,
-      "record/" + userName + "_" + formName + ".json",
+      "record/" + userId + "_" + formName + ".json",
     );
     const obj = { fbData: hintFBArray, input: inputArray };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
