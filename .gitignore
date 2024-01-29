@@ -26,6 +26,7 @@ dist-ssr
 # Firebase
 .firebase
 .env
+/firestore.rules
 
 # data
 src/assets/formData
