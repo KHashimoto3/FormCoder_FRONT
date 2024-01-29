@@ -82,7 +82,41 @@ paths:
           description: フォームリストが空です。
         "500":
           description: 何らかのエラーが発生しました。
-
+  /hint:
+    get:
+      tags:
+        - hint
+      summary: フォームのヒントデータを返す
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hintData:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        partType:
+                          type: string
+                        partTitle:
+                          type: string
+                        hintList:
+                          type: object
+                          properties:
+                            hintType:
+                              type: string
+                            hintTitle:
+                              type: string
+                            hint:
+                              type: string
+        "404":
+          description: ヒントデータが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
 components:
   schemas:
     Form:
