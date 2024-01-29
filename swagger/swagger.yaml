@@ -130,3 +130,19 @@ components:
           type: string
         childrenPart:
           type: string
+    Hint:
+      type: object
+      properties:
+        partType:
+          type: string
+        partTitle:
+          type: string
+        hintList:
+          type: object
+          properties:
+            hintType:
+              type: string
+            hintTitle:
+              type: string
+            hint:
+              type: string
