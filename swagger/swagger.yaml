@@ -117,6 +117,58 @@ paths:
           description: ヒントデータが見つかりません。
         "500":
           description: 何らかのエラーが発生しました。
+  /record:
+    post:
+      tags:
+        - record
+      summary: フォームの回答データを保存する
+      requestBody:
+        description: フォームの回答データを保存する
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                formName:
+                  type: string
+                fbData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      currentHintStep:
+                        type: number
+                      ClickedHintStep:
+                        type: number
+                inputData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      inputDataArray:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        "200":
+          description: アップロードに成功しました。
+        "400":
+          description: 必要なデータが渡されていません。
+        "404":
+          description: 指定されたフォーム名の回答テンプレートが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
 components:
   schemas:
     Form:
