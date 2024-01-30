@@ -4,6 +4,7 @@ import { FormProvider } from "../FormProvider";
 import { Process } from "./Process";
 import { HintContext } from "../../hint/HintProvider";
 import useInterval from "../hooks/useinterval";
+import { InputContext } from "../InputArrayProvider";
 
 type Props = {
   id: number;
@@ -17,6 +18,15 @@ export const Elseif = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
   const { setCurrentHintId } = useContext(HintContext);
+
+  //入力の記録に関する処理
+  const { upDateInputArray } = useContext(InputContext);
+  const [input, setInput] = useState<string>("");
+
+  const updateInput = (idx: number, input: string) => {
+    const str: string[] = [input];
+    upDateInputArray(idx, str);
+  };
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
@@ -73,6 +83,9 @@ export const Elseif = (props: Props) => {
             style={inputStyle}
             type="text"
             size={5}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setInput(event.target.value);
+            }}
             onFocus={() => {
               setCurrentHintId(formId);
               setCurrentPartType(partType);
@@ -80,6 +93,7 @@ export const Elseif = (props: Props) => {
               setIsRunning(true);
             }}
             onBlur={() => {
+              updateInput(props.inputIdx, input);
               setIsRunning(false);
             }}
           />

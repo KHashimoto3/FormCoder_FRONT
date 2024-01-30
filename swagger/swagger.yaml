@@ -1,0 +1,200 @@
+openapi: 3.0.0
+info:
+  title: Swagger Pestore
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+tags:
+  - name: form
+    description: Everything about your user
+  - name: hint
+    description: Everything about your hint
+  - name: record
+    description: Everything about your record
+paths:
+  /form:
+    get:
+      tags:
+        - form
+      summary: フォームデータを返す
+      parameters:
+        - name: formName
+          in: query
+          description: "フォームの名前（英数字）を渡す"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  formData:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        partType:
+                          type: string
+                        explanation:
+                          type: string
+                        childrenPart:
+                          type: string
+
+        "400":
+          description: パラメータformNameは必須です
+        "404":
+          description: 指定されたフォーム名の回答テンプレートが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました
+  /form/list:
+    get:
+      tags:
+        - form
+      summary: フォーム名の一覧を返す
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    imageUrl:
+                      type: string
+                    formUrl:
+                      type: string
+        "404":
+          description: フォームリストが空です。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /hint:
+    get:
+      tags:
+        - hint
+      summary: フォームのヒントデータを返す
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hintData:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        partType:
+                          type: string
+                        partTitle:
+                          type: string
+                        hintList:
+                          type: object
+                          properties:
+                            hintType:
+                              type: string
+                            hintTitle:
+                              type: string
+                            hint:
+                              type: string
+        "404":
+          description: ヒントデータが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /record:
+    post:
+      tags:
+        - record
+      summary: フォームの回答データを保存する
+      requestBody:
+        description: フォームの回答データを保存する
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                formName:
+                  type: string
+                fbData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      currentHintStep:
+                        type: number
+                      ClickedHintStep:
+                        type: number
+                inputData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      inputDataArray:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        "200":
+          description: アップロードに成功しました。
+        "400":
+          description: 必要なデータが渡されていません。
+        "404":
+          description: 指定されたフォーム名の回答テンプレートが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
+components:
+  schemas:
+    Form:
+      type: object
+      properties:
+        id:
+          type: number
+        partType:
+          type: string
+        explanation:
+          type: string
+        childrenPart:
+          type: string
+    Hint:
+      type: object
+      properties:
+        partType:
+          type: string
+        partTitle:
+          type: string
+        hintList:
+          type: object
+          properties:
+            hintType:
+              type: string
+            hintTitle:
+              type: string
+            hint:
+              type: string

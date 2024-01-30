@@ -8,5 +8,12 @@
         "destination": "/index.html"
       }
     ]
-  }
+  },
+  "firestore": [
+    {
+      "database": "form-hint-db",
+      "rules": "firestore.form-hint-db.rules",
+      "indexes": "firestore.form-hint-db.indexes.json"
+    }
+  ]
 }

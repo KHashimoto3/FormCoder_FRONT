@@ -26,6 +26,8 @@ dist-ssr
 # Firebase
 .firebase
 .env
+/firestore.form-hint-db.rules
+/firestore.form-hint-db.indexes.json
 
 # data
 src/assets/formData
