@@ -18,7 +18,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
-import { auth } from "../../firebase";
+import auth from "../../firebase";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
