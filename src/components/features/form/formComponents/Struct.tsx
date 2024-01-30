@@ -49,7 +49,7 @@ export const Struct = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null
+    isRunning ? delay : null,
   );
 
   const formId = props.id;
@@ -96,7 +96,7 @@ export const Struct = (props: Props) => {
           cols={40}
           rows={4}
           onChange={(
-            event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
           ) => {
             setInput2(event.target.value);
           }}
