@@ -29,6 +29,8 @@ export const Function = (props: Props) => {
     fontSize: "16pt",
   };
 
+  /* TODO: 関数の引数を可変にする */
+
   //子要素がなければエラーを出し、あればその子要素を表示する
   if (typeof props.childrenPart == "string") {
     alert(
