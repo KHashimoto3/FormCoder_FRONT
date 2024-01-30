@@ -4,6 +4,7 @@ import { FormProvider } from "../FormProvider";
 import { Process } from "./Process";
 import { HintContext } from "../../hint/HintProvider";
 import useInterval from "../hooks/useinterval";
+import { InputContext } from "../InputArrayProvider";
 
 type Props = {
   id: number;
@@ -17,6 +18,15 @@ export const Elseif = (props: Props) => {
   const { setCurrentPartType } = useContext(HintContext);
   const { setHintTypeC } = useContext(HintContext);
   const { setCurrentHintId } = useContext(HintContext);
+
+  //入力の記録に関する処理
+  const { upDateInputArray } = useContext(InputContext);
+  const [input, setInput] = useState<string>("");
+
+  const updateInput = (idx: number, input: string) => {
+    const str: string[] = [input];
+    upDateInputArray(idx, str);
+  };
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
@@ -42,7 +52,7 @@ export const Elseif = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null,
+    isRunning ? delay : null
   );
 
   const formId = props.id;
@@ -60,7 +70,7 @@ export const Elseif = (props: Props) => {
   //子要素がなければエラーを出し、あればその子要素を表示する
   if (typeof props.childrenPart == "string") {
     alert(
-      "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。",
+      "データ不正エラー：Forフォームの中には、少なくとも１つの子要素が必要です。"
     );
     return <Process id={-1} partType="PROC" explanation="" inputIdx={-1} />;
   } else if (Array.isArray(props.childrenPart)) {
@@ -73,6 +83,9 @@ export const Elseif = (props: Props) => {
             style={inputStyle}
             type="text"
             size={5}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setInput(event.target.value);
+            }}
             onFocus={() => {
               setCurrentHintId(formId);
               setCurrentPartType(partType);
@@ -80,6 +93,7 @@ export const Elseif = (props: Props) => {
               setIsRunning(true);
             }}
             onBlur={() => {
+              updateInput(props.inputIdx, input);
               setIsRunning(false);
             }}
           />

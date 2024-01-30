@@ -15,9 +15,15 @@ export const Struct = (props: Props) => {
   const { setHintTypeC } = useContext(HintContext);
   const { setCurrentHintId } = useContext(HintContext);
 
-  const [input, setInput] = useState<string>("");
-
+  //入力の記録に関する処理
   const { upDateInputArray } = useContext(InputContext);
+  const [input1, setInput1] = useState<string>("");
+  const [input2, setInput2] = useState<string>("");
+
+  const updateInput = (idx: number, input1: string, input2: string) => {
+    const str: string[] = [input1, input2];
+    upDateInputArray(idx, str);
+  };
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
@@ -43,14 +49,8 @@ export const Struct = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null,
+    isRunning ? delay : null
   );
-
-  //upDateInputArrayにstringの配列を渡す
-  const updateInput = (idx: number, input: string) => {
-    const str: string[] = [input];
-    upDateInputArray(idx, str);
-  };
 
   const formId = props.id;
   const partType = props.partType;
@@ -72,6 +72,9 @@ export const Struct = (props: Props) => {
           style={inputStyle}
           type="text"
           size={5}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setInput1(event.target.value);
+          }}
           onFocus={() => {
             setCurrentHintId(formId);
             setCurrentPartType(partType);
@@ -79,6 +82,7 @@ export const Struct = (props: Props) => {
             setIsRunning(true);
           }}
           onBlur={() => {
+            updateInput(props.inputIdx, input1, input2);
             setIsRunning(false);
           }}
         />{" "}
@@ -91,19 +95,19 @@ export const Struct = (props: Props) => {
           }}
           cols={40}
           rows={4}
+          onChange={(
+            event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+          ) => {
+            setInput2(event.target.value);
+          }}
           onFocus={() => {
             setCurrentPartType(partType);
             setHintTypeC(explanation);
             setIsRunning(true);
           }}
-          value={input}
-          onChange={(
-            event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-          ) => {
-            setInput(event.target.value);
-          }}
+          value={input2}
           onBlur={() => {
-            updateInput(props.inputIdx, input);
+            updateInput(props.inputIdx, input1, input2);
             setIsRunning(false);
           }}
         ></textarea>
