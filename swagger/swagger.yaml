@@ -12,6 +12,8 @@ tags:
     description: Everything about your hint
   - name: record
     description: Everything about your record
+  - name: programm
+    description: Everything about your programm
 paths:
   /form:
     get:
@@ -167,6 +169,50 @@ paths:
           description: 必要なデータが渡されていません。
         "404":
           description: 指定されたフォーム名の回答テンプレートが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /programm/error/resulve:
+    post:
+      tags:
+        - programm
+      summary: プログラムエラーの解決法を返す
+      requestBody:
+        description: プログラムのエラーを解決する
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultMethods:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        error:
+                          type: string
+                        row:
+                          type: number
+                        column:
+                          type: number
+                        description:
+                          type: string
+                        method:
+                          type: string
+        "400":
+          description: 必要なデータが渡されていません。
         "500":
           description: 何らかのエラーが発生しました。
 components:
