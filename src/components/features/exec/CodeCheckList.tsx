@@ -1,4 +1,4 @@
-import { Box, Button, Container } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { CheckResult } from "./CheckResult";
 import { ErrorResolve } from "../../types/errorResolve";
 import { CheckMissResult } from "../../types/checkMissResult";
@@ -18,7 +18,9 @@ export const CodeCheckList = (props: Props) => {
   return (
     <>
       <Container maxWidth="md">
-        <h1>チェック結果が表示されます</h1>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          ＜実行結果＞
+        </Typography>
         <Box
           sx={{
             justifyContent: "center",

@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 type Props = {
   code: string;
@@ -13,7 +13,9 @@ export const CodeCheckInput = (props: Props) => {
   return (
     <>
       <Container maxWidth="md">
-        <p>＜コード＞</p>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          ＜コード＞
+        </Typography>
         <textarea
           rows={10}
           cols={45}
@@ -21,7 +23,9 @@ export const CodeCheckInput = (props: Props) => {
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
-        <p>＜入力＞</p>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          ＜入力＞
+        </Typography>
         <textarea
           rows={4}
           cols={45}

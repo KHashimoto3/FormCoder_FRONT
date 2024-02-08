@@ -119,7 +119,7 @@ export const CodeExec = () => {
       <div
         style={{
           width: "100%",
-          height: "auto",
+          height: "100%",
           overflowX: "hidden",
           overflowY: "scroll",
           background: "#ffffff",
