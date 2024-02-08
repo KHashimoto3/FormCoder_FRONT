@@ -8,8 +8,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControlLabel,
   Grid,
   IconButton,
+  Switch,
   TextField,
   Toolbar,
   Typography,
@@ -201,6 +203,13 @@ export const FormBase = () => {
               </Typography>
             </Box>
 
+            <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
+              <FormControlLabel
+                control={<Switch defaultChecked />}
+                sx={{ color: "#000" }}
+                label="実行画面を表示"
+              />
+            </Box>
             <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
               <Button onClick={handleClickOpen} style={buttonStyle}>
                 保存して終了
