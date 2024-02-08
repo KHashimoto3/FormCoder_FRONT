@@ -26,6 +26,7 @@ import { InputContext } from "./form/InputArrayProvider";
 
 import { RotatingLines } from "react-loader-spinner";
 import { onAuthStateChanged } from "firebase/auth";
+import { CodeExec } from "./exec/CodeExec";
 
 // Create a storage reference from our storage service
 
@@ -49,6 +50,9 @@ export const FormBase = () => {
 
   //ログイン状態
   const [, setUserLogin] = useState<boolean>(false);
+
+  //実行画面表示の切り替え
+  const [execView, setExecView] = useState<boolean>(false);
 
   //保存モーダルの開閉
   const handleClickOpen = () => {
@@ -205,7 +209,14 @@ export const FormBase = () => {
 
             <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
               <FormControlLabel
-                control={<Switch defaultChecked />}
+                control={
+                  <Switch
+                    checked={execView}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setExecView(event.target.checked)
+                    }
+                  />
+                }
                 sx={{ color: "#000" }}
                 label="実行画面を表示"
               />
@@ -256,6 +267,7 @@ export const FormBase = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      {execView ? <CodeExec /> : null}
       <Box sx={{ marginTop: "100px" }}>
         <Grid container spacing={2}>
           <Grid item xs={5}>

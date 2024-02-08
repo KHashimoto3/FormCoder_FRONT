@@ -115,7 +115,7 @@ export const CodeCheck = () => {
   };
 
   return (
-    <>
+    <div style={{ background: "#ffffff", zIndex: "9999", width: "1000px" }}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <CodeCheckInput
@@ -134,6 +134,6 @@ export const CodeCheck = () => {
           />
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };

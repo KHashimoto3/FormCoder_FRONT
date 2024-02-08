@@ -13,10 +13,9 @@ export const CodeCheckInput = (props: Props) => {
   return (
     <>
       <Container maxWidth="md">
-        <h1>Code Docter</h1>
         <p>＜コード＞</p>
         <textarea
-          rows={15}
+          rows={10}
           cols={45}
           style={{ fontSize: "18pt", borderRadius: "10px" }}
           value={code}
@@ -24,7 +23,7 @@ export const CodeCheckInput = (props: Props) => {
         />
         <p>＜入力＞</p>
         <textarea
-          rows={5}
+          rows={4}
           cols={45}
           style={{ fontSize: "18pt", borderRadius: "10px" }}
           value={codeInput}
