@@ -171,7 +171,53 @@ paths:
           description: 指定されたフォーム名の回答テンプレートが見つかりません。
         "500":
           description: 何らかのエラーが発生しました。
-  /programm/error/resulve:
+  /programm/exec-result:
+    post:
+      tags:
+        - programm
+      summary: プログラムを実行し、その結果を返す
+      requestBody:
+        description: プログラムを実行する
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                input:
+                  type: string
+      responses:
+        "x-200-Ok":
+          description: リクエストに成功し、コンパイルエラーがない場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  output:
+                    type: string
+        "x-200-Ng":
+          description: リクエストに成功し、コンパイルエラーがある場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: string
+        "400":
+          description: 必要なデータが渡されていません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /programm/error/resolve:
     post:
       tags:
         - programm
