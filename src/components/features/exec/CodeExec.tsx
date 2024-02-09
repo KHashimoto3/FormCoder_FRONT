@@ -28,6 +28,7 @@ export const CodeExec = () => {
     let errorResolve: ErrorResolve[];
     let foundMisses: CheckMissResult[];
     let input: string;
+    let errors: string[] = [];
 
     if (code === "") {
       alert("コードが入力されていません");
@@ -76,7 +77,8 @@ export const CodeExec = () => {
           setCodeOutput(data.output);
         } else {
           setCodeResultStatus(data.status);
-          setCodeOutput(data.errors);
+          setCodeOutput("<<エラーがあります。>>");
+          errors = data.errors;
         }
         alert("コードの実行が完了しました");
         setCheckButtonDisabled(false);
@@ -87,35 +89,45 @@ export const CodeExec = () => {
       return;
     }
 
-    /*if (execResult.error.length >= 1) {
+    if (errors.length >= 1) {
       //error-resolve apiに接続して、エラーの対処法を受け取る
+      const url = `${apiBaseUrl}/programm/error/resolve`;
+      const dataObj = {
+        errors: errors,
+      };
+
       try {
-        const url =
-          "https://form-coder-api.onrender.com/programm/error/resolve";
-        const dataObj = {
-          errors: execResult.error,
-        };
-        const response = await fetch(url, {
+        await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(dataObj),
+        }).then(async (res) => {
+          const contentType = res.headers.get("content-type");
+          if (!res.ok) {
+            const statusCode = res.status;
+            if (!contentType || !contentType.includes("application/json")) {
+              throw new Error("Oops, we haven't got JSON!");
+            }
+            switch (statusCode) {
+              case 400:
+                throw new Error("Bad Request");
+              case 500:
+                throw new Error("Internal Server Error");
+              default:
+                throw new Error("Unknown Error");
+            }
+          }
+          const data = await res.json();
+          errorResolve = data;
+          setErrorResolveList(errorResolve);
         });
-        const recieveData = await response.json();
-        errorResolve = recieveData.resolve;
-        console.log("エラーの解決法のリスト" + errorResolve);
-        console.log(errorResolve);
       } catch (error) {
-        alert("エラーの解決法の取得時にエラーが発生しました。");
-        setCheckButtonDisabled(false);
+        alert("エラーの解決方法の取得時にエラーが発生しました。");
         return;
       }
-      setErrorResolveList(errorResolve);
-    } else {
-      setErrorResolveList([]);
     }
-    */
   };
 
   return (
