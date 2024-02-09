@@ -7,8 +7,11 @@ import { ExecResult } from "../../types/execResult";
 import { CodeCheckList } from "./CodeCheckList";
 
 export const CodeExec = () => {
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
+
   const [code, setCode] = useState<string>("");
   const [codeInput, setCodeInput] = useState<string>("");
+  const [codeOutput, setCodeOutput] = useState<string>("");
 
   const [errorResolveList, setErrorResolveList] = useState<ErrorResolve[]>([]);
   const [foundMissList, setFoundMissList] = useState<CheckMissResult[]>([]);
@@ -23,7 +26,61 @@ export const CodeExec = () => {
     let execResult: ExecResult;
     let errorResolve: ErrorResolve[];
     let foundMisses: CheckMissResult[];
+    let input: string;
 
+    if (code === "") {
+      alert("コードが入力されていません");
+      setCheckButtonDisabled(false);
+      return;
+    }
+
+    const url = `${apiBaseUrl}/programm/exec-result`;
+    if (codeInput === "") {
+      input = "none";
+    } else {
+      input = codeInput;
+    }
+
+    const dataObj = {
+      code: code,
+      input: input,
+    };
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataObj),
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        console.log(data);
+        alert("コードの実行が完了しました");
+        setCheckButtonDisabled(false);
+      });
+    } catch (error) {
+      alert("コードの実行時にエラーが発生しました。catch");
+      setCheckButtonDisabled(false);
+      return;
+    }
+
+    /*
     //exec apiに接続して、codeとinputを送信する
     try {
       //codeが殻の場合はエラーを返す
@@ -40,7 +97,7 @@ export const CodeExec = () => {
       if (codeInput === "") {
         dataObj.input = "none";
       }
-      const url = "http://localhost:3000/program/exec";
+      const url = "https://form-coder-api.onrender.com/programm/exec-result";
 
       const response = await fetch(url, {
         method: "POST",
@@ -50,17 +107,18 @@ export const CodeExec = () => {
         body: JSON.stringify(dataObj),
       });
       execResult = await response.json();
-      console.log("実行結果" + execResult.status + "エラー" + execResult.error);
+      
     } catch (error) {
       alert("コードの実行時にエラーが発生しました。catch");
       setCheckButtonDisabled(false);
       return;
-    }
+    }*/
 
-    if (execResult.error.length >= 1) {
+    /*if (execResult.error.length >= 1) {
       //error-resolve apiに接続して、エラーの対処法を受け取る
       try {
-        const url = "http://localhost:3000/program/error-resolve";
+        const url =
+          "https://form-coder-api.onrender.com/programm/error/resolve";
         const dataObj = {
           errors: execResult.error,
         };
@@ -84,34 +142,7 @@ export const CodeExec = () => {
     } else {
       setErrorResolveList([]);
     }
-
-    //check-miss-apiに接続して、ありがちなミスを受け取る
-    try {
-      const url = "http://localhost:3000/program/check-miss";
-      const dataObj = {
-        code: code,
-      };
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataObj),
-      });
-      const recieveData = await response.json();
-      foundMisses = recieveData.misses;
-      console.log("ありがちなミスのリスト" + foundMisses);
-      console.log(foundMisses);
-    } catch (error) {
-      alert("ありがちなミスの取得時にエラーが発生しました。");
-      setCheckButtonDisabled(false);
-      return;
-    }
-
-    setFoundMissList(foundMisses);
-    console.log("全ての処理が終了しました。");
-
-    setCheckButtonDisabled(false);
+    */
   };
 
   return (
