@@ -50,8 +50,8 @@ export const CodeCheckList = (props: Props) => {
             borderRadius: "10px",
             border: "1px solid black",
             padding: "10px",
-            height: "100px",
-            overflow: "scroll",
+            height: "120px",
+            background: "#2e2e2e",
           }}
         >
           <CodeExecOutput resultStatus={resultStatus} output={output} />

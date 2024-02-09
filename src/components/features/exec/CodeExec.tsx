@@ -11,7 +11,7 @@ export const CodeExec = () => {
 
   const [code, setCode] = useState<string>("");
   const [codeInput, setCodeInput] = useState<string>("");
-  const [codeResultStatus, setCodeResultStatus] = useState<string>("No Exec");
+  const [codeResultStatus, setCodeResultStatus] = useState<string>("Ready");
   const [codeOutput, setCodeOutput] = useState<string>("");
 
   const [errorResolveList, setErrorResolveList] = useState<ErrorResolve[]>([]);
@@ -80,7 +80,6 @@ export const CodeExec = () => {
           setCodeOutput("<<エラーがあります。>>");
           errors = data.errors;
         }
-        alert("コードの実行が完了しました");
         setCheckButtonDisabled(false);
       });
     } catch (error) {
