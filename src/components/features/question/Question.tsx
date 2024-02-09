@@ -27,6 +27,7 @@ export const Question = () => {
         cols={20}
         value={inputExample}
         style={{ fontSize: "16pt" }}
+        readOnly
       />
       <Typography variant="h5" gutterBottom>
         出力例:
@@ -36,6 +37,7 @@ export const Question = () => {
         cols={20}
         value={outputExample}
         style={{ fontSize: "16pt" }}
+        readOnly
       />
     </div>
   );
