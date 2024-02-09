@@ -261,6 +261,57 @@ paths:
           description: 必要なデータが渡されていません。
         "500":
           description: 何らかのエラーが発生しました。
+  /programm/connected-code:
+    post:
+      tags:
+        - programm
+      summary: 入力したコードを１つのコードに結合して返す
+      requestBody:
+        description: 入力したコードを１つのコードに結合して返す
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                formData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      explanation:
+                        type: string
+                      childrenPart:
+                        type: string
+                inputData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      inputDataArray:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        "200":
+          description: 結合されたコードを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connectedCode:
+                    type: string
+        "500":
+          description: 何らかのエラーが発生しました。
 components:
   schemas:
     Form:
