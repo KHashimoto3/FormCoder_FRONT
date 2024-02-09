@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import { ExecStatus } from "./execStatus";
 
 type Props = {

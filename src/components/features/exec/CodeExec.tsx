@@ -3,7 +3,6 @@ import { CodeCheckInput } from "./CodeCheckInput";
 import { useState } from "react";
 import { ErrorResolve } from "../../types/errorResolve";
 import { CheckMissResult } from "../../types/checkMissResult";
-import { ExecResult } from "../../types/execResult";
 import { CodeCheckList } from "./CodeCheckList";
 
 export const CodeExec = () => {
@@ -15,7 +14,7 @@ export const CodeExec = () => {
   const [codeOutput, setCodeOutput] = useState<string>("");
 
   const [errorResolveList, setErrorResolveList] = useState<ErrorResolve[]>([]);
-  const [foundMissList, setFoundMissList] = useState<CheckMissResult[]>([]);
+  const [foundMissList] = useState<CheckMissResult[]>([]);
 
   const [checkButtonDisabled, setCheckButtonDisabled] =
     useState<boolean>(false);
@@ -24,9 +23,7 @@ export const CodeExec = () => {
     setCheckButtonDisabled(true);
     console.log("チェックします：" + code);
 
-    let execResult: ExecResult;
     let errorResolve: ErrorResolve[];
-    let foundMisses: CheckMissResult[];
     let input: string;
     let errors: string[] = [];
 
