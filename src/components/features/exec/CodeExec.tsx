@@ -11,6 +11,7 @@ export const CodeExec = () => {
 
   const [code, setCode] = useState<string>("");
   const [codeInput, setCodeInput] = useState<string>("");
+  const [codeResultStatus, setCodeResultStatus] = useState<string>("No Exec");
   const [codeOutput, setCodeOutput] = useState<string>("");
 
   const [errorResolveList, setErrorResolveList] = useState<ErrorResolve[]>([]);
@@ -70,7 +71,13 @@ export const CodeExec = () => {
           }
         }
         const data = await res.json();
-        console.log(data);
+        if (data.status === "success") {
+          setCodeResultStatus(data.status);
+          setCodeOutput(data.output);
+        } else {
+          setCodeResultStatus(data.status);
+          setCodeOutput(data.errors);
+        }
         alert("コードの実行が完了しました");
         setCheckButtonDisabled(false);
       });
@@ -79,40 +86,6 @@ export const CodeExec = () => {
       setCheckButtonDisabled(false);
       return;
     }
-
-    /*
-    //exec apiに接続して、codeとinputを送信する
-    try {
-      //codeが殻の場合はエラーを返す
-      if (code === "") {
-        alert("コードが入力されていません");
-        setCheckButtonDisabled(false);
-        return;
-      }
-      let dataObj = {
-        code: code,
-        input: codeInput,
-      };
-      //inputが殻の場合は、inputにnoneを入れる
-      if (codeInput === "") {
-        dataObj.input = "none";
-      }
-      const url = "https://form-coder-api.onrender.com/programm/exec-result";
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataObj),
-      });
-      execResult = await response.json();
-      
-    } catch (error) {
-      alert("コードの実行時にエラーが発生しました。catch");
-      setCheckButtonDisabled(false);
-      return;
-    }*/
 
     /*if (execResult.error.length >= 1) {
       //error-resolve apiに接続して、エラーの対処法を受け取る
@@ -174,6 +147,8 @@ export const CodeExec = () => {
               checkButtonDisabled={checkButtonDisabled}
               errorResolveList={errorResolveList}
               foundMissList={foundMissList}
+              resultStatus={codeResultStatus}
+              output={codeOutput}
             />
           </Grid>
         </Grid>
