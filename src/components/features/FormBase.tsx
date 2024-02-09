@@ -78,6 +78,10 @@ export const FormBase = () => {
       setFormName(formName);
     }
 
+    //問題を表示するためにQuestionPageを別windowで開く
+    const questionWindowPath = "/question?formName=" + formName;
+    window.open(questionWindowPath, "question", "width=500,height=800");
+
     //ログイン状態を確認する
     onAuthStateChanged(auth, (user) => {
       if (user) {
