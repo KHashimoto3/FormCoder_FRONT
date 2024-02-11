@@ -8,6 +8,7 @@ import { StorageTestPage } from "./components/pages/StorageTestPage";
 import { LearningPage } from "./components/pages/LearningPage";
 import { ReasonCheckPage } from "./components/pages/ReasonCheckPage";
 import { LoginPage } from "./components/pages/LoginPage";
+import { QuestionPage } from "./components/pages/QuestionPage";
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path="/login">
             <LoginPage />
+          </Route>
+          <Route path="/question">
+            <QuestionPage />
           </Route>
         </BrowserRouter>
       </InputArrayProvider>

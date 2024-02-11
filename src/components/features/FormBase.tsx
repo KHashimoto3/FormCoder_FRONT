@@ -11,6 +11,7 @@ import {
   FormControlLabel,
   Grid,
   IconButton,
+  Stack,
   Switch,
   TextField,
   Toolbar,
@@ -68,6 +69,11 @@ export const FormBase = () => {
     setLoading(false);
   };
 
+  const reopenQuestionWindow = () => {
+    const questionWindowPath = "/question?formName=" + formName;
+    window.open(questionWindowPath, "question", "width=500,height=800");
+  };
+
   useEffect(() => {
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
     const url = new URL(window.location.href);
@@ -77,6 +83,10 @@ export const FormBase = () => {
     } else {
       setFormName(formName);
     }
+
+    //問題を表示するためにQuestionPageを別windowで開く
+    const questionWindowPath = "/question?formName=" + formName;
+    window.open(questionWindowPath, "question", "width=500,height=800");
 
     //ログイン状態を確認する
     onAuthStateChanged(auth, (user) => {
@@ -221,10 +231,24 @@ export const FormBase = () => {
                 label="実行画面を表示"
               />
             </Box>
-            <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
-              <Button onClick={handleClickOpen} style={buttonStyle}>
-                保存して終了
-              </Button>
+            <Box
+              sx={{
+                flexGrow: 0.03,
+                display: { xs: "none", md: "flex" },
+              }}
+            >
+              <Stack spacing={1} direction="row">
+                <Button
+                  onClick={reopenQuestionWindow}
+                  color="primary"
+                  variant="outlined"
+                >
+                  問題文を再表示
+                </Button>
+                <Button onClick={handleClickOpen} style={buttonStyle}>
+                  保存して終了
+                </Button>
+              </Stack>
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <IconButton sx={{ p: 0 }}>

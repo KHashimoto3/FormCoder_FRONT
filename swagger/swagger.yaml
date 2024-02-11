@@ -3,7 +3,7 @@ info:
   title: Swagger Pestore
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:3000
     description: Local server
 tags:
   - name: form
@@ -29,7 +29,7 @@ paths:
             type: string
       responses:
         "200":
-          description: successful operation
+          description: 指定されたフォーム名のフォームデータを返す。
           content:
             application/json:
               schema:
@@ -62,7 +62,7 @@ paths:
       summary: フォーム名の一覧を返す
       responses:
         "200":
-          description: successful operation
+          description: フォーム名の一覧を返す。
           content:
             application/json:
               schema:
@@ -91,7 +91,7 @@ paths:
       summary: フォームのヒントデータを返す
       responses:
         "200":
-          description: successful operation
+          description: フォームのヒントデータを返す。
           content:
             application/json:
               schema:
@@ -236,7 +236,7 @@ paths:
                     type: string
       responses:
         "200":
-          description: successful operation
+          description: プログラムのエラーの解決法を返す。
           content:
             application/json:
               schema:
