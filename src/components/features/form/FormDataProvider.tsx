@@ -5,7 +5,7 @@ export const FormDataContext = createContext(
   {} as {
     formData: FormData[];
     setFormData: Dispatch<SetStateAction<FormData[]>>;
-  }
+  },
 );
 
 export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
