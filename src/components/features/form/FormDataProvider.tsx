@@ -5,10 +5,11 @@ export const FormDataContext = createContext(
   {} as {
     formData: FormData[];
     setFormData: Dispatch<SetStateAction<FormData[]>>;
-  },
+  }
 );
 
 export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
+  //eslint-disable-next-line
   children,
 }) => {
   const [formData, setFormData] = useState<FormData[]>([]);
