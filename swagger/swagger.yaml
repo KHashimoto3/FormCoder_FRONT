@@ -3,7 +3,7 @@ info:
   title: Swagger Pestore
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:3000
     description: Local server
 tags:
   - name: form
@@ -12,6 +12,8 @@ tags:
     description: Everything about your hint
   - name: record
     description: Everything about your record
+  - name: programm
+    description: Everything about your programm
 paths:
   /form:
     get:
@@ -27,7 +29,7 @@ paths:
             type: string
       responses:
         "200":
-          description: successful operation
+          description: 指定されたフォーム名のフォームデータを返す。
           content:
             application/json:
               schema:
@@ -60,7 +62,7 @@ paths:
       summary: フォーム名の一覧を返す
       responses:
         "200":
-          description: successful operation
+          description: フォーム名の一覧を返す。
           content:
             application/json:
               schema:
@@ -89,7 +91,7 @@ paths:
       summary: フォームのヒントデータを返す
       responses:
         "200":
-          description: successful operation
+          description: フォームのヒントデータを返す。
           content:
             application/json:
               schema:
@@ -167,6 +169,147 @@ paths:
           description: 必要なデータが渡されていません。
         "404":
           description: 指定されたフォーム名の回答テンプレートが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /programm/exec-result:
+    post:
+      tags:
+        - programm
+      summary: プログラムを実行し、その結果を返す
+      requestBody:
+        description: プログラムを実行する
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                input:
+                  type: string
+      responses:
+        "x-200-Ok":
+          description: リクエストに成功し、コンパイルエラーがない場合、statusには"success"が返る。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  output:
+                    type: string
+        "x-200-Ng":
+          description: リクエストに成功し、コンパイルエラーがある場合、statusには"error"が返り、errorsにエラーメッセージの配列が返る。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: string
+        "400":
+          description: 必要なデータが渡されていません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /programm/error/resolve:
+    post:
+      tags:
+        - programm
+      summary: プログラムエラーの解決法を返す
+      requestBody:
+        description: プログラムのエラーを解決する
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: プログラムのエラーの解決法を返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultMethods:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        error:
+                          type: string
+                        row:
+                          type: number
+                        column:
+                          type: number
+                        description:
+                          type: string
+                        method:
+                          type: string
+        "400":
+          description: 必要なデータが渡されていません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /programm/connected-code:
+    post:
+      tags:
+        - programm
+      summary: 入力したコードを１つのコードに結合して返す
+      requestBody:
+        description: 入力したコードを１つのコードに結合して返す
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                formData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      explanation:
+                        type: string
+                      childrenPart:
+                        type: string
+                inputData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      partType:
+                        type: string
+                      inputDataArray:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        "200":
+          description: 結合されたコードを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connectedCode:
+                    type: string
         "500":
           description: 何らかのエラーが発生しました。
 components:

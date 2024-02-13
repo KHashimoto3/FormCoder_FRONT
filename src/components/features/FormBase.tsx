@@ -8,8 +8,11 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControlLabel,
   Grid,
   IconButton,
+  Stack,
+  Switch,
   TextField,
   Toolbar,
   Typography,
@@ -24,6 +27,7 @@ import { InputContext } from "./form/InputArrayProvider";
 
 import { RotatingLines } from "react-loader-spinner";
 import { onAuthStateChanged } from "firebase/auth";
+import { CodeExec } from "./exec/CodeExec";
 
 // Create a storage reference from our storage service
 
@@ -48,6 +52,9 @@ export const FormBase = () => {
   //ログイン状態
   const [, setUserLogin] = useState<boolean>(false);
 
+  //実行画面表示の切り替え
+  const [execView, setExecView] = useState<boolean>(false);
+
   //保存モーダルの開閉
   const handleClickOpen = () => {
     setDialogOpen(true);
@@ -62,6 +69,11 @@ export const FormBase = () => {
     setLoading(false);
   };
 
+  const reopenQuestionWindow = () => {
+    const questionWindowPath = "/question?formName=" + formName;
+    window.open(questionWindowPath, "question", "width=500,height=800");
+  };
+
   useEffect(() => {
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
     const url = new URL(window.location.href);
@@ -71,6 +83,10 @@ export const FormBase = () => {
     } else {
       setFormName(formName);
     }
+
+    //問題を表示するためにQuestionPageを別windowで開く
+    const questionWindowPath = "/question?formName=" + formName;
+    window.open(questionWindowPath, "question", "width=500,height=800");
 
     //ログイン状態を確認する
     onAuthStateChanged(auth, (user) => {
@@ -202,9 +218,37 @@ export const FormBase = () => {
             </Box>
 
             <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
-              <Button onClick={handleClickOpen} style={buttonStyle}>
-                保存して終了
-              </Button>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={execView}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setExecView(event.target.checked)
+                    }
+                  />
+                }
+                sx={{ color: "#000" }}
+                label="実行画面を表示"
+              />
+            </Box>
+            <Box
+              sx={{
+                flexGrow: 0.03,
+                display: { xs: "none", md: "flex" },
+              }}
+            >
+              <Stack spacing={1} direction="row">
+                <Button
+                  onClick={reopenQuestionWindow}
+                  color="primary"
+                  variant="outlined"
+                >
+                  問題文を再表示
+                </Button>
+                <Button onClick={handleClickOpen} style={buttonStyle}>
+                  保存して終了
+                </Button>
+              </Stack>
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <IconButton sx={{ p: 0 }}>
@@ -247,6 +291,7 @@ export const FormBase = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      {execView ? <CodeExec /> : null}
       <Box sx={{ marginTop: "100px" }}>
         <Grid container spacing={2}>
           <Grid item xs={5}>

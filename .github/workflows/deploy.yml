@@ -32,4 +32,4 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_AUTH_KEY }}
       - name: Deploy to Firebase
-        run: firebase deploy
+        run: firebase deploy --only hosting
