@@ -1,4 +1,4 @@
-import { ExecStatus } from "./execStatus";
+import { ExecStatus } from "./ExecStatus";
 
 type Props = {
   resultStatus: string;
