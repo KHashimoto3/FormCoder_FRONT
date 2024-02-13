@@ -8,8 +8,7 @@ import { InputContext } from "../form/InputArrayProvider";
 import { FormDataContext } from "../form/FormDataProvider";
 
 export const CodeExec = () => {
-  //const apiBaseUrl = "https://form-coder-api.onrender.com";
-  const apiBaseUrl = "http://localhost:3000";
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
 
   const [code, setCode] = useState<string>("");
   const [codeInput, setCodeInput] = useState<string>("");
