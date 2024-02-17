@@ -99,6 +99,7 @@ export const Learning = () => {
           {formList.map((form) => (
             <Grid item xs={3} key={form.id}>
               <FormCard
+                id={form.id}
                 title={form.title}
                 description={form.description}
                 url={form.url}

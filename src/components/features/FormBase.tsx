@@ -28,6 +28,7 @@ import { InputContext } from "./form/InputArrayProvider";
 import { RotatingLines } from "react-loader-spinner";
 import { onAuthStateChanged } from "firebase/auth";
 import { CodeExec } from "./exec/CodeExec";
+import { set } from "firebase/database";
 
 // Create a storage reference from our storage service
 
@@ -36,7 +37,8 @@ export const FormBase = () => {
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-  const [formName, setFormName] = useState<string>("フォーム名");
+  const [formName, setFormName] = useState<string>("フォーム名"); //TODO: 後日、削除する
+  const [formId, setFormId] = useState<string>("");
 
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
@@ -70,7 +72,7 @@ export const FormBase = () => {
   };
 
   const reopenQuestionWindow = () => {
-    const questionWindowPath = "/question?formName=" + formName;
+    const questionWindowPath = "/question?formId=" + formId;
     window.open(questionWindowPath, "question", "width=500,height=800");
   };
 
@@ -78,14 +80,21 @@ export const FormBase = () => {
     //リクエストパラメータのフォーム名を取得し、フォームを取得する
     const url = new URL(window.location.href);
     const formName = url.searchParams.get("form");
+    const formId = url.searchParams.get("formId");
     if (formName == null) {
       setFormName("フォーム名");
     } else {
       setFormName(formName);
     }
 
+    if (formId == null) {
+      setFormId("000000");
+    } else {
+      setFormId(formId);
+    }
+
     //問題を表示するためにQuestionPageを別windowで開く
-    const questionWindowPath = "/question?formName=" + formName;
+    const questionWindowPath = "/question?formId=" + formId;
     window.open(questionWindowPath, "question", "width=500,height=800");
 
     //ログイン状態を確認する
