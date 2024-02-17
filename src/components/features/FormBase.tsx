@@ -28,7 +28,6 @@ import { InputContext } from "./form/InputArrayProvider";
 import { RotatingLines } from "react-loader-spinner";
 import { onAuthStateChanged } from "firebase/auth";
 import { CodeExec } from "./exec/CodeExec";
-import { set } from "firebase/database";
 
 // Create a storage reference from our storage service
 
