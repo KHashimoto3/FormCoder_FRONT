@@ -16,16 +16,22 @@ export const Learning = () => {
 
   const sampleFormList: FormCardList[] = [
     {
-      id: 1,
+      id: "aaaaaaa",
       title: "Experiment1",
       description: "実験用のフォーム1です。",
       url: "/form?form=experiment1",
+      explanation: "実験用のフォーム1の問題文です。",
+      inputExample: ["入力例1"],
+      outputExample: ["出力例1"],
     },
     {
-      id: 2,
+      id: "bbbbbbb",
       title: "Experiment2",
       description: "実験用のフォーム2です。",
       url: "/form?form=experiment2",
+      explanation: "実験用のフォーム2の問題文です。",
+      inputExample: ["入力例1"],
+      outputExample: ["出力例1"],
     },
   ];
 
