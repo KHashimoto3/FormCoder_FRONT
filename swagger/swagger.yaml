@@ -92,6 +92,49 @@ paths:
           description: フォームリストが空です。
         "500":
           description: 何らかのエラーが発生しました。
+  /form/question:
+    get:
+      tags:
+        - form
+      summary: フォームの問題データを返す
+      parameters:
+        - name: formId
+          in: query
+          description: "フォームのIDを渡す"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 指定されたフォーム名の問題データを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  questionData:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      title:
+                        type: string
+                      explanation:
+                        type: string
+                      inputExample:
+                        type: array
+                        items:
+                          type: string
+                      outputExample:
+                        type: array
+                        items:
+                          type: string
+        "400":
+          description: パラメータformIdは必須です
+        "404":
+          description: 指定されたformIdの問題データが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
   /hint:
     get:
       tags:
