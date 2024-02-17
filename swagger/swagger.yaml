@@ -76,10 +76,18 @@ paths:
                       type: string
                     description:
                       type: string
-                    imageUrl:
+                    url:
                       type: string
-                    formUrl:
+                    explanation:
                       type: string
+                    inputExample:
+                      type: array
+                      items:
+                        type: string
+                    outputExample:
+                      type: array
+                      items:
+                        type: string
         "404":
           description: フォームリストが空です。
         "500":
