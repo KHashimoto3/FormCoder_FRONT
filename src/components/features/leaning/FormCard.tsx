@@ -13,6 +13,7 @@ import auth from "../../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 type Props = {
+  id: string;
   title: string;
   description: string;
   url: string;
@@ -35,6 +36,11 @@ export const FormCard = (props: Props) => {
     });
   }, []);
 
+  const openFormWindow = () => {
+    const url = props.url + "&formId=" + props.id;
+    window.open(url, "_blank");
+  };
+
   return (
     <div>
       <Card sx={{ maxWidth: 345 }}>
@@ -52,11 +58,7 @@ export const FormCard = (props: Props) => {
         </CardContent>
         <CardActions>
           {userLogin ? (
-            <Button
-              size="medium"
-              variant="contained"
-              onClick={() => window.open(props.url, "_blank")}
-            >
+            <Button size="medium" variant="contained" onClick={openFormWindow}>
               始める
             </Button>
           ) : (
