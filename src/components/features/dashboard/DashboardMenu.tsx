@@ -1,4 +1,5 @@
 import { Button, Stack } from "@mui/material";
+import { DashboardMenuButton } from "./DashboardMenuButton";
 
 type Props = {
   selectedMenu: string;
@@ -15,21 +16,20 @@ export const DashboardMenu = (props: Props) => {
     console.log("menu: ", menu);
   };
 
+  //メニューを追加する場合はここに追加する
+  const menuList = ["学習", "編集", "学習履歴", "設定"];
+
   return (
     <div style={{ height: "100%" }}>
       <Stack spacing={1}>
-        <Button variant="text" onClick={() => handleMenuClick("学習")}>
-          学習
-        </Button>
-        <Button variant="text" onClick={() => handleMenuClick("編集")}>
-          編集
-        </Button>
-        <Button variant="text" onClick={() => handleMenuClick("学習履歴")}>
-          学習履歴
-        </Button>
-        <Button variant="text" onClick={() => handleMenuClick("設定")}>
-          設定
-        </Button>
+        {menuList.map((menu) => (
+          <DashboardMenuButton
+            key={menu}
+            label={menu}
+            selected={selectedMenu === menu ? true : false}
+            onClick={() => handleMenuClick(menu)}
+          />
+        ))}
       </Stack>
     </div>
   );
