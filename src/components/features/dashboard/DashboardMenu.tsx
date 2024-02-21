@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { DashboardMenuButton } from "./DashboardMenuButton";
 import { DashboardMenuUser } from "./DashboardMenuUser";
 
@@ -17,11 +17,15 @@ export const DashboardMenu = (props: Props) => {
     console.log("menu: ", menu);
   };
 
+  const logout = () => {
+    console.log("ログアウト");
+  };
+
   //メニューを追加する場合はここに追加する
   const menuList = ["学習", "編集", "学習履歴", "設定"];
 
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "500px" }}>
       <Stack spacing={1}>
         <DashboardMenuUser />
         {menuList.map((menu) => (
@@ -33,6 +37,14 @@ export const DashboardMenu = (props: Props) => {
           />
         ))}
       </Stack>
+      <Button
+        variant="outlined"
+        color="error"
+        sx={{ width: "100%", marginTop: "30px" }}
+        onClick={logout}
+      >
+        ログアウト
+      </Button>
     </div>
   );
 };
