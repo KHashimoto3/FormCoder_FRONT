@@ -1,5 +1,6 @@
-import { Button, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { DashboardMenuButton } from "./DashboardMenuButton";
+import { DashboardMenuUser } from "./DashboardMenuUser";
 
 type Props = {
   selectedMenu: string;
@@ -22,6 +23,7 @@ export const DashboardMenu = (props: Props) => {
   return (
     <div style={{ height: "100%" }}>
       <Stack spacing={1}>
+        <DashboardMenuUser />
         {menuList.map((menu) => (
           <DashboardMenuButton
             key={menu}
