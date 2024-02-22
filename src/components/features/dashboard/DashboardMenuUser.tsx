@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Stack, Typography } from "@mui/material";
 
 type Props = {
   avatarImage: string;
@@ -7,15 +7,11 @@ type Props = {
 export const DashboardMenuUser = (props: Props) => {
   const { avatarImage } = props;
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Avatar src={avatarImage} />
-        </Grid>
-        <Grid item xs={9}>
-          <Typography variant="h5">ユーザー名</Typography>
-        </Grid>
-      </Grid>
+    <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+      <Stack spacing={1} alignItems={"center"}>
+        <Avatar sx={{ width: 100, height: 100 }} src={avatarImage} />
+        <Typography variant="h5">ユーザー名</Typography>
+      </Stack>
     </div>
   );
 };

@@ -16,11 +16,22 @@ const theme = createTheme({
 
 export const DashboardMenuButton = (props: Props) => {
   const { label, selected, onClick } = props;
+
+  const selectedButtonStyle = {
+    color: "#fff",
+    background:
+      "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
+  };
+
+  const unselectedButtonStyle = {
+    color: "#000000",
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Button
         variant="text"
-        sx={{ background: selected ? "#f2f2f2" : "#ffffff" }}
+        style={selected ? selectedButtonStyle : unselectedButtonStyle}
         onClick={onClick}
       >
         {label}
