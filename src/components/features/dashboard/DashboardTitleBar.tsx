@@ -7,7 +7,13 @@ import {
   Typography,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-export const DashboardTitleBar = () => {
+
+type Props = {
+  avatarImage: string;
+};
+
+export const DashboardTitleBar = (props: Props) => {
+  const { avatarImage } = props;
   return (
     <div
       style={{
@@ -32,7 +38,7 @@ export const DashboardTitleBar = () => {
           </IconButton>
           <IconButton size="small" aria-label="your name" color="inherit">
             <Button size="small">
-              <Avatar sx={{ width: 30, height: 30 }}>N</Avatar>
+              <Avatar sx={{ width: 30, height: 30 }} src={avatarImage} />
               <Typography variant="body1" sx={{ color: "#000000" }}>
                 ユーザー名
               </Typography>
