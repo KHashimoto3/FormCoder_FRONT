@@ -472,9 +472,9 @@ components:
       properties:
         userId:
           type: string
-        password:
-          type: string
         name:
+          type: string
+        password:
           type: string
         icon:
           type: string
