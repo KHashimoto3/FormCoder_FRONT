@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from "../../../firebase";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -46,23 +45,7 @@ export const Login = () => {
   };
 
   const login = () => {
-    //エラーがないことを確認
-    if (userMail === "" || userPassword === "") {
-      setInputMissed(true);
-      return;
-    }
-    setInputMissed(false);
-
-    signInWithEmailAndPassword(auth, userMail, userPassword)
-      .then(() => {
-        // Signed in
-        alert("ログインしました。");
-        location.href = "/";
-      })
-      .catch((error) => {
-        setLoginFailed(true);
-        console.log("ログインに失敗しました。：" + error.message);
-      });
+    alert("ログイン処理を行います");
   };
 
   return (

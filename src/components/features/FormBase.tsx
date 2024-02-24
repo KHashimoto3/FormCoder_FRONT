@@ -21,13 +21,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
-import auth from "../../firebase";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
 import { RotatingLines } from "react-loader-spinner";
 import { onAuthStateChanged } from "firebase/auth";
 import { CodeExec } from "./exec/CodeExec";
+
+import { AuthContext } from "./login/AuthProvider";
 
 // Create a storage reference from our storage service
 
@@ -41,6 +42,7 @@ export const FormBase = () => {
 
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
+  const { loginUser } = useContext(AuthContext);
 
   //保存モーダル
   const [userName, setUserName] = useState<string>("");
@@ -97,19 +99,10 @@ export const FormBase = () => {
     window.open(questionWindowPath, "question", "width=500,height=800");
 
     //ログイン状態を確認する
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in
-        console.log("ログイン中");
-        setUserLogin(true);
-      } else {
-        // User is signed out
-        setUserLogin(false);
-        console.log("ログアウト済みです。");
-        alert("フォームを利用するにはログインが必要です。");
-        location.href = "/learning";
-      }
-    });
+    if (!loginUser) {
+      alert("フォームを利用するにはログインが必要です。");
+      location.href = "/";
+    }
   }, []);
 
   const saveLearningData = async (userName: string) => {
@@ -119,15 +112,15 @@ export const FormBase = () => {
       return;
     }
     const url = `${apiBaseUrl}/record`;
-    const userId = auth.currentUser?.uid;
+    /*const userId = auth.currentUser?.uid;
     if (userId == null) {
       alert("ログインしていないため、保存できません。");
       location.href = "/learning";
       return;
-    }
+    }*/
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
-      userId: userId,
+      userId: "00000000000000",
       formName: formName,
       fbData: hintFBArray,
       inputData: inputArray,

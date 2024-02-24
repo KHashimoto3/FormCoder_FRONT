@@ -7,10 +7,9 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import auth from "../../../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { AuthContext } from "../login/AuthProvider";
 
 type Props = {
   id: string;
@@ -20,21 +19,7 @@ type Props = {
 };
 
 export const FormCard = (props: Props) => {
-  const [userLogin, setUserLogin] = useState<boolean>(false);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in
-        console.log("ログイン中");
-        setUserLogin(true);
-      } else {
-        // User is signed out
-        setUserLogin(false);
-        console.log("ログアウト済みです。");
-      }
-    });
-  }, []);
+  const { loginUser } = useContext(AuthContext);
 
   const openFormWindow = () => {
     const url = props.url + "&formId=" + props.id;
@@ -57,7 +42,7 @@ export const FormCard = (props: Props) => {
           </Typography>
         </CardContent>
         <CardActions>
-          {userLogin ? (
+          {loginUser ? (
             <Button size="medium" variant="contained" onClick={openFormWindow}>
               始める
             </Button>

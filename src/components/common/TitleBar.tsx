@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   AppBar,
   Container,
@@ -14,8 +14,7 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
-import auth from "../../firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { AuthContext } from "../features/login/AuthProvider";
 
 interface Pages {
   pageName: string;
@@ -32,6 +31,8 @@ const settings = ["私の成績", "アカウント設定", "ログアウト"];
 export const TitleBar = () => {
   const history = useHistory();
 
+  const { loginUser, setLoginUser } = useContext(AuthContext);
+
   const [anchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -43,34 +44,9 @@ export const TitleBar = () => {
     setAnchorElUser(null);
   };
 
-  const [userLogin, setUserLogin] = useState(false);
-
-  //ログイン状態かどうかを確認する（cookieとauthの整合性を保つため）
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in
-        console.log("ログイン中");
-        setUserLogin(true);
-      } else {
-        // User is signed out
-        setUserLogin(false);
-        console.log("ログアウト済みです。");
-      }
-    });
-  }, []);
-
   const logout = () => {
-    signOut(auth)
-      .then(() => {
-        alert("ログアウトしました。");
-        setUserLogin(false);
-        location.href = "/";
-      })
-      .catch((error) => {
-        alert("ログアウトに失敗しました。エラーメッセージ：" + error.message);
-      });
+    setLoginUser(null);
+    history.push("/");
   };
 
   const buttonStyle = {
@@ -177,7 +153,7 @@ export const TitleBar = () => {
             ))}
           </Box>
 
-          {userLogin ? (
+          {loginUser ? (
             <>
               <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
                 <Typography variant="body1" sx={{ color: "#000" }}>
