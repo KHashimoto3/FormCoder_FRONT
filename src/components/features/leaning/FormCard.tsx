@@ -9,6 +9,8 @@ import {
 
 import { useContext, useEffect, useState } from "react";
 
+import { useCookies } from "react-cookie";
+
 type Props = {
   id: string;
   title: string;
@@ -17,12 +19,20 @@ type Props = {
 };
 
 export const FormCard = (props: Props) => {
+  const [cookies] = useCookies(["userId"]);
+
   const openFormWindow = () => {
     const url = props.url + "&formId=" + props.id;
     window.open(url, "_blank");
   };
 
-  const [loginUser] = useState<boolean>(false);
+  const [loginUser, setLoginUser] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (cookies.userId) {
+      setLoginUser(true);
+    }
+  }, [cookies.userId]);
 
   return (
     <div>

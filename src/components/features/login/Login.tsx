@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 
+import { useCookies } from "react-cookie";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const Login = () => {
@@ -19,6 +21,8 @@ export const Login = () => {
       "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
+
+  const [cookies, setCookie] = useCookies(["userId"]);
 
   const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
@@ -81,6 +85,11 @@ export const Login = () => {
         }
         const data = await res.json();
         console.log(data.userData.userId);
+        setCookie("userId", data.userData.userId, {
+          sameSite: "strict",
+          path: "/",
+        });
+        location.href = "/";
       });
     } catch (error) {
       setLoginFailed(true);
