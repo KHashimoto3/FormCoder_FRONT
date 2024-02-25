@@ -118,7 +118,7 @@ export const Login = () => {
             severity="error"
             sx={{ marginBottom: "20px" }}
           >
-            ログインに失敗しました。メールアドレスまたはパスワードに誤りがあります。
+            ログインに失敗しました。ユーザIDまたはパスワードに誤りがあります。
           </Alert>
         )}
         {inputMissed && (
