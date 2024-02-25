@@ -29,8 +29,6 @@ import { CodeExec } from "./exec/CodeExec";
 
 import { useUserData } from "../common/hooks/useUserData";
 
-// Create a storage reference from our storage service
-
 export const FormBase = () => {
   const apiBaseUrl = "https://form-coder-api.onrender.com";
 
