@@ -9,7 +9,7 @@ import {
 
 import { useContext, useEffect, useState } from "react";
 
-import { useCookies } from "react-cookie";
+import { useUserData } from "../../common/hooks/useUserData";
 
 type Props = {
   id: string;
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export const FormCard = (props: Props) => {
-  const [cookies] = useCookies(["userId"]);
+  const { getUserData } = useUserData();
 
   const openFormWindow = () => {
     const url = props.url + "&formId=" + props.id;
@@ -29,10 +29,11 @@ export const FormCard = (props: Props) => {
   const [loginUser, setLoginUser] = useState<boolean>(false);
 
   useEffect(() => {
-    if (cookies.userId) {
+    const userData = getUserData();
+    if (userData.userId !== undefined) {
       setLoginUser(true);
     }
-  }, [cookies.userId]);
+  }, []);
 
   return (
     <div>

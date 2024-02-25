@@ -8,9 +8,10 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 
-import { useCookies } from "react-cookie";
+import { useUserData } from "../../common/hooks/useUserData";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { User } from "../../types/user";
 
 export const Login = () => {
   const apiBaseUrl = "https://form-coder-api.onrender.com";
@@ -22,7 +23,7 @@ export const Login = () => {
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
-  const [cookies, setCookie] = useCookies(["userId"]);
+  const { setUserData } = useUserData();
 
   const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
@@ -84,11 +85,8 @@ export const Login = () => {
           }
         }
         const data = await res.json();
-        console.log(data.userData.userId);
-        setCookie("userId", data.userData.userId, {
-          sameSite: "strict",
-          path: "/",
-        });
+        const userData: User = data.userData;
+        setUserData(userData);
         location.href = "/";
       });
     } catch (error) {

@@ -14,7 +14,7 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
-import { useCookies } from "react-cookie";
+import { useUserData } from "./hooks/useUserData";
 
 interface Pages {
   pageName: string;
@@ -40,20 +40,21 @@ export const TitleBar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const [cookies, setCookie] = useCookies(["userId"]);
+  const { getUserData, removeUserData } = useUserData();
 
   useEffect(() => {
-    if (cookies.userId) {
+    const userData = getUserData();
+    if (userData.userId !== undefined) {
       setLoginUser(true);
     }
-  }, [cookies.userId]);
+  }, []);
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
   const logout = () => {
-    setCookie("userId", "", { path: "/", maxAge: 0 });
+    removeUserData();
     setLoginUser(false);
     history.push("/");
   };

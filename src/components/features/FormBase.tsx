@@ -28,6 +28,8 @@ import { RotatingLines } from "react-loader-spinner";
 import { onAuthStateChanged } from "firebase/auth";
 import { CodeExec } from "./exec/CodeExec";
 
+import { useUserData } from "../common/hooks/useUserData";
+
 // Create a storage reference from our storage service
 
 export const FormBase = () => {
@@ -50,9 +52,7 @@ export const FormBase = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   //ログイン状態
-  const [, setUserLogin] = useState<boolean>(false);
-
-  const [loginUser] = useState<boolean>(false);
+  const { getUserData } = useUserData();
 
   //実行画面表示の切り替え
   const [execView, setExecView] = useState<boolean>(false);
@@ -98,8 +98,9 @@ export const FormBase = () => {
     window.open(questionWindowPath, "question", "width=500,height=800");
 
     //ログイン状態を確認する
-    if (!loginUser) {
-      alert("フォームを利用するにはログインが必要です。");
+    const userData = getUserData();
+    if (userData.userId === undefined) {
+      alert("ログインしていないため、学習できません。");
       location.href = "/";
     }
   }, []);
