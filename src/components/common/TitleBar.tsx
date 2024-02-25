@@ -14,8 +14,6 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
-import { AuthContext } from "../features/login/AuthProvider";
-
 interface Pages {
   pageName: string;
   pagePath: string;
@@ -31,7 +29,7 @@ const settings = ["私の成績", "アカウント設定", "ログアウト"];
 export const TitleBar = () => {
   const history = useHistory();
 
-  const { loginUser, setLoginUser } = useContext(AuthContext);
+  const [loginUser, setLoginUser] = useState<boolean>(false);
 
   const [anchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -45,7 +43,7 @@ export const TitleBar = () => {
   };
 
   const logout = () => {
-    setLoginUser(null);
+    setLoginUser(false);
     history.push("/");
   };
 

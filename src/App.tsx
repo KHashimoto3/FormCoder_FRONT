@@ -10,43 +10,40 @@ import { ReasonCheckPage } from "./components/pages/ReasonCheckPage";
 import { LoginPage } from "./components/pages/LoginPage";
 import { QuestionPage } from "./components/pages/QuestionPage";
 import { FormDataProvider } from "./components/features/form/FormDataProvider";
-import { AuthProvider } from "./components/features/login/AuthProvider";
 
 function App() {
   return (
-    <AuthProvider>
-      <HintProvider>
-        <InputArrayProvider>
-          <FormDataProvider>
-            <BrowserRouter>
-              <Route exact path="/">
-                <TitleBar />
-                <TopPage />
-              </Route>
-              <Route path="/learning">
-                <TitleBar />
-                <LearningPage />
-              </Route>
-              <Route path="/form">
-                <FormPage />
-              </Route>
-              <Route path="/storagetest">
-                <StorageTestPage />
-              </Route>
-              <Route path="/reason-check">
-                <ReasonCheckPage />
-              </Route>
-              <Route path="/login">
-                <LoginPage />
-              </Route>
-              <Route path="/question">
-                <QuestionPage />
-              </Route>
-            </BrowserRouter>
-          </FormDataProvider>
-        </InputArrayProvider>
-      </HintProvider>
-    </AuthProvider>
+    <HintProvider>
+      <InputArrayProvider>
+        <FormDataProvider>
+          <BrowserRouter>
+            <Route exact path="/">
+              <TitleBar />
+              <TopPage />
+            </Route>
+            <Route path="/learning">
+              <TitleBar />
+              <LearningPage />
+            </Route>
+            <Route path="/form">
+              <FormPage />
+            </Route>
+            <Route path="/storagetest">
+              <StorageTestPage />
+            </Route>
+            <Route path="/reason-check">
+              <ReasonCheckPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/question">
+              <QuestionPage />
+            </Route>
+          </BrowserRouter>
+        </FormDataProvider>
+      </InputArrayProvider>
+    </HintProvider>
   );
 }
 

@@ -6,12 +6,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useContext, useState } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const Login = () => {
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
+
   const buttonStyle = {
     color: "#fff",
     background:
@@ -19,20 +20,20 @@ export const Login = () => {
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
-  const [userMail, setUserMail] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
 
-  const [userMailError, setUserMailError] = useState<boolean>(false);
+  const [userIdError, setUserIdError] = useState<boolean>(false);
   const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
 
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
   const [inputMissed, setInputMissed] = useState<boolean>(false);
 
-  const checkUserMail = () => {
-    if (userMail === "") {
-      setUserMailError(true);
+  const checkUserId = () => {
+    if (userId === "") {
+      setUserIdError(true);
     } else {
-      setUserMailError(false);
+      setUserIdError(false);
     }
   };
 
@@ -44,8 +45,46 @@ export const Login = () => {
     }
   };
 
-  const login = () => {
-    alert("ログイン処理を行います");
+  const login = async () => {
+    const url = `${apiBaseUrl}/user/login`;
+    const obj = {
+      userId: userId,
+      password: userPassword,
+    };
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 401:
+              throw new Error("Unauthorized");
+            case 404:
+              throw new Error("Not Found");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        console.log(data.userData.userId);
+      });
+    } catch (error) {
+      setLoginFailed(true);
+    }
   };
 
   return (
@@ -86,15 +125,15 @@ export const Login = () => {
         )}
         <Stack spacing={2}>
           <TextField
-            id="user-mail"
-            label="メールアドレス"
+            id="user-id"
+            label="ユーザID"
             variant="standard"
             required
             fullWidth
-            value={userMail}
-            error={userMailError}
-            onBlur={() => checkUserMail()}
-            onChange={(e) => setUserMail(e.target.value)}
+            value={userId}
+            error={userIdError}
+            onBlur={() => checkUserId()}
+            onChange={(e) => setUserId(e.target.value)}
           />
           <TextField
             id="user-password"

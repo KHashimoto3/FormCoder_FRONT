@@ -9,8 +9,6 @@ import {
 
 import { useContext, useEffect, useState } from "react";
 
-import { AuthContext } from "../login/AuthProvider";
-
 type Props = {
   id: string;
   title: string;
@@ -19,12 +17,12 @@ type Props = {
 };
 
 export const FormCard = (props: Props) => {
-  const { loginUser } = useContext(AuthContext);
-
   const openFormWindow = () => {
     const url = props.url + "&formId=" + props.id;
     window.open(url, "_blank");
   };
+
+  const [loginUser] = useState<boolean>(false);
 
   return (
     <div>
