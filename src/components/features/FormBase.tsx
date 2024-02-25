@@ -21,15 +21,13 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
-import auth from "../../firebase";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
 import { RotatingLines } from "react-loader-spinner";
-import { onAuthStateChanged } from "firebase/auth";
 import { CodeExec } from "./exec/CodeExec";
 
-// Create a storage reference from our storage service
+import { useUserData } from "../common/hooks/useUserData";
 
 export const FormBase = () => {
   const apiBaseUrl = "https://form-coder-api.onrender.com";
@@ -51,7 +49,7 @@ export const FormBase = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   //ログイン状態
-  const [, setUserLogin] = useState<boolean>(false);
+  const { getUserData } = useUserData();
 
   //実行画面表示の切り替え
   const [execView, setExecView] = useState<boolean>(false);
@@ -97,19 +95,11 @@ export const FormBase = () => {
     window.open(questionWindowPath, "question", "width=500,height=800");
 
     //ログイン状態を確認する
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in
-        console.log("ログイン中");
-        setUserLogin(true);
-      } else {
-        // User is signed out
-        setUserLogin(false);
-        console.log("ログアウト済みです。");
-        alert("フォームを利用するにはログインが必要です。");
-        location.href = "/learning";
-      }
-    });
+    const userData = getUserData();
+    if (userData.userId === undefined) {
+      alert("ログインしていないため、学習できません。");
+      location.href = "/";
+    }
   }, []);
 
   const saveLearningData = async (userName: string) => {
@@ -119,15 +109,9 @@ export const FormBase = () => {
       return;
     }
     const url = `${apiBaseUrl}/record`;
-    const userId = auth.currentUser?.uid;
-    if (userId == null) {
-      alert("ログインしていないため、保存できません。");
-      location.href = "/learning";
-      return;
-    }
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
-      userId: userId,
+      userId: "00000000000000",
       formName: formName,
       fbData: hintFBArray,
       inputData: inputArray,

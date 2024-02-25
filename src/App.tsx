@@ -11,39 +11,43 @@ import { LoginPage } from "./components/pages/LoginPage";
 import { QuestionPage } from "./components/pages/QuestionPage";
 import { FormDataProvider } from "./components/features/form/FormDataProvider";
 
+import { CookiesProvider } from "react-cookie";
+
 function App() {
   return (
-    <HintProvider>
-      <InputArrayProvider>
-        <FormDataProvider>
-          <BrowserRouter>
-            <Route exact path="/">
-              <TitleBar />
-              <TopPage />
-            </Route>
-            <Route path="/learning">
-              <TitleBar />
-              <LearningPage />
-            </Route>
-            <Route path="/form">
-              <FormPage />
-            </Route>
-            <Route path="/storagetest">
-              <StorageTestPage />
-            </Route>
-            <Route path="/reason-check">
-              <ReasonCheckPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/question">
-              <QuestionPage />
-            </Route>
-          </BrowserRouter>
-        </FormDataProvider>
-      </InputArrayProvider>
-    </HintProvider>
+    <CookiesProvider>
+      <HintProvider>
+        <InputArrayProvider>
+          <FormDataProvider>
+            <BrowserRouter>
+              <Route exact path="/">
+                <TitleBar />
+                <TopPage />
+              </Route>
+              <Route path="/learning">
+                <TitleBar />
+                <LearningPage />
+              </Route>
+              <Route path="/form">
+                <FormPage />
+              </Route>
+              <Route path="/storagetest">
+                <StorageTestPage />
+              </Route>
+              <Route path="/reason-check">
+                <ReasonCheckPage />
+              </Route>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/question">
+                <QuestionPage />
+              </Route>
+            </BrowserRouter>
+          </FormDataProvider>
+        </InputArrayProvider>
+      </HintProvider>
+    </CookiesProvider>
   );
 }
 
