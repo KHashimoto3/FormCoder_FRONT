@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useUserData } from "../../common/hooks/useUserData";
 

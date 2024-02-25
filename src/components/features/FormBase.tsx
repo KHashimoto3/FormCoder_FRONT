@@ -25,7 +25,6 @@ import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 
 import { RotatingLines } from "react-loader-spinner";
-import { onAuthStateChanged } from "firebase/auth";
 import { CodeExec } from "./exec/CodeExec";
 
 import { useUserData } from "../common/hooks/useUserData";

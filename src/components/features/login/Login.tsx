@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import { useUserData } from "../../common/hooks/useUserData";
 
@@ -32,7 +32,7 @@ export const Login = () => {
   const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
 
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
-  const [inputMissed, setInputMissed] = useState<boolean>(false);
+  const [inputMissed] = useState<boolean>(false);
 
   const checkUserId = () => {
     if (userId === "") {
