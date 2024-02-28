@@ -382,8 +382,6 @@ paths:
                   type: string
                 password:
                   type: string
-                mail:
-                  type: string
       responses:
         "200":
           description: ログインに成功しました。
@@ -398,10 +396,14 @@ paths:
                     type: string
                   icon:
                     type: string
-                  mail:
+                  email:
+                    type: string
+                  finalLoginAt:
                     type: string
         "400":
           description: 必要なデータが渡されていません。
+        "401":
+          description: パスワードが間違っています。
         "404":
           description: ユーザーが見つかりません。
         "500":
@@ -421,21 +423,19 @@ paths:
               properties:
                 userId:
                   type: string
-                password:
-                  type: string
                 name:
+                  type: string
+                password:
                   type: string
                 icon:
                   type: string
-                mail:
+                email:
                   type: string
       responses:
         "200":
           description: 登録に成功しました。
         "400":
           description: 必要なデータが渡されていません。
-        "409":
-          description: 既に登録されているユーザーIDです。
         "500":
           description: 何らかのエラーが発生しました。
 components:
@@ -472,11 +472,19 @@ components:
       properties:
         userId:
           type: string
-        password:
-          type: string
         name:
+          type: string
+        password:
           type: string
         icon:
           type: string
-        mail:
+        email:
           type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        finalLoginAt:
+          type: string
+        deleteFlag:
+          type: boolean

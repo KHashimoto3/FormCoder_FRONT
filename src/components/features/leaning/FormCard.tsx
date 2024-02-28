@@ -9,8 +9,7 @@ import {
 
 import { useEffect, useState } from "react";
 
-import auth from "../../../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { useUserData } from "../../common/hooks/useUserData";
 
 type Props = {
   id: string;
@@ -20,26 +19,21 @@ type Props = {
 };
 
 export const FormCard = (props: Props) => {
-  const [userLogin, setUserLogin] = useState<boolean>(false);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in
-        console.log("ログイン中");
-        setUserLogin(true);
-      } else {
-        // User is signed out
-        setUserLogin(false);
-        console.log("ログアウト済みです。");
-      }
-    });
-  }, []);
+  const { getUserData } = useUserData();
 
   const openFormWindow = () => {
     const url = props.url + "&formId=" + props.id;
     window.open(url, "_blank");
   };
+
+  const [loginUser, setLoginUser] = useState<boolean>(false);
+
+  useEffect(() => {
+    const userData = getUserData();
+    if (userData.userId !== undefined) {
+      setLoginUser(true);
+    }
+  }, []);
 
   return (
     <div>
@@ -57,7 +51,7 @@ export const FormCard = (props: Props) => {
           </Typography>
         </CardContent>
         <CardActions>
-          {userLogin ? (
+          {loginUser ? (
             <Button size="medium" variant="contained" onClick={openFormWindow}>
               始める
             </Button>

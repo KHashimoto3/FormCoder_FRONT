@@ -7,12 +7,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from "../../../firebase";
+
+import { useUserData } from "../../common/hooks/useUserData";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { User } from "../../types/user";
 
 export const Login = () => {
+  const apiBaseUrl = "https://form-coder-api.onrender.com";
+
   const buttonStyle = {
     color: "#fff",
     background:
@@ -20,20 +23,22 @@ export const Login = () => {
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
-  const [userMail, setUserMail] = useState<string>("");
+  const { setUserData } = useUserData();
+
+  const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
 
-  const [userMailError, setUserMailError] = useState<boolean>(false);
+  const [userIdError, setUserIdError] = useState<boolean>(false);
   const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
 
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
-  const [inputMissed, setInputMissed] = useState<boolean>(false);
+  const [inputMissed] = useState<boolean>(false);
 
-  const checkUserMail = () => {
-    if (userMail === "") {
-      setUserMailError(true);
+  const checkUserId = () => {
+    if (userId === "") {
+      setUserIdError(true);
     } else {
-      setUserMailError(false);
+      setUserIdError(false);
     }
   };
 
@@ -45,24 +50,48 @@ export const Login = () => {
     }
   };
 
-  const login = () => {
-    //エラーがないことを確認
-    if (userMail === "" || userPassword === "") {
-      setInputMissed(true);
-      return;
-    }
-    setInputMissed(false);
+  const login = async () => {
+    const url = `${apiBaseUrl}/user/login`;
+    const obj = {
+      userId: userId,
+      password: userPassword,
+    };
 
-    signInWithEmailAndPassword(auth, userMail, userPassword)
-      .then(() => {
-        // Signed in
-        alert("ログインしました。");
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 401:
+              throw new Error("Unauthorized");
+            case 404:
+              throw new Error("Not Found");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        const userData: User = data.userData;
+        setUserData(userData);
         location.href = "/";
-      })
-      .catch((error) => {
-        setLoginFailed(true);
-        console.log("ログインに失敗しました。：" + error.message);
       });
+    } catch (error) {
+      setLoginFailed(true);
+    }
   };
 
   return (
@@ -89,7 +118,7 @@ export const Login = () => {
             severity="error"
             sx={{ marginBottom: "20px" }}
           >
-            ログインに失敗しました。メールアドレスまたはパスワードに誤りがあります。
+            ログインに失敗しました。ユーザIDまたはパスワードに誤りがあります。
           </Alert>
         )}
         {inputMissed && (
@@ -103,15 +132,15 @@ export const Login = () => {
         )}
         <Stack spacing={2}>
           <TextField
-            id="user-mail"
-            label="メールアドレス"
+            id="user-id"
+            label="ユーザID"
             variant="standard"
             required
             fullWidth
-            value={userMail}
-            error={userMailError}
-            onBlur={() => checkUserMail()}
-            onChange={(e) => setUserMail(e.target.value)}
+            value={userId}
+            error={userIdError}
+            onBlur={() => checkUserId()}
+            onChange={(e) => setUserId(e.target.value)}
           />
           <TextField
             id="user-password"
