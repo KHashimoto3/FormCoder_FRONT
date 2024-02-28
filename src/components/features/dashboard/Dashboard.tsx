@@ -1,11 +1,22 @@
 import { Grid } from "@mui/material";
 import { DashboardMenu } from "./DashboardMenu";
 import { DashboardContent } from "./DashboardContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DashboardTitleBar } from "./DashboardTitleBar";
+
+import { useUserData } from "../../common/hooks/useUserData";
 
 export const Dashboard = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>("学習");
+
+  const { getUserData } = useUserData();
+
+  useEffect(() => {
+    const userData = getUserData();
+    if (userData.userId === undefined) {
+      window.location.href = "/login";
+    }
+  }, []);
 
   return (
     <div>
