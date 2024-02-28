@@ -5,11 +5,10 @@ import { DashboardMenuUser } from "./DashboardMenuUser";
 type Props = {
   selectedMenu: string;
   setSelectedMenu: (menu: string) => void;
-  avatarImage: string;
 };
 
 export const DashboardMenu = (props: Props) => {
-  const { selectedMenu, setSelectedMenu, avatarImage } = props;
+  const { selectedMenu, setSelectedMenu } = props;
 
   console.log(selectedMenu);
 
@@ -28,7 +27,7 @@ export const DashboardMenu = (props: Props) => {
   return (
     <div style={{ height: "500px" }}>
       <Stack spacing={1}>
-        <DashboardMenuUser avatarImage={avatarImage} />
+        <DashboardMenuUser />
         {menuList.map((menu) => (
           <DashboardMenuButton
             key={menu}

@@ -8,12 +8,13 @@ import {
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
-type Props = {
-  avatarImage: string;
-};
+import { useUserData } from "../../common/hooks/useUserData";
 
-export const DashboardTitleBar = (props: Props) => {
-  const { avatarImage } = props;
+export const DashboardTitleBar = () => {
+  const { getUserData } = useUserData();
+  const avatarImage = getUserData().icon;
+  const userName = getUserData().name;
+
   return (
     <div
       style={{
@@ -40,7 +41,7 @@ export const DashboardTitleBar = (props: Props) => {
             <Button size="small">
               <Avatar sx={{ width: 30, height: 30 }} src={avatarImage} />
               <Typography variant="body1" sx={{ color: "#000000" }}>
-                ユーザー名
+                {userName}
               </Typography>
             </Button>
           </IconButton>
