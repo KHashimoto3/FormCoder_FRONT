@@ -56,7 +56,7 @@ export const TitleBar = () => {
   const logout = () => {
     removeUserData();
     setLoginUser(false);
-    history.push("/");
+    location.href = "/";
   };
 
   const buttonStyle = {
