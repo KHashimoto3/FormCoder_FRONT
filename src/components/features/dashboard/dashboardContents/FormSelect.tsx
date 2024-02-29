@@ -1,10 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { FormCard } from "./FormCard";
-import { FormCardList } from "../../types/formCardList";
+import { FormCard } from "../../leaning/FormCard";
+import { FormCardList } from "../../../types/formCardList";
 import { useEffect, useState } from "react";
-import { FormCardSkelton } from "./FormCardSkelton";
+import { FormCardSkelton } from "../../leaning/FormCardSkelton";
 
-export const Learning = () => {
+export const FormSelect = () => {
   const apiBaseUrl = "https://form-coder-api.onrender.com";
   const [formList, setFormList] = useState<FormCardList[]>([]);
 
@@ -76,7 +76,7 @@ export const Learning = () => {
   };
 
   return (
-    <Box sx={{ height: "1000px", paddingTop: "160px" }}>
+    <Box sx={{ height: "100%", padding: "20px", overflowY: "scroll" }}>
       <Typography
         variant="h4"
         component="div"

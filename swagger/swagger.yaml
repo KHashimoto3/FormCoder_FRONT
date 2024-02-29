@@ -14,6 +14,8 @@ tags:
     description: Everything about your record
   - name: programm
     description: Everything about your programm
+  - name: user
+    description: Everything about your user
 paths:
   /form:
     get:
@@ -76,12 +78,63 @@ paths:
                       type: string
                     description:
                       type: string
-                    imageUrl:
+                    url:
                       type: string
-                    formUrl:
+                    explanation:
                       type: string
+                    inputExample:
+                      type: array
+                      items:
+                        type: string
+                    outputExample:
+                      type: array
+                      items:
+                        type: string
         "404":
           description: フォームリストが空です。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /form/question:
+    get:
+      tags:
+        - form
+      summary: フォームの問題データを返す
+      parameters:
+        - name: formId
+          in: query
+          description: "フォームのIDを渡す"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 指定されたフォーム名の問題データを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  questionData:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      title:
+                        type: string
+                      explanation:
+                        type: string
+                      inputExample:
+                        type: array
+                        items:
+                          type: string
+                      outputExample:
+                        type: array
+                        items:
+                          type: string
+        "400":
+          description: パラメータformIdは必須です
+        "404":
+          description: 指定されたformIdの問題データが見つかりません。
         "500":
           description: 何らかのエラーが発生しました。
   /hint:
@@ -312,6 +365,79 @@ paths:
                     type: string
         "500":
           description: 何らかのエラーが発生しました。
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: ユーザーをログインさせる
+      requestBody:
+        description: ユーザーをログインさせる
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: ログインに成功しました。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  name:
+                    type: string
+                  icon:
+                    type: string
+                  email:
+                    type: string
+                  finalLoginAt:
+                    type: string
+        "400":
+          description: 必要なデータが渡されていません。
+        "401":
+          description: パスワードが間違っています。
+        "404":
+          description: ユーザーが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: ユーザーを登録する
+      requestBody:
+        description: ユーザーを登録する。passwordはハッシュ化して保存する。
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                name:
+                  type: string
+                password:
+                  type: string
+                icon:
+                  type: string
+                email:
+                  type: string
+      responses:
+        "200":
+          description: 登録に成功しました。
+        "400":
+          description: 必要なデータが渡されていません。
+        "500":
+          description: 何らかのエラーが発生しました。
 components:
   schemas:
     Form:
@@ -341,3 +467,24 @@ components:
               type: string
             hint:
               type: string
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+        icon:
+          type: string
+        email:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        finalLoginAt:
+          type: string
+        deleteFlag:
+          type: boolean

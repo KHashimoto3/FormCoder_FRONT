@@ -1,8 +1,6 @@
-export type FormCardList = {
+export type QuestionData = {
   id: string;
   title: string;
-  description: string;
-  url: string;
   explanation: string;
   inputExample: string[];
   outputExample: string[];
