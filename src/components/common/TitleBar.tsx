@@ -75,7 +75,7 @@ export const TitleBar = () => {
   const logout = () => {
     removeUserData();
     setLoginUser(false);
-    location.href = "/";
+    alert("ログアウトしました");
   };
 
   const handleSettings = (path: string) => {
