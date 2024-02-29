@@ -25,7 +25,7 @@ export const DashboardTitleBar = () => {
     >
       <Grid container spacing={1}>
         <Grid item xs={10}>
-          <Typography variant="h4">FormCoder Dashboard</Typography>
+          <Typography variant="h4">FormCoder ダッシュボード</Typography>
         </Grid>
         <Grid item xs={2}>
           <IconButton
