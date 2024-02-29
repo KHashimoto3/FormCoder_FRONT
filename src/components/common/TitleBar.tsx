@@ -26,11 +26,10 @@ const pages: Pages[] = [
   { pageName: "フォーム一覧", pagePath: "/learning" },
 ];
 
-const settings = ["私の成績", "アカウント設定", "ログアウト"];
-
 export const TitleBar = () => {
   const history = useHistory();
 
+  const [userId, setUserId] = useState<string>("");
   const [userName, setUserName] = useState<string>("ようこそ");
   const [avatarImage, setAvatarImage] = useState<string>("");
   const [loginUser, setLoginUser] = useState<boolean>(false);
@@ -44,10 +43,26 @@ export const TitleBar = () => {
 
   const { getUserData, removeUserData } = useUserData();
 
+  const settings = [
+    {
+      label: "ダッシュボード",
+      path: "/dashboard/" + userId,
+    },
+    {
+      label: "アカウント設定",
+      path: "/dashboard/" + userId,
+    },
+    {
+      label: "ログアウト",
+      path: "/",
+    },
+  ];
+
   useEffect(() => {
     const userData = getUserData();
     if (userData.userId !== undefined) {
       setLoginUser(true);
+      setUserId(userData.userId);
       setUserName(userData.name);
       setAvatarImage(userData.icon);
     }
@@ -61,6 +76,13 @@ export const TitleBar = () => {
     removeUserData();
     setLoginUser(false);
     location.href = "/";
+  };
+
+  const handleSettings = (path: string) => {
+    if (path === "/") {
+      logout();
+    }
+    location.href = path;
   };
 
   const buttonStyle = {
@@ -197,8 +219,13 @@ export const TitleBar = () => {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={() => logout()}>
-                      <Typography textAlign="center">{setting}</Typography>
+                    <MenuItem
+                      key={setting.label}
+                      onClick={() => handleSettings(setting.path)}
+                    >
+                      <Typography textAlign="center">
+                        {setting.label}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
