@@ -10,8 +10,8 @@ import {
   MenuItem,
   Button,
   Tooltip,
+  Avatar,
 } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
 import { useUserData } from "./hooks/useUserData";
@@ -26,11 +26,12 @@ const pages: Pages[] = [
   { pageName: "フォーム一覧", pagePath: "/learning" },
 ];
 
-const settings = ["私の成績", "アカウント設定", "ログアウト"];
-
 export const TitleBar = () => {
   const history = useHistory();
 
+  const [userId, setUserId] = useState<string>("");
+  const [userName, setUserName] = useState<string>("ようこそ");
+  const [avatarImage, setAvatarImage] = useState<string>("");
   const [loginUser, setLoginUser] = useState<boolean>(false);
 
   const [anchorElNav] = useState<null | HTMLElement>(null);
@@ -42,10 +43,28 @@ export const TitleBar = () => {
 
   const { getUserData, removeUserData } = useUserData();
 
+  const settings = [
+    {
+      label: "ダッシュボード",
+      path: "/dashboard/" + userId,
+    },
+    {
+      label: "アカウント設定",
+      path: "/dashboard/" + userId,
+    },
+    {
+      label: "ログアウト",
+      path: "/",
+    },
+  ];
+
   useEffect(() => {
     const userData = getUserData();
     if (userData.userId !== undefined) {
       setLoginUser(true);
+      setUserId(userData.userId);
+      setUserName(userData.name);
+      setAvatarImage(userData.icon);
     }
   }, []);
 
@@ -56,7 +75,14 @@ export const TitleBar = () => {
   const logout = () => {
     removeUserData();
     setLoginUser(false);
-    history.push("/");
+    alert("ログアウトしました");
+  };
+
+  const handleSettings = (path: string) => {
+    if (path === "/") {
+      logout();
+    }
+    location.href = path;
   };
 
   const buttonStyle = {
@@ -167,14 +193,14 @@ export const TitleBar = () => {
             <>
               <Box sx={{ flexGrow: 0.03, display: { xs: "none", md: "flex" } }}>
                 <Typography variant="body1" sx={{ color: "#000" }}>
-                  ようこそ
+                  {userName}
                 </Typography>
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="アカウントメニューを開く">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <PersonIcon fontSize="large" />
-                  </IconButton>
+                  <Button onClick={handleOpenUserMenu}>
+                    <Avatar sx={{ width: 30, height: 30 }} src={avatarImage} />
+                  </Button>
                 </Tooltip>
                 <Menu
                   sx={{ mt: "45px" }}
@@ -193,8 +219,13 @@ export const TitleBar = () => {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={() => logout()}>
-                      <Typography textAlign="center">{setting}</Typography>
+                    <MenuItem
+                      key={setting.label}
+                      onClick={() => handleSettings(setting.path)}
+                    >
+                      <Typography textAlign="center">
+                        {setting.label}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>

@@ -10,6 +10,7 @@ import { ReasonCheckPage } from "./components/pages/ReasonCheckPage";
 import { LoginPage } from "./components/pages/LoginPage";
 import { QuestionPage } from "./components/pages/QuestionPage";
 import { FormDataProvider } from "./components/features/form/FormDataProvider";
+import { DashboardPage } from "./components/pages/DashboardPage";
 
 import { CookiesProvider } from "react-cookie";
 
@@ -42,6 +43,9 @@ function App() {
               </Route>
               <Route path="/question">
                 <QuestionPage />
+              </Route>
+              <Route path="/dashboard">
+                <DashboardPage />
               </Route>
             </BrowserRouter>
           </FormDataProvider>

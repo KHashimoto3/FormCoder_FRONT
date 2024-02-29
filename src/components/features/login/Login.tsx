@@ -87,7 +87,7 @@ export const Login = () => {
         const data = await res.json();
         const userData: User = data.userData;
         setUserData(userData);
-        location.href = "/";
+        location.href = "/dashboard/" + userData.userId;
       });
     } catch (error) {
       setLoginFailed(true);
