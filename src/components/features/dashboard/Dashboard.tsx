@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { DashboardTitleBar } from "./DashboardTitleBar";
 
 import { useUserData } from "../../common/hooks/useUserData";
+import { DashboardFooter } from "./DashboardFooter";
 
 export const Dashboard = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>("学習");
@@ -32,6 +33,7 @@ export const Dashboard = () => {
           <DashboardContent selectedMenu={selectedMenu} />
         </Grid>
       </Grid>
+      <DashboardFooter />
     </div>
   );
 };
