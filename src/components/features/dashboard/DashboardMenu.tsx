@@ -31,7 +31,7 @@ export const DashboardMenu = (props: Props) => {
   const menuList = ["学習", "編集", "学習履歴", "設定"];
 
   return (
-    <div style={{ height: "500px" }}>
+    <div style={{ height: "700px" }}>
       <Stack spacing={1}>
         <DashboardMenuUser />
         {menuList.map((menu) => (

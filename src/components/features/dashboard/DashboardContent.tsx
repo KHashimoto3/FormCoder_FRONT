@@ -7,7 +7,7 @@ type Props = {
 export const DashboardContent = (props: Props) => {
   const { selectedMenu } = props;
   return (
-    <div style={{ background: "#f2f2f2", height: "100%" }}>
+    <div style={{ background: "#f2f2f2", height: "700px" }}>
       <DashboardContentProvider selectedMenu={selectedMenu} />
     </div>
   );
