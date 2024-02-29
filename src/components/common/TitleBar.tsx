@@ -10,8 +10,8 @@ import {
   MenuItem,
   Button,
   Tooltip,
+  Avatar,
 } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import { useHistory } from "react-router-dom";
 
 import { useUserData } from "./hooks/useUserData";
@@ -32,6 +32,7 @@ export const TitleBar = () => {
   const history = useHistory();
 
   const [userName, setUserName] = useState<string>("ようこそ");
+  const [avatarImage, setAvatarImage] = useState<string>("");
   const [loginUser, setLoginUser] = useState<boolean>(false);
 
   const [anchorElNav] = useState<null | HTMLElement>(null);
@@ -48,6 +49,7 @@ export const TitleBar = () => {
     if (userData.userId !== undefined) {
       setLoginUser(true);
       setUserName(userData.name);
+      setAvatarImage(userData.icon);
     }
   }, []);
 
@@ -174,9 +176,9 @@ export const TitleBar = () => {
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="アカウントメニューを開く">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <PersonIcon fontSize="large" />
-                  </IconButton>
+                  <Button onClick={handleOpenUserMenu}>
+                    <Avatar sx={{ width: 30, height: 30 }} src={avatarImage} />
+                  </Button>
                 </Tooltip>
                 <Menu
                   sx={{ mt: "45px" }}
