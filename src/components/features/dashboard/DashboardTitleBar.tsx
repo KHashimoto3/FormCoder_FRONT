@@ -19,13 +19,15 @@ export const DashboardTitleBar = () => {
     <div
       style={{
         background: "#ffffff",
-        height: "10%",
-        borderBottom: "0.5px solid #000000",
+        height: "auto",
       }}
     >
       <Grid container spacing={1}>
-        <Grid item xs={10}>
-          <Typography variant="h4">FormCoder ダッシュボード</Typography>
+        <Grid item xs={2} textAlign={"center"}>
+          <Typography variant="h4">Form Coder</Typography>
+        </Grid>
+        <Grid item xs={8}>
+          <Typography variant="h5">ダッシュボード</Typography>
         </Grid>
         <Grid item xs={2}>
           <IconButton
