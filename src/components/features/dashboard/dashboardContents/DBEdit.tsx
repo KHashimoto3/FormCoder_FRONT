@@ -39,7 +39,10 @@ export const DBEdit = () => {
         <div style={listStyle}>
           <List>
             {editFormList.map((form) => (
-              <ListItem sx={{ borderBottom: "1px solid #dbdbdb" }}>
+              <ListItem
+                key={form.id}
+                sx={{ borderBottom: "1px solid #dbdbdb" }}
+              >
                 <ListItemIcon>
                   <DescriptionIcon />
                 </ListItemIcon>
