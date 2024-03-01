@@ -51,6 +51,8 @@ export const FormBase = () => {
   //ログイン状態
   const { getUserData } = useUserData();
 
+  const [userId, setUserId] = useState<string>("");
+
   //実行画面表示の切り替え
   const [execView, setExecView] = useState<boolean>(false);
 
@@ -100,6 +102,7 @@ export const FormBase = () => {
       alert("ログインしていないため、学習できません。");
       location.href = "/";
     }
+    setUserId(userData.userId);
   }, []);
 
   const saveLearningData = async (userName: string) => {
@@ -111,7 +114,7 @@ export const FormBase = () => {
     const url = `${apiBaseUrl}/record`;
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
-      userId: "00000000000000",
+      userId: userId,
       formName: formName,
       fbData: hintFBArray,
       inputData: inputArray,
