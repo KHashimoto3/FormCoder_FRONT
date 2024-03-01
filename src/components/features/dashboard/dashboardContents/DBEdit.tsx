@@ -5,10 +5,12 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Stack,
   Typography,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DescriptionIcon from "@mui/icons-material/Description";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const DBEdit = () => {
   const listStyle = {
@@ -17,38 +19,50 @@ export const DBEdit = () => {
     background: "#ffffff",
   };
 
+  const editFormList = [
+    {
+      id: "1",
+      name: "サンプルのフォーム1",
+      createdAt: "2024-03-01",
+    },
+    {
+      id: "2",
+      name: "サンプルのフォーム2",
+      createdAt: "2024-03-01",
+    },
+  ];
+
   return (
     <div>
       <Typography variant="h4">編集</Typography>
       <Grid item xs={12}>
         <div style={listStyle}>
           <List>
-            <ListItem sx={{ borderBottom: "1px solid #dbdbdb" }}>
-              <ListItemIcon>
-                <DescriptionIcon />
-              </ListItemIcon>
-              <ListItemText primary="サンプルのフォーム1" />
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<EditIcon />}
-              >
-                編集
-              </Button>
-            </ListItem>
-            <ListItem sx={{ borderBottom: "1px solid #dbdbdb" }}>
-              <ListItemIcon>
-                <DescriptionIcon />
-              </ListItemIcon>
-              <ListItemText primary="サンプルのフォーム2" />
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<EditIcon />}
-              >
-                編集
-              </Button>
-            </ListItem>
+            {editFormList.map((form) => (
+              <ListItem sx={{ borderBottom: "1px solid #dbdbdb" }}>
+                <ListItemIcon>
+                  <DescriptionIcon />
+                </ListItemIcon>
+                <ListItemText primary={form.name} />
+                <ListItemText secondary={form.createdAt} />
+                <Stack spacing={1} direction="row">
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<EditIcon />}
+                  >
+                    編集
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                  >
+                    削除
+                  </Button>
+                </Stack>
+              </ListItem>
+            ))}
           </List>
         </div>
       </Grid>
