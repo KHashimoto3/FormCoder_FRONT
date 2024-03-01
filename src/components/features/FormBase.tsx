@@ -23,6 +23,7 @@ import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
+import { CodeContext } from "./exec/CodeProvider";
 
 import { RotatingLines } from "react-loader-spinner";
 import { CodeExec } from "./exec/CodeExec";
@@ -39,6 +40,7 @@ export const FormBase = () => {
 
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
+  const { code } = useContext(CodeContext);
 
   //保存モーダル
   const [userName, setUserName] = useState<string>("");
@@ -115,9 +117,10 @@ export const FormBase = () => {
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
       userId: userId,
-      formName: formName,
+      formId: formId,
       fbData: hintFBArray,
       inputData: inputArray,
+      connectedCode: code,
     };
 
     try {
