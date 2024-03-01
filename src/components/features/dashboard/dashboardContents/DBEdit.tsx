@@ -23,7 +23,7 @@ export const DBEdit = () => {
       <Grid item xs={12}>
         <div style={listStyle}>
           <List>
-            <ListItem>
+            <ListItem sx={{ borderBottom: "1px solid #dbdbdb" }}>
               <ListItemIcon>
                 <DescriptionIcon />
               </ListItemIcon>
@@ -36,7 +36,7 @@ export const DBEdit = () => {
                 編集
               </Button>
             </ListItem>
-            <ListItem>
+            <ListItem sx={{ borderBottom: "1px solid #dbdbdb" }}>
               <ListItemIcon>
                 <DescriptionIcon />
               </ListItemIcon>

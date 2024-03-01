@@ -22,7 +22,7 @@ export const Dashboard = () => {
   return (
     <div>
       <DashboardTitleBar />
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ marginTop: "5px" }}>
         <Grid item xs={2}>
           <DashboardMenu
             selectedMenu={selectedMenu}
