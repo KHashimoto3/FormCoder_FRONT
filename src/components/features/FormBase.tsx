@@ -41,11 +41,6 @@ export const FormBase = () => {
   const { inputArray } = useContext(InputContext);
   const { code } = useContext(CodeContext);
 
-  //保存モーダル
-  const [userName, setUserName] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
-  const [helper, setHelper] = useState<string>("");
-
   //ローディングモーダル
   const [loading, setLoading] = useState<boolean>(true);
 
