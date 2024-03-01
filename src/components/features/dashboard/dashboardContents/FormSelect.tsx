@@ -78,7 +78,7 @@ export const FormSelect = () => {
   return (
     <Box sx={{ height: "100%", padding: "20px", overflowY: "scroll" }}>
       <Typography
-        variant="h4"
+        variant="h6"
         component="div"
         gutterBottom
         sx={{ fontWeight: "bold" }}
