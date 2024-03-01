@@ -21,10 +21,12 @@ export const DashboardMenuButton = (props: Props) => {
     color: "#fff",
     background:
       "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
+    width: "90%",
   };
 
   const unselectedButtonStyle = {
     color: "#000000",
+    width: "90%",
   };
 
   return (

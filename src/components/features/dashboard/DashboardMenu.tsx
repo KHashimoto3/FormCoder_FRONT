@@ -31,8 +31,8 @@ export const DashboardMenu = (props: Props) => {
   const menuList = ["学習", "編集", "学習履歴", "設定"];
 
   return (
-    <div style={{ height: "700px" }}>
-      <Stack spacing={1}>
+    <div style={{ height: "700px", borderRight: "1px solid #dbdbdb" }}>
+      <Stack spacing={1} alignItems={"center"}>
         <DashboardMenuUser />
         {menuList.map((menu) => (
           <DashboardMenuButton
@@ -43,14 +43,16 @@ export const DashboardMenu = (props: Props) => {
           />
         ))}
       </Stack>
-      <Button
-        variant="outlined"
-        color="error"
-        sx={{ width: "100%", marginTop: "30px" }}
-        onClick={logout}
-      >
-        ログアウト
-      </Button>
+      <Stack alignItems={"center"} sx={{ marginTop: "30px" }}>
+        <Button
+          variant="outlined"
+          color="error"
+          sx={{ width: "90%" }}
+          onClick={logout}
+        >
+          ログアウト
+        </Button>
+      </Stack>
     </div>
   );
 };
