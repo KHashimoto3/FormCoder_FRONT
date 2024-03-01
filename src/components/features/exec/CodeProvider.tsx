@@ -4,7 +4,7 @@ export const CodeContext = createContext(
   {} as {
     code: string;
     setCode: Dispatch<SetStateAction<string>>;
-  }
+  },
 );
 
 export const CodeProvider: React.FC<{ children: React.ReactNode }> = ({
