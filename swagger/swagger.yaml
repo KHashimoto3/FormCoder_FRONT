@@ -187,7 +187,7 @@ paths:
               properties:
                 userId:
                   type: string
-                formName:
+                formId:
                   type: string
                 fbData:
                   type: array
@@ -215,6 +215,8 @@ paths:
                         type: array
                         items:
                           type: string
+                connectedCode:
+                  type: string
       responses:
         "200":
           description: アップロードに成功しました。
