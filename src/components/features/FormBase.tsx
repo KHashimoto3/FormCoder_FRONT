@@ -96,7 +96,7 @@ export const FormBase = () => {
     const userData = getUserData();
     if (userData.userId === undefined) {
       alert("ログインしていないため、学習できません。");
-      location.href = "/";
+      location.href = "/login";
     }
     setUserId(userData.userId);
   }, []);

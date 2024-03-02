@@ -5,6 +5,8 @@ import { InputContext } from "./InputArrayProvider";
 import { Typography } from "@mui/material";
 import { FormDataContext } from "./FormDataProvider";
 
+import { useUserData } from "../../common/hooks/useUserData";
+
 type Props = {
   setLoading: (loading: boolean) => void;
 };
@@ -16,6 +18,9 @@ export const Form = (props: Props) => {
 
   const { initInputArray } = useContext(InputContext);
   const { formData, setFormData } = useContext(FormDataContext);
+
+  const { getUserData } = useUserData();
+  const userId = getUserData().userId;
 
   //フォームデータを格納するstate
   //const [formData, setFormData] = useState<FormData[]>([]);
@@ -32,7 +37,7 @@ export const Form = (props: Props) => {
     const formName = url.searchParams.get("form");
     if (formName == null) {
       alert("フォームの種類が選択されていません。フォーム選択画面に戻ります。");
-      window.location.href = "/learning";
+      window.location.href = "/dashboard/" + userId;
       return;
     }
 
@@ -89,7 +94,7 @@ export const Form = (props: Props) => {
     } catch (error) {
       alert("エラーが発生しました。フォーム選択画面に戻ります。");
       console.log(error);
-      window.location.href = "/learning";
+      window.location.href = "/dashboard/" + userId;
     }
   };
 
@@ -128,7 +133,7 @@ export const Form = (props: Props) => {
     } catch (error) {
       alert("エラーが発生しました。フォーム選択画面に戻ります。");
       console.log(error);
-      window.location.href = "/learning";
+      window.location.href = "/dashboard/" + userId;
     }
   };
 
