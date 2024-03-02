@@ -13,7 +13,6 @@ import {
   IconButton,
   Stack,
   Switch,
-  TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -23,6 +22,7 @@ import { Form } from "./form/Form";
 import { useContext, useEffect, useState } from "react";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
+import { CodeContext } from "./exec/CodeProvider";
 
 import { RotatingLines } from "react-loader-spinner";
 import { CodeExec } from "./exec/CodeExec";
@@ -39,17 +39,15 @@ export const FormBase = () => {
 
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
-
-  //保存モーダル
-  const [userName, setUserName] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
-  const [helper, setHelper] = useState<string>("");
+  const { code } = useContext(CodeContext);
 
   //ローディングモーダル
   const [loading, setLoading] = useState<boolean>(true);
 
   //ログイン状態
   const { getUserData } = useUserData();
+
+  const [userId, setUserId] = useState<string>("");
 
   //実行画面表示の切り替え
   const [execView, setExecView] = useState<boolean>(false);
@@ -100,21 +98,18 @@ export const FormBase = () => {
       alert("ログインしていないため、学習できません。");
       location.href = "/";
     }
+    setUserId(userData.userId);
   }, []);
 
-  const saveLearningData = async (userName: string) => {
-    if (userName == "") {
-      setError(true);
-      setHelper("名前の入力は必須です。");
-      return;
-    }
+  const saveLearningData = async () => {
     const url = `${apiBaseUrl}/record`;
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
-      userId: "00000000000000",
-      formName: formName,
+      userId: userId,
+      formId: formId,
       fbData: hintFBArray,
       inputData: inputArray,
+      connectedCode: code,
     };
 
     try {
@@ -136,7 +131,7 @@ export const FormBase = () => {
               throw new Error("Unknown Error");
           }
         }
-        alert("アップロード完了しました！");
+        handleClickOpen();
       });
     } catch (error) {
       alert("アップロード中にエラーが発生しました。");
@@ -237,8 +232,8 @@ export const FormBase = () => {
                 >
                   問題文を再表示
                 </Button>
-                <Button onClick={handleClickOpen} style={buttonStyle}>
-                  保存して終了
+                <Button onClick={saveLearningData} style={buttonStyle}>
+                  保存する
                 </Button>
               </Stack>
             </Box>
@@ -256,30 +251,15 @@ export const FormBase = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"学習データの保存"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"保存完了"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            学習データを保存して終了するには、あなたの名前を入力した後に「保存して終了」をクリックしてください。
+            保存が完了しました！引き続き編集が可能です。編集した後、もう一度保存してください。
           </DialogContentText>
-          <TextField
-            id="outlined-basic"
-            placeholder="あなたの名前"
-            variant="outlined"
-            value={userName}
-            onChange={(event) => setUserName(event.target.value)}
-            sx={{ width: "60%" }}
-            error={error}
-            helperText={helper}
-          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>キャンセル</Button>
-          <Button
-            variant="contained"
-            onClick={() => saveLearningData(userName)}
-            autoFocus
-          >
-            保存
+          <Button variant="contained" onClick={handleClose} autoFocus>
+            閉じる
           </Button>
         </DialogActions>
       </Dialog>

@@ -6,17 +6,20 @@ import { CheckMissResult } from "../../types/checkMissResult";
 import { CodeCheckList } from "./CodeCheckList";
 import { InputContext } from "../form/InputArrayProvider";
 import { FormDataContext } from "../form/FormDataProvider";
+import { CodeContext } from "./CodeProvider";
 
 export const CodeExec = () => {
   const apiBaseUrl = "https://form-coder-api.onrender.com";
 
-  const [code, setCode] = useState<string>("");
   const [codeInput, setCodeInput] = useState<string>("");
   const [codeResultStatus, setCodeResultStatus] = useState<string>("Ready");
   const [codeOutput, setCodeOutput] = useState<string>("");
 
   const [errorResolveList, setErrorResolveList] = useState<ErrorResolve[]>([]);
   const [foundMissList] = useState<CheckMissResult[]>([]);
+
+  //コードを管理するコンテキスト
+  const { code, setCode } = useContext(CodeContext);
 
   //入力データを管理するコンテキスト
   const { inputArray } = useContext(InputContext);

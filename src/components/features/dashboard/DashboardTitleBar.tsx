@@ -20,6 +20,7 @@ export const DashboardTitleBar = () => {
       style={{
         background: "#ffffff",
         height: "auto",
+        borderBottom: "1px solid #dbdbdb",
       }}
     >
       <Grid container spacing={1}>
