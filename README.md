@@ -17,7 +17,7 @@
 2023 年 6 月〜2025 年 3 月
 
 ## 使用技術
-### フロントエンド
+フロントエンド
 <div style="display: inline">
 <img src="https://img.shields.io/badge/-Html5-111111.svg?logo=html5&style=flat-square">
 <img src="https://img.shields.io/badge/-Css3-111111.svg?logo=css3&style=flat-square">
@@ -25,46 +25,46 @@
 <img src="https://img.shields.io/badge/-React-111111.svg?logo=react&style=flat-square">
 </div>
 
-### バックエンド
+バックエンド
 <div style="display: inline">
 <img src="https://img.shields.io/badge/-Typescript-111111.svg?logo=typescript&style=flat-square">
 <img src="https://img.shields.io/badge/-Nest.js-111111.svg?logo=&style=flat-square">
 </div>
 
-### データベース
+データベース
 <div style="display: inline">
   <img src="https://img.shields.io/badge/-Google%20cloud%20Firestore-111111.svg?logo=google-cloud&style=flat-square">
 </div>
 
-### ストレージ
+ストレージ
 <div style="display: inline">
   <img src="https://img.shields.io/badge/-Google%20cloud%20Storage-111111.svg?logo=google-cloud&style=flat-square">
 </div>
 
-### インフラ
+インフラ
 <div style="display: inline">
   <img src="https://img.shields.io/badge/-Firebase%20Hosting-111111.svg?logo=firebase&style=flat-square">
   <img src="https://img.shields.io/badge/-Google%20cloud-111111.svg?logo=google-cloud&style=flat-square">
   <img src="https://img.shields.io/badge/-Render-111111.svg?logo=&style=flat-square">
 </div>
 
-### 環境構築
+環境構築
 <div style="display: inline">
   <img src="https://img.shields.io/badge/-Vite-111111.svg?logo=&style=flat-square">
 </div>
 
-### コード管理
+コード管理
 <div style="display: inline">
   <img src="https://img.shields.io/badge/-Git-111111.svg?logo=git&style=flat-square">
 </div>
 
-### コード品質管理
+コード品質管理
 <div style="display: inline">
   <img src="https://img.shields.io/badge/-Eslint-111111.svg?logo=eslint&style=flat-square">
   <img src="https://img.shields.io/badge/-Eslint-111111.svg?logo=eslint&style=flat-square">
 </div>
 
-### テストツール
+テストツール
 <div style="display: inline">
   <img src="https://img.shields.io/badge/-Playwright-111111.svg?logo=&style=flat-square">
 </div>
