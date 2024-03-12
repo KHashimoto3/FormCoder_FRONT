@@ -10,23 +10,64 @@
 ## 関連リポジトリ
 
 バックエンド（API）リポジトリ：https://github.com/KHashimoto3/FormCoder_BACK  
-プロトタイプ（HCG 学会発表分）：https://github.com/KHashimoto3/HCG2023_KH
 
 ## 開発期間
 
 大学院での研究として行う。  
-2023 年 6 月〜2024 年 3 月（目標）
+2023 年 6 月〜2025 年 3 月
 
 ## 使用技術
+### フロントエンド
+<div style="display: inline">
+<img src="https://img.shields.io/badge/-Html5-111111.svg?logo=html5&style=flat-square">
+<img src="https://img.shields.io/badge/-Css3-111111.svg?logo=css3&style=flat-square">
+<img src="https://img.shields.io/badge/-Typescript-111111.svg?logo=typescript&style=flat-square">
+<img src="https://img.shields.io/badge/-React-111111.svg?logo=react&style=flat-square">
+</div>
 
-フロントエンド：HTML, CSS, Typescript, React, MUI  
-バックエンド：Nest.js（Typescript）  
-データベース：Cloud Firestore
-ファイル保存：Cloud Storage  
-環境構築：Vite, npm  
-コード管理：Git  
-コード品質管理：ESLint, Prettier  
-フロントエンドデプロイ環境：Firebase hosting
+### バックエンド
+<div style="display: inline">
+<img src="https://img.shields.io/badge/-Typescript-111111.svg?logo=typescript&style=flat-square">
+<img src="https://img.shields.io/badge/-Nest.js-111111.svg?logo=&style=flat-square">
+</div>
+
+### データベース
+<div style="display: inline">
+  <img src="https://img.shields.io/badge/-Google%20cloud%20Firestore-111111.svg?logo=google-cloud&style=flat-square">
+</div>
+
+### ストレージ
+<div style="display: inline">
+  <img src="https://img.shields.io/badge/-Google%20cloud%20Storage-111111.svg?logo=google-cloud&style=flat-square">
+</div>
+
+### インフラ
+<div style="display: inline">
+  <img src="https://img.shields.io/badge/-Firebase%20Hosting-111111.svg?logo=firebase&style=flat-square">
+  <img src="https://img.shields.io/badge/-Google%20cloud-111111.svg?logo=google-cloud&style=flat-square">
+  <img src="https://img.shields.io/badge/-Render-111111.svg?logo=&style=flat-square">
+</div>
+
+### 環境構築
+<div style="display: inline">
+  <img src="https://img.shields.io/badge/-Vite-111111.svg?logo=&style=flat-square">
+</div>
+
+### コード管理
+<div style="display: inline">
+  <img src="https://img.shields.io/badge/-Git-111111.svg?logo=git&style=flat-square">
+</div>
+
+### コード品質管理
+<div style="display: inline">
+  <img src="https://img.shields.io/badge/-Eslint-111111.svg?logo=eslint&style=flat-square">
+  <img src="https://img.shields.io/badge/-Eslint-111111.svg?logo=eslint&style=flat-square">
+</div>
+
+### テストツール
+<div style="display: inline">
+  <img src="https://img.shields.io/badge/-Playwright-111111.svg?logo=&style=flat-square">
+</div>
 
 ## 実行方法
 
