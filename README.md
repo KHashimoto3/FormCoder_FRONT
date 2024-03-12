@@ -7,6 +7,8 @@
 このアプリは、フォームの仕組みを用いて、初心者のプログラミング（コーディング）を支援してプログラミング能力の向上を目指した、プログラミング学習支援システムです。  
 <img src="https://github.com/KHashimoto3/FormCoder_FRONT/assets/85172807/8a93dbcb-bdd9-42f4-9e52-303b0c96be83" width="70%" />
 
+参考資料: https://x.gd/BTsNX
+
 ## 関連リポジトリ
 
 バックエンド（API）リポジトリ：https://github.com/KHashimoto3/FormCoder_BACK  
