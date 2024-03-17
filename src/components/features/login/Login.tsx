@@ -109,11 +109,17 @@ export const Login = () => {
           <ArrowBackIcon sx={{ marginRight: "10px" }} />
           ホームに戻る
         </Typography>
-        <Typography variant="h4" component="div" gutterBottom>
+        <Typography
+          data-testid="login-page-title"
+          variant="h4"
+          component="div"
+          gutterBottom
+        >
           ログイン
         </Typography>
         {loginFailed && (
           <Alert
+            data-testid="login-failed-alert"
             variant="filled"
             severity="error"
             sx={{ marginBottom: "20px" }}
@@ -123,6 +129,7 @@ export const Login = () => {
         )}
         {inputMissed && (
           <Alert
+            data-testid="input-missed-alert"
             variant="filled"
             severity="warning"
             sx={{ marginBottom: "20px" }}
@@ -132,6 +139,7 @@ export const Login = () => {
         )}
         <Stack spacing={2}>
           <TextField
+            data-testid="user-id-field"
             id="user-id"
             label="ユーザID"
             variant="standard"
@@ -143,6 +151,7 @@ export const Login = () => {
             onChange={(e) => setUserId(e.target.value)}
           />
           <TextField
+            data-testid="user-password-field"
             id="user-password"
             label="パスワード"
             type="password"
@@ -155,6 +164,7 @@ export const Login = () => {
             onChange={(e) => setUserPassword(e.target.value)}
           />
           <Button
+            data-testid="login-button"
             variant="contained"
             sx={buttonStyle}
             fullWidth

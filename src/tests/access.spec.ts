@@ -8,3 +8,59 @@ test("トップページにアクセスすると、タイトルの文字が表�
   //home-titleがフォームを使ったプログラミング学習であることを確認する。
   await expect(title).toContainText("フォームを使ったプログラミング学習");
 });
+
+test("トップページにあるログインボタンをクリックすると、ログインページに遷移する", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/");
+  const loginButton = await page.getByTestId("login-button");
+  await loginButton.click();
+  await expect(page.url()).toBe("http://localhost:5173/login");
+
+  const loginPageTitle = await page.getByTestId("login-page-title");
+  await expect(loginPageTitle).toBeVisible();
+});
+
+test("ログインページ内に、２つのテキストフィールドとログインボタンが表示される", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/login");
+  const userIdField = await page.getByTestId("user-id-field");
+  const userPasswordField = await page.getByTestId("user-password-field");
+  const loginButton = await page.getByTestId("login-button");
+
+  await expect(userIdField).toBeVisible();
+  await expect(userPasswordField).toBeVisible();
+  await expect(loginButton).toBeVisible();
+});
+
+test("間違ったユーザIDとパスワードを入力してログインボタンをクリックすると、エラーメッセージが表示される", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/login");
+  const userIdField = await page.getByTestId("user-id-field");
+  const userPasswordField = await page.getByTestId("user-password-field");
+  const loginButton = await page.getByTestId("login-button");
+
+  await userIdField.pressSequentially("test0");
+  await userPasswordField.pressSequentially("0000");
+  await loginButton.click();
+
+  const loginFailedAlert = await page.getByTestId("login-failed-alert");
+  await expect(loginFailedAlert).toBeVisible();
+  const inputMissedAlert = await page.getByTestId("input-missed-alert");
+  await expect(inputMissedAlert).not.toBeVisible();
+});
+
+test("未入力の状態でログインボタンをクリックすると、エラーメッセージが表示される", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/login");
+  const loginButton = await page.getByTestId("login-button");
+  await loginButton.click();
+
+  const inputMissedAlert = await page.getByTestId("input-missed-alert");
+  await expect(inputMissedAlert).toBeVisible();
+  const loginFailedAlert = await page.getByTestId("login-failed-alert");
+  await expect(loginFailedAlert).not.toBeVisible();
+});

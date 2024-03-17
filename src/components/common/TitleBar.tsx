@@ -233,6 +233,7 @@ export const TitleBar = () => {
             </>
           ) : (
             <Button
+              data-testid="login-button"
               variant="contained"
               style={buttonStyle}
               onClick={() => history.push("/login")}
