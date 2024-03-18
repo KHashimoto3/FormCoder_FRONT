@@ -14,7 +14,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { User } from "../../types/user";
 
 export const Login = () => {
-  const apiBaseUrl = "https://form-coder-api.onrender.com";
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
   const buttonStyle = {
     color: "#fff",
