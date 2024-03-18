@@ -30,7 +30,7 @@ import { CodeExec } from "./exec/CodeExec";
 import { useUserData } from "../common/hooks/useUserData";
 
 export const FormBase = () => {
-  const apiBaseUrl = "https://form-coder-api.onrender.com";
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 

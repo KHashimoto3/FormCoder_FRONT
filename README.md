@@ -7,31 +7,68 @@
 このアプリは、フォームの仕組みを用いて、初心者のプログラミング（コーディング）を支援してプログラミング能力の向上を目指した、プログラミング学習支援システムです。  
 <img src="https://github.com/KHashimoto3/FormCoder_FRONT/assets/85172807/8a93dbcb-bdd9-42f4-9e52-303b0c96be83" width="70%" />
 
+参考資料: https://x.gd/BTsNX
+
 ## 関連リポジトリ
 
-バックエンド（API）リポジトリ：https://github.com/KHashimoto3/FormCoder_BACK  
-プロトタイプ（HCG 学会発表分）：https://github.com/KHashimoto3/HCG2023_KH
+バックエンド（API）リポジトリ：https://github.com/KHashimoto3/FormCoder_BACK
 
 ## 開発期間
 
 大学院での研究として行う。  
-2023 年 6 月〜2024 年 3 月（目標）
+2023 年 6 月〜2025 年 3 月
+
+## ディレクトリ構成
+
+https://docs.google.com/document/d/13y7rhlHK7xEt1vqXHDnjzAAgzSV4F6oMcV_QgaLlkWk/edit?usp=sharing
 
 ## 使用技術
 
-フロントエンド：HTML, CSS, Typescript, React, MUI  
-バックエンド：Nest.js（Typescript）  
-データベース：Cloud Firestore
-ファイル保存：Cloud Storage  
-環境構築：Vite, npm  
-コード管理：Git  
-コード品質管理：ESLint, Prettier  
-フロントエンドデプロイ環境：Firebase hosting
+| 領域           | 技術                                    |
+| -------------- | --------------------------------------- |
+| フロントエンド | HTML, CSS, TypeScript, React, MUI, Vite |
+| バックエンド   | Google Cloud, Nest.js, TypeScript       |
+| データベース   | Cloud Firestore                         |
+| ストレージ     | Cloud Storage                           |
+| インフラ       | Firebase, Render                        |
+| CI/CD          | Github Actions                          |
+| ツール         | git, ESLint, Prettier, Playwright       |
 
-## 実行方法
+## 環境構築・実行方法
 
-1. リポジトリの Clone
-2. `npm i`
-3. `npm run dev`
+### 1. リポジトリの Clone
 
-※環境変数を設定する必要があります。
+### 2. 環境変数の設定
+
+`.env`ファイルをルートディレクトリに作成し、以下の環境変数を設定します。値は開発者にお問い合わせください。
+
+```
+VITE_FIREBASE_API_KEY=***
+VITE_FIREBASE_AUTH_DOMAIN=***
+VITE_FIREBASE_PROJECT_ID=***
+VITE_FIREBASE_STORAGE_BUCKET=***
+VITE_FIREBASE_MESSAGING_SENDER_ID=***
+VITE_FIREBASE_APP_ID=***
+
+VITE_API_BASE_URL=***
+```
+
+### 3. モジュールインストール
+
+以下のコマンドでモジュールをインストールします。
+
+```
+npm i
+```
+
+### 4. サーバ起動
+
+以下のコマンドで Vite のサーバを起動します。
+
+```
+npm run dev
+```
+
+### 5. 起動確認
+
+`localhost:5173`にアクセスして、トップページが表示されれば完了です。
