@@ -172,6 +172,42 @@ paths:
           description: ヒントデータが見つかりません。
         "500":
           description: 何らかのエラーが発生しました。
+  /record/tmp:
+    get:
+      tags:
+        - record
+      summary: フォームの回答テンプレートを返す
+      parameters:
+        - name: formName
+          in: query
+          description: "フォーム名を渡す"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 指定されたフォーム名の回答テンプレートを返す。
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    partType:
+                      type: string
+                    inputDataArray:
+                      type: array
+                      items:
+                        type: string
+        "400":
+          description: パラメータformNameは必須です
+        "404":
+          description: 指定されたフォーム名の回答テンプレートが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
   /record:
     post:
       tags:
@@ -222,8 +258,6 @@ paths:
           description: アップロードに成功しました。
         "400":
           description: 必要なデータが渡されていません。
-        "404":
-          description: 指定されたフォーム名の回答テンプレートが見つかりません。
         "500":
           description: 何らかのエラーが発生しました。
   /programm/exec-result:
