@@ -32,7 +32,7 @@ export const Login = () => {
   const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
 
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
-  const [inputMissed] = useState<boolean>(false);
+  const [inputMissed, setInputMissed] = useState<boolean>(false);
 
   const checkUserId = () => {
     if (userId === "") {
@@ -51,6 +51,19 @@ export const Login = () => {
   };
 
   const login = async () => {
+    if (userId === "") {
+      setUserIdError(true);
+    }
+    if (userPassword === "") {
+      setUserPasswordError(true);
+    }
+
+    if (userId === "" || userPassword === "") {
+      setInputMissed(true);
+      return;
+    }
+    setInputMissed(false);
+
     const url = `${apiBaseUrl}/user/login`;
     const obj = {
       userId: userId,
@@ -109,11 +122,17 @@ export const Login = () => {
           <ArrowBackIcon sx={{ marginRight: "10px" }} />
           ホームに戻る
         </Typography>
-        <Typography variant="h4" component="div" gutterBottom>
+        <Typography
+          data-testid="login-page-title"
+          variant="h4"
+          component="div"
+          gutterBottom
+        >
           ログイン
         </Typography>
         {loginFailed && (
           <Alert
+            data-testid="login-failed-alert"
             variant="filled"
             severity="error"
             sx={{ marginBottom: "20px" }}
@@ -123,6 +142,7 @@ export const Login = () => {
         )}
         {inputMissed && (
           <Alert
+            data-testid="input-missed-alert"
             variant="filled"
             severity="warning"
             sx={{ marginBottom: "20px" }}
@@ -132,6 +152,7 @@ export const Login = () => {
         )}
         <Stack spacing={2}>
           <TextField
+            data-testid="user-id-field"
             id="user-id"
             label="ユーザID"
             variant="standard"
@@ -143,6 +164,7 @@ export const Login = () => {
             onChange={(e) => setUserId(e.target.value)}
           />
           <TextField
+            data-testid="user-password-field"
             id="user-password"
             label="パスワード"
             type="password"
@@ -155,8 +177,9 @@ export const Login = () => {
             onChange={(e) => setUserPassword(e.target.value)}
           />
           <Button
+            data-testid="login-button"
             variant="contained"
-            sx={buttonStyle}
+            style={buttonStyle}
             fullWidth
             onClick={login}
           >

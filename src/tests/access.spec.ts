@@ -9,21 +9,40 @@ test("トップページにアクセスすると、タイトルの文字が表�
   await expect(title).toContainText("フォームを使ったプログラミング学習");
 });
 
-/*test("存在するフォームにアクセスすると、「ヒント非表示」が表示される。", async ({
+test("トップページにあるログインボタンをクリックすると、ログインページに遷移する", async ({
   page,
 }) => {
-  await page.goto("http://localhost:5173/form?form=experiment1");
-  await page.waitForTimeout(3000);
-  const hintTitle = await page.getByTestId("hint-title");
-  //ヒントのタイトルに、「ヒント非表示」が表示されていることを確認する。
-  await expect(hintTitle).toContainText("ヒント非表示");
-});*/
+  await page.goto("http://localhost:5173/");
+  const loginButton = await page.getByTestId("login-button");
+  await loginButton.click();
+  await expect(page.url()).toBe("http://localhost:5173/login");
 
-test("存在しないフォームにアクセスすると、フォームの読み込みに失敗し、「ヒント読み込み中」のままになる。", async ({
+  const loginPageTitle = await page.getByTestId("login-page-title");
+  await expect(loginPageTitle).toBeVisible();
+});
+
+test("ログインページ内に、２つのテキストフィールドとログインボタンが表示される", async ({
   page,
 }) => {
-  await page.goto("http://localhost:5173/form?form=blank");
-  const hintTitle = await page.getByTestId("hint-title");
-  //ヒントのタイトルに、「ヒント非表示」が表示されていることを確認する。
-  await expect(hintTitle).toContainText("ヒント読みこ中");
+  await page.goto("http://localhost:5173/login");
+  const userIdField = await page.getByTestId("user-id-field");
+  const userPasswordField = await page.getByTestId("user-password-field");
+  const loginButton = await page.getByTestId("login-button");
+
+  await expect(userIdField).toBeVisible();
+  await expect(userPasswordField).toBeVisible();
+  await expect(loginButton).toBeVisible();
+});
+
+test("未入力の状態でログインボタンをクリックすると、エラーメッセージが表示される", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/login");
+  const loginButton = await page.getByTestId("login-button");
+  await loginButton.click();
+
+  const inputMissedAlert = await page.getByTestId("input-missed-alert");
+  await expect(inputMissedAlert).toBeVisible();
+  const loginFailedAlert = await page.getByTestId("login-failed-alert");
+  await expect(loginFailedAlert).not.toBeVisible();
 });

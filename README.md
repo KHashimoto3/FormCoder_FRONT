@@ -19,20 +19,20 @@
 2023 年 6 月〜2025 年 3 月
 
 ## ディレクトリ構成
-https://docs.google.com/document/d/13y7rhlHK7xEt1vqXHDnjzAAgzSV4F6oMcV_QgaLlkWk/edit?usp=sharing
 
+https://docs.google.com/document/d/13y7rhlHK7xEt1vqXHDnjzAAgzSV4F6oMcV_QgaLlkWk/edit?usp=sharing
 
 ## 使用技術
 
-| 領域           | 技術                                             |
-|--------------|-------------------------------------------------|
-| フロントエンド | HTML, CSS, TypeScript, React, MUI, Vite          |
-| バックエンド   | Google Cloud, Nest.js, TypeScript                |
-| データベース   | Cloud Firestore                                 |
-| ストレージ     | Cloud Storage                                   |
-| インフラ           | Firebase, Render                                |
-| CI/CD         | Github Actions                                  |
-| ツール         | git, ESLint, Prettier, Playwright               |
+| 領域           | 技術                                    |
+| -------------- | --------------------------------------- |
+| フロントエンド | HTML, CSS, TypeScript, React, MUI, Vite |
+| バックエンド   | Google Cloud, Nest.js, TypeScript       |
+| データベース   | Cloud Firestore                         |
+| ストレージ     | Cloud Storage                           |
+| インフラ       | Firebase, Render                        |
+| CI/CD          | Github Actions                          |
+| ツール         | git, ESLint, Prettier, Playwright       |
 
 ## 環境構築・実行方法
 
