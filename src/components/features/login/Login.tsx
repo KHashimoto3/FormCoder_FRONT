@@ -32,7 +32,7 @@ export const Login = () => {
   const [userPasswordError, setUserPasswordError] = useState<boolean>(false);
 
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
-  const [inputMissed] = useState<boolean>(false);
+  const [inputMissed, setInputMissed] = useState<boolean>(false);
 
   const checkUserId = () => {
     if (userId === "") {
@@ -51,6 +51,19 @@ export const Login = () => {
   };
 
   const login = async () => {
+    if (userId === "") {
+      setUserIdError(true);
+    }
+    if (userPassword === "") {
+      setUserPasswordError(true);
+    }
+
+    if (userId === "" || userPassword === "") {
+      setInputMissed(true);
+      return;
+    }
+    setInputMissed(false);
+
     const url = `${apiBaseUrl}/user/login`;
     const obj = {
       userId: userId,
@@ -166,7 +179,7 @@ export const Login = () => {
           <Button
             data-testid="login-button"
             variant="contained"
-            sx={buttonStyle}
+            style={buttonStyle}
             fullWidth
             onClick={login}
           >

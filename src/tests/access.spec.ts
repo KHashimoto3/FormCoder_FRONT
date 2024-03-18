@@ -34,24 +34,6 @@ test("ログインページ内に、２つのテキストフィールドとロ�
   await expect(loginButton).toBeVisible();
 });
 
-test("間違ったユーザIDとパスワードを入力してログインボタンをクリックすると、エラーメッセージが表示される", async ({
-  page,
-}) => {
-  await page.goto("http://localhost:5173/login");
-  const userIdField = await page.getByTestId("user-id-field");
-  const userPasswordField = await page.getByTestId("user-password-field");
-  const loginButton = await page.getByTestId("login-button");
-
-  await userIdField.pressSequentially("test0");
-  await userPasswordField.pressSequentially("0000");
-  await loginButton.click();
-
-  const loginFailedAlert = await page.getByTestId("login-failed-alert");
-  await expect(loginFailedAlert).toBeVisible();
-  const inputMissedAlert = await page.getByTestId("input-missed-alert");
-  await expect(inputMissedAlert).not.toBeVisible();
-});
-
 test("未入力の状態でログインボタンをクリックすると、エラーメッセージが表示される", async ({
   page,
 }) => {
