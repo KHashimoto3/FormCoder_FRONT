@@ -27,7 +27,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(
 );
 
 export const Hint = () => {
-  const apiBaseUrl = "https://form-coder-api.onrender.com";
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
   const { currentPartType } = useContext(HintContext);
   const { hintTypeC } = useContext(HintContext);

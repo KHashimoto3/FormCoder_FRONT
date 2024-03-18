@@ -9,7 +9,7 @@ import { FormDataContext } from "../form/FormDataProvider";
 import { CodeContext } from "./CodeProvider";
 
 export const CodeExec = () => {
-  const apiBaseUrl = "https://form-coder-api.onrender.com";
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
   const [codeInput, setCodeInput] = useState<string>("");
   const [codeResultStatus, setCodeResultStatus] = useState<string>("Ready");

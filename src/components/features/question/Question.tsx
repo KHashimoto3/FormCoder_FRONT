@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export const Question = () => {
   const [questionData, setQuestionData] = useState<QuestionData>();
-  const apiBaseUrl = "https://form-coder-api.onrender.com";
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
   const url = new URL(window.location.href);
   const formId = url.searchParams.get("formId");
