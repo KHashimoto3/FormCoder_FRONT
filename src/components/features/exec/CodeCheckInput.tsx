@@ -15,8 +15,8 @@ export const CodeCheckInput = (props: Props) => {
   return (
     <>
       <Container maxWidth="md">
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          ＜コード＞
+        <Typography variant="h6" sx={{ mt: 2, backgroundColor: "#e0e0e0" }}>
+          コード
         </Typography>
         <ReactCodeMirror
           value={code}
@@ -24,8 +24,8 @@ export const CodeCheckInput = (props: Props) => {
           style={{ fontSize: "14pt" }}
         />
 
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          ＜入力＞
+        <Typography variant="h6" sx={{ mt: 2, backgroundColor: "#e0e0e0" }}>
+          入力
         </Typography>
         <textarea
           rows={4}
