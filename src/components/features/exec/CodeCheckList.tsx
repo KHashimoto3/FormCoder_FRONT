@@ -23,8 +23,8 @@ export const CodeCheckList = (props: Props) => {
   return (
     <>
       <Container maxWidth="md">
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          ＜エラーチェック＞
+        <Typography variant="h6" sx={{ mt: 2, backgroundColor: "#e0e0e0" }}>
+          エラーチェック
         </Typography>
         <Box
           sx={{
@@ -41,8 +41,8 @@ export const CodeCheckList = (props: Props) => {
             foundMissList={foundMissList}
           />
         </Box>
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          ＜出力＞
+        <Typography variant="h6" sx={{ mt: 2, backgroundColor: "#e0e0e0" }}>
+          出力
         </Typography>
         <Box
           sx={{
