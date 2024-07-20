@@ -18,14 +18,12 @@ export const CodeCheckInput = (props: Props) => {
         <Typography variant="h6" sx={{ mt: 2 }}>
           ＜コード＞
         </Typography>
-        <ReactCodeMirror value={code} extensions={[cppLanguage]} />
-        <textarea
-          rows={10}
-          cols={45}
-          style={{ fontSize: "18pt", borderRadius: "10px" }}
+        <ReactCodeMirror
           value={code}
-          onChange={(e) => setCode(e.target.value)}
+          extensions={[cppLanguage]}
+          style={{ fontSize: "14pt" }}
         />
+
         <Typography variant="h6" sx={{ mt: 2 }}>
           ＜入力＞
         </Typography>
