@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const CodeCheckInput = (props: Props) => {
-  const { code, setCode } = props;
+  const { code } = props;
   const { codeInput, setCodeInput } = props;
   return (
     <>
