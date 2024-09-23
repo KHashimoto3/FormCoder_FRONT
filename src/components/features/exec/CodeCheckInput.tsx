@@ -1,4 +1,6 @@
+import { cppLanguage } from "@codemirror/lang-cpp";
 import { Container, Typography } from "@mui/material";
+import ReactCodeMirror from "@uiw/react-codemirror";
 
 type Props = {
   code: string;
@@ -8,23 +10,22 @@ type Props = {
 };
 
 export const CodeCheckInput = (props: Props) => {
-  const { code, setCode } = props;
+  const { code } = props;
   const { codeInput, setCodeInput } = props;
   return (
     <>
       <Container maxWidth="md">
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          ＜コード＞
+        <Typography variant="h6" sx={{ mt: 2, backgroundColor: "#e0e0e0" }}>
+          コード
         </Typography>
-        <textarea
-          rows={10}
-          cols={45}
-          style={{ fontSize: "18pt", borderRadius: "10px" }}
+        <ReactCodeMirror
           value={code}
-          onChange={(e) => setCode(e.target.value)}
+          extensions={[cppLanguage]}
+          style={{ fontSize: "14pt" }}
         />
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          ＜入力＞
+
+        <Typography variant="h6" sx={{ mt: 2, backgroundColor: "#e0e0e0" }}>
+          入力
         </Typography>
         <textarea
           rows={4}
