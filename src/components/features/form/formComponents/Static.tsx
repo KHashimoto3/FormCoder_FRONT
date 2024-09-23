@@ -1,3 +1,6 @@
+import { cppLanguage } from "@codemirror/lang-cpp";
+import ReactCodeMirror from "@uiw/react-codemirror";
+
 type Props = {
   id: number;
   partType: string;
@@ -9,13 +12,10 @@ export const Static = (props: Props) => {
   const dispData = props.explanation;
 
   return (
-    <textarea
-      style={{
-        fontSize: "16pt",
-      }}
-      cols={40}
-      rows={4}
+    <ReactCodeMirror
       value={dispData}
-    ></textarea>
+      extensions={[cppLanguage]}
+      style={{ fontSize: "16pt" }}
+    ></ReactCodeMirror>
   );
 };

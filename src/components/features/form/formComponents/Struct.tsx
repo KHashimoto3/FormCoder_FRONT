@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { HintContext } from "../../hint/HintProvider";
 import { InputContext } from "../InputArrayProvider";
 import useInterval from "../hooks/useinterval";
+import { cppLanguage } from "@codemirror/lang-cpp";
+import ReactCodeMirror from "@uiw/react-codemirror";
 
 type Props = {
   id: number;
@@ -64,6 +66,10 @@ export const Struct = (props: Props) => {
     fontSize: "16pt",
   };
 
+  const onChange2 = (val: string) => {
+    setInput2(val);
+  };
+
   return (
     <>
       <pre style={preStyle}>
@@ -89,28 +95,22 @@ export const Struct = (props: Props) => {
         {"{\n"}
       </pre>
       <div style={{ marginLeft: "50px" }}>
-        <textarea
-          style={{
-            fontSize: "16pt",
-          }}
-          cols={40}
-          rows={4}
-          onChange={(
-            event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-          ) => {
-            setInput2(event.target.value);
-          }}
+        <ReactCodeMirror
           onFocus={() => {
+            setCurrentHintId(formId);
             setCurrentPartType(partType);
             setHintTypeC(explanation);
             setIsRunning(true);
           }}
           value={input2}
+          extensions={[cppLanguage]}
+          style={{ fontSize: "16pt" }}
+          onChange={onChange2}
           onBlur={() => {
             updateInput(props.inputIdx, input1, input2);
             setIsRunning(false);
           }}
-        ></textarea>
+        ></ReactCodeMirror>
       </div>
       <pre style={preStyle}>{"}"}</pre>
     </>

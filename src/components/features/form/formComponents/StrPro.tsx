@@ -1,7 +1,9 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { HintContext } from "../../hint/HintProvider";
 import { InputContext } from "../InputArrayProvider";
 import useInterval from "../hooks/useinterval";
+import ReactCodeMirror from "@uiw/react-codemirror";
+import { cppLanguage } from "@codemirror/lang-cpp";
 
 type Props = {
   id: number;
@@ -52,16 +54,15 @@ export const StrPro = (props: Props) => {
     upDateInputArray(idx, str);
   };
 
+  const onChange = useCallback((val: string) => {
+    setInput(val);
+  }, []);
+
   const formId = props.id;
   const partType = props.partType;
   const explanation = props.explanation;
   return (
-    <textarea
-      style={{
-        fontSize: "16pt",
-      }}
-      cols={40}
-      rows={4}
+    <ReactCodeMirror
       onFocus={() => {
         setCurrentHintId(formId);
         setCurrentPartType(partType);
@@ -69,15 +70,13 @@ export const StrPro = (props: Props) => {
         setIsRunning(true);
       }}
       value={input}
-      onChange={(
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      ) => {
-        setInput(event.target.value);
-      }}
+      extensions={[cppLanguage]}
+      style={{ fontSize: "16pt" }}
+      onChange={onChange}
       onBlur={() => {
         updateInput(props.inputIdx, input);
         setIsRunning(false);
       }}
-    ></textarea>
+    ></ReactCodeMirror>
   );
 };
