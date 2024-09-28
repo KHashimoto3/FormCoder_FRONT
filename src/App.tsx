@@ -14,6 +14,7 @@ import { DashboardPage } from "./components/pages/DashboardPage";
 
 import { CookiesProvider } from "react-cookie";
 import { CodeProvider } from "./components/features/exec/CodeProvider";
+import { AnalyticsPage } from "./components/pages/AnalyticsPage";
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
                 </Route>
                 <Route path="/dashboard">
                   <DashboardPage />
+                </Route>
+                <Route path="/analytics">
+                  <AnalyticsPage />
                 </Route>
               </BrowserRouter>
             </FormDataProvider>
