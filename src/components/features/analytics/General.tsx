@@ -3,14 +3,27 @@ import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 export const General = () => {
   return (
     <div>
-      <Typography variant="h6">総合分析</Typography>
+      <Typography variant="h6" sx={{ color: "#ffffff", background: "#D96D5F" }}>
+        総合分析
+      </Typography>
       <Container maxWidth="md">
-        <Box sx={{ border: 1, borderRadius: 1, borderColor: "grey.500", p: 1 }}>
+        <Box
+          sx={{
+            border: 1,
+            borderRadius: 1,
+            borderColor: "grey.500",
+            p: 1,
+            marginTop: "20px",
+          }}
+        >
           <Stack spacing={2}>
             <Grid container spacing={1} alignItems="center">
               <Grid item xs={6}>
                 <Box textAlign={"center"}>
-                  <Typography variant="h1" sx={{ color: "#4E9316" }}>
+                  <Typography
+                    variant="h1"
+                    sx={{ color: "#4E9316", fontWeight: "bold" }}
+                  >
                     81<span style={{ fontSize: "16pt" }}>点</span>
                   </Typography>
                 </Box>
@@ -33,7 +46,7 @@ export const General = () => {
             <div>
               <Box textAlign={"center"}>
                 <Typography variant="h6">
-                  入力のミスが減ってきましたね！その調子です
+                  入力のミスが減ってきましたね！その調子です！
                 </Typography>
               </Box>
             </div>
