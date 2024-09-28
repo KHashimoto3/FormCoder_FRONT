@@ -96,7 +96,7 @@ export const Analytics = () => {
       <div>
         <Box sx={{ paddingTop: "80px" }}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={7}>
               <Grid container direction={"column"} spacing={2}>
                 <Grid item xs={6}>
                   <Graph />
@@ -106,7 +106,7 @@ export const Analytics = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={5}>
               <Grid container direction={"column"} spacing={2}>
                 <Grid item xs={6}>
                   <General />

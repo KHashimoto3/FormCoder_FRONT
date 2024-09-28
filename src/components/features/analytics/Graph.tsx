@@ -31,7 +31,7 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: "Chart.js Line Chart - Multi Axis",
+      text: "打鍵速度推移",
     },
   },
   scales: {
