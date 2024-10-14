@@ -1,6 +1,5 @@
-import { createContext } from "vm";
 import { SequenceData } from "../../types/sequenceData";
-import { Dispatch, SetStateAction, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 export const SequenceContext = createContext(
   {} as {
