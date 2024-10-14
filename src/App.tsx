@@ -14,6 +14,7 @@ import { DashboardPage } from "./components/pages/DashboardPage";
 
 import { CookiesProvider } from "react-cookie";
 import { CodeProvider } from "./components/features/exec/CodeProvider";
+import { SequenceDataProvider } from "./components/features/sequence/SequenceDataProvider";
 
 function App() {
   return (
@@ -22,34 +23,36 @@ function App() {
         <HintProvider>
           <InputArrayProvider>
             <FormDataProvider>
-              <BrowserRouter>
-                <Route exact path="/">
-                  <TitleBar />
-                  <TopPage />
-                </Route>
-                <Route path="/learning">
-                  <TitleBar />
-                  <LearningPage />
-                </Route>
-                <Route path="/form">
-                  <FormPage />
-                </Route>
-                <Route path="/storagetest">
-                  <StorageTestPage />
-                </Route>
-                <Route path="/reason-check">
-                  <ReasonCheckPage />
-                </Route>
-                <Route path="/login">
-                  <LoginPage />
-                </Route>
-                <Route path="/question">
-                  <QuestionPage />
-                </Route>
-                <Route path="/dashboard">
-                  <DashboardPage />
-                </Route>
-              </BrowserRouter>
+              <SequenceDataProvider>
+                <BrowserRouter>
+                  <Route exact path="/">
+                    <TitleBar />
+                    <TopPage />
+                  </Route>
+                  <Route path="/learning">
+                    <TitleBar />
+                    <LearningPage />
+                  </Route>
+                  <Route path="/form">
+                    <FormPage />
+                  </Route>
+                  <Route path="/storagetest">
+                    <StorageTestPage />
+                  </Route>
+                  <Route path="/reason-check">
+                    <ReasonCheckPage />
+                  </Route>
+                  <Route path="/login">
+                    <LoginPage />
+                  </Route>
+                  <Route path="/question">
+                    <QuestionPage />
+                  </Route>
+                  <Route path="/dashboard">
+                    <DashboardPage />
+                  </Route>
+                </BrowserRouter>
+              </SequenceDataProvider>
             </FormDataProvider>
           </InputArrayProvider>
         </HintProvider>
