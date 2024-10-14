@@ -135,7 +135,7 @@ export const FormBase = () => {
       fbData: hintFBArray,
       inputData: inputArray,
       connectedCode: code,
-      sequenceData: sequenceDataArray,
+      sequence: sequenceDataArray,
       seqAnalyze: sampleSeqAnalyze,
     };
 
