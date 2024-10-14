@@ -16,6 +16,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+
 import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
@@ -59,6 +60,11 @@ export const FormBase = () => {
 
   const handleClose = () => {
     setDialogOpen(false);
+  };
+
+  //分析結果画面へ遷移
+  const jumpToAnalytics = () => {
+    location.href = "/analytics";
   };
 
   //ローディングモーダルを閉じる
@@ -254,12 +260,15 @@ export const FormBase = () => {
         <DialogTitle id="alert-dialog-title">{"保存完了"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            保存が完了しました！引き続き編集が可能です。編集した後、もう一度保存してください。
+            保存が完了しました！終了して分析結果を表示しますか？または、編集を続けますか？
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={handleClose} autoFocus>
-            閉じる
+          <Button variant="outlined" onClick={handleClose} autoFocus>
+            編集を続ける
+          </Button>
+          <Button variant="contained" onClick={jumpToAnalytics} autoFocus>
+            分析結果表示
           </Button>
         </DialogActions>
       </Dialog>

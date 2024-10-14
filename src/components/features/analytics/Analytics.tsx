@@ -15,13 +15,38 @@ import { ReviewAdovice } from "./ReviewAdvice";
 import { General } from "./General";
 import { TestResult } from "./TestResult";
 
+import { useUserData } from "../../common/hooks/useUserData";
+import { useEffect, useState } from "react";
+
 export const Analytics = () => {
+  const { getUserData } = useUserData();
+  const [userId, setUserId] = useState<string>("");
+
   const buttonStyle = {
     color: "#fff",
     background:
       "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
+
+  const jumpToLearning = () => {
+    const path = "/dashboard/" + userId;
+    location.href = path;
+  };
+
+  const shareAnalytics = () => {
+    //現在のページのURLを取得し、クリップボードにコピーする
+    const url = location.href;
+    navigator.clipboard.writeText(url);
+    alert("このページのURLをコピーしました！");
+  };
+
+  useEffect(() => {
+    const userData = getUserData();
+    if (userData.userId !== undefined) {
+      setUserId(userData.userId);
+    }
+  }, []);
 
   return (
     <div>
@@ -31,7 +56,7 @@ export const Analytics = () => {
           background: "#fff",
           borderRadius: "10px",
           position: "fixed",
-          marginTop: "-20px",
+          marginTop: "-10px",
           zIndex: "1000",
         }}
       >
@@ -67,20 +92,13 @@ export const Analytics = () => {
             >
               <Stack spacing={1} direction="row">
                 <Button
-                  onClick={() => {
-                    alert("結果をシェアします！");
-                  }}
+                  onClick={shareAnalytics}
                   color="primary"
                   variant="outlined"
                 >
                   結果をシェア
                 </Button>
-                <Button
-                  onClick={() => {
-                    alert("終了します！");
-                  }}
-                  style={buttonStyle}
-                >
+                <Button onClick={jumpToLearning} style={buttonStyle}>
                   終了する
                 </Button>
               </Stack>
