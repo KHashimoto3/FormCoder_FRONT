@@ -6,7 +6,7 @@ export const SequenceContext = createContext(
     sequenceDataArray: SequenceData[];
     setSequenceDataArray: Dispatch<SetStateAction<SequenceData[]>>;
     addNewSequenceData: (sequenceData: SequenceData) => void;
-  }
+  },
 );
 
 export const SequenceDataProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -14,7 +14,7 @@ export const SequenceDataProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [sequenceDataArray, setSequenceDataArray] = useState<SequenceData[]>(
-    []
+    [],
   );
 
   const addNewSequenceData = (sequenceData: SequenceData) => {
