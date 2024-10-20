@@ -24,6 +24,7 @@ import { useContext, useEffect, useState } from "react";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 import { CodeContext } from "./exec/CodeProvider";
+import { SequenceContext } from "./sequence/SequenceDataProvider";
 
 import { RotatingLines } from "react-loader-spinner";
 import { CodeExec } from "./exec/CodeExec";
@@ -41,6 +42,7 @@ export const FormBase = () => {
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
   const { code } = useContext(CodeContext);
+  const { sequenceDataArray, addNewSequenceData } = useContext(SequenceContext);
 
   //ローディングモーダル
   const [loading, setLoading] = useState<boolean>(true);
@@ -107,8 +109,31 @@ export const FormBase = () => {
     setUserId(userData.userId);
   }, []);
 
+  const initSequenceData = () => {
+    const sampleSequenceData = {
+      id: 1,
+      partType: "FOR",
+      timestamp: 9999,
+      changeData: {
+        from: { line: 0, ch: 0 },
+        to: { line: 0, ch: 0 },
+        text: ["aaaa"],
+        removed: [""],
+        origin: "+input",
+      },
+    };
+
+    addNewSequenceData(sampleSequenceData);
+  };
+
   const saveLearningData = async () => {
     const url = `${apiBaseUrl}/record`;
+    //仮のシーケンスデータを追加
+    initSequenceData();
+
+    const sampleSeqAnalyze = {
+      speed: 50,
+    };
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
       userId: userId,
@@ -116,6 +141,8 @@ export const FormBase = () => {
       fbData: hintFBArray,
       inputData: inputArray,
       connectedCode: code,
+      sequence: sequenceDataArray,
+      seqAnalyze: sampleSeqAnalyze,
     };
 
     try {
