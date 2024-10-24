@@ -1,6 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { TestResultCard } from "./test-result-card/TestResultCard";
-import { error } from "console";
 
 export const TestResult = () => {
   const sampleResultData = [

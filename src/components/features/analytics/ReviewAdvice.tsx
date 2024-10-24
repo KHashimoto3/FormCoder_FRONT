@@ -1,4 +1,4 @@
-import { Typography, Grid, Stack, Box } from "@mui/material";
+import { Typography, Stack, Box } from "@mui/material";
 import { ReviewCard } from "./review-card/ReviewCard";
 
 export const ReviewAdovice = () => {
