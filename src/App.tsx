@@ -16,6 +16,7 @@ import { CookiesProvider } from "react-cookie";
 import { CodeProvider } from "./components/features/exec/CodeProvider";
 import { AnalyticsPage } from "./components/pages/AnalyticsPage";
 import { SequenceDataProvider } from "./components/features/sequence/SequenceDataProvider";
+import { CreateAccountPage } from "./components/pages/CreateAccountPage";
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
                   </Route>
                   <Route path="/login">
                     <LoginPage />
+                  </Route>
+                  <Route path="/create-account">
+                    <CreateAccountPage />
                   </Route>
                   <Route path="/question">
                     <QuestionPage />
