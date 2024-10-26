@@ -1,6 +1,13 @@
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 
 export const General = () => {
+  const score = 81;
+  const rank = {
+    time: 13,
+    speed: 21,
+    accuracy: 14,
+  };
+  const comment = "入力のミスが減ってきましたね！その調子です！";
   return (
     <div>
       <Typography variant="h6" sx={{ color: "#ffffff", background: "#D96D5F" }}>
@@ -22,9 +29,13 @@ export const General = () => {
                 <Box textAlign={"center"}>
                   <Typography
                     variant="h1"
-                    sx={{ color: "#4E9316", fontWeight: "bold" }}
+                    sx={{
+                      color: score >= 60 ? "#4E9316" : "#d16b52",
+                      fontWeight: "bold",
+                    }}
                   >
-                    81<span style={{ fontSize: "16pt" }}>点</span>
+                    {score}
+                    <span style={{ fontSize: "16pt" }}>点</span>
                   </Typography>
                 </Box>
               </Grid>
@@ -36,18 +47,20 @@ export const General = () => {
                     padding: "10px",
                   }}
                 >
-                  <Typography variant="h6">取り組み時間：13位</Typography>
-                  <Typography variant="h6">打鍵速度：21位</Typography>
-                  <Typography variant="h6">ミスのなさ：14位</Typography>
+                  <Typography variant="h6">
+                    取り組み時間：{rank.time}位
+                  </Typography>
+                  <Typography variant="h6">打鍵速度：{rank.speed}位</Typography>
+                  <Typography variant="h6">
+                    ミスのなさ：{rank.accuracy}位
+                  </Typography>
                 </Box>
               </Grid>
             </Grid>
             <hr />
             <div>
               <Box textAlign={"center"}>
-                <Typography variant="h6">
-                  入力のミスが減ってきましたね！その調子です！
-                </Typography>
+                <Typography variant="h6">{comment}</Typography>
               </Box>
             </div>
           </Stack>
