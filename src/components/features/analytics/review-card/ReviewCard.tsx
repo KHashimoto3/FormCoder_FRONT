@@ -3,10 +3,11 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/joy";
 type Props = {
   title: string;
   description: string;
+  onClick: () => void;
 };
 
 export const ReviewCard = (props: Props) => {
-  const { title, description } = props;
+  const { title, description, onClick } = props;
   return (
     <div>
       <Box
@@ -24,7 +25,7 @@ export const ReviewCard = (props: Props) => {
               {title}
             </Typography>
             <Typography>{description}</Typography>
-            <Button variant="solid" color="primary">
+            <Button variant="solid" color="primary" onClick={onClick}>
               復習する
             </Button>
           </CardContent>

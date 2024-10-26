@@ -20,6 +20,10 @@ export const ReviewAdovice = () => {
     },
   ];
 
+  const onClickHandler = () => {
+    alert("まだ解説ページはありません。");
+  };
+
   return (
     <div>
       <Typography variant="h6" sx={{ color: "#ffffff", background: "#5F94D9" }}>
@@ -40,6 +44,7 @@ export const ReviewAdovice = () => {
               key={index}
               title={data.title}
               description={data.description}
+              onClick={onClickHandler}
             />
           ))}
         </Stack>
