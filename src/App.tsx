@@ -14,6 +14,7 @@ import { DashboardPage } from "./components/pages/DashboardPage";
 
 import { CookiesProvider } from "react-cookie";
 import { CodeProvider } from "./components/features/exec/CodeProvider";
+import { AnalyticsPage } from "./components/pages/AnalyticsPage";
 import { SequenceDataProvider } from "./components/features/sequence/SequenceDataProvider";
 
 function App() {
@@ -50,6 +51,9 @@ function App() {
                   </Route>
                   <Route path="/dashboard">
                     <DashboardPage />
+                  </Route>
+                  <Route path="/analytics">
+                    <AnalyticsPage />
                   </Route>
                 </BrowserRouter>
               </SequenceDataProvider>
