@@ -20,7 +20,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
 export const Graph = () => {
@@ -73,7 +73,7 @@ export const Graph = () => {
         position: "left" as const,
       },
     },
-    onHover: (event: any, activeElements: any) => {
+    onHover: (_: any, activeElements: any) => {
       if (activeElements.length > 0) {
         const index = activeElements[0].index;
         setForcasedSpeed(graphData.datasets[0].data[index]);
