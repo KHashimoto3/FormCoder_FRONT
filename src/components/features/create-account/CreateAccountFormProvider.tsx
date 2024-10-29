@@ -14,6 +14,48 @@ type Props = {
   setConfirmPassword: (confirmPassword: string) => void;
 };
 
+//password strength checker
+import { zxcvbnOptions, zxcvbnAsync, ZxcvbnResult } from "@zxcvbn-ts/core";
+import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
+import * as zxcvbnEnPackage from "@zxcvbn-ts/language-en";
+import * as zxcvbnDePackage from "@zxcvbn-ts/language-de";
+import { matcherPwnedFactory } from "@zxcvbn-ts/matcher-pwned";
+import { useDeferredValue, useEffect, useState } from "react";
+import { Check } from "@mui/icons-material";
+
+// optional
+const matcherPwned = matcherPwnedFactory(fetch, zxcvbnOptions);
+zxcvbnOptions.addMatcher("pwned", matcherPwned);
+
+const options = {
+  // recommended
+  dictionary: {
+    ...zxcvbnCommonPackage.dictionary,
+    ...zxcvbnEnPackage.dictionary,
+    // recommended the language of the country that the user will be in
+    ...zxcvbnDePackage.dictionary,
+  },
+  // recommended
+  graphs: zxcvbnCommonPackage.adjacencyGraphs,
+  // recommended
+  useLevenshteinDistance: true,
+  // optional
+  translations: zxcvbnEnPackage.translations,
+};
+zxcvbnOptions.setOptions(options);
+
+const usePasswordStrength = (password: string) => {
+  const [result, setResult] = useState<ZxcvbnResult | null>(null);
+  // NOTE: useDeferredValue is React v18 only, for v17 or lower use debouncing
+  const deferredPassword = useDeferredValue(password);
+
+  useEffect(() => {
+    zxcvbnAsync(deferredPassword).then((response) => setResult(response));
+  }, [deferredPassword]);
+
+  return result;
+};
+
 export const CreateAccountFormProvider = (props: Props) => {
   const {
     stepNumber,
@@ -28,6 +70,15 @@ export const CreateAccountFormProvider = (props: Props) => {
     setPassword,
     setConfirmPassword,
   } = props;
+
+  const [emailEmpty, setEmailEmpty] = useState<boolean>(false);
+  const [confirmEmailEmpty, setConfirmEmailEmpty] = useState<boolean>(false);
+  const [nameEmpty, setNameEmpty] = useState<boolean>(false);
+  const [passwordEmpty, setPasswordEmpty] = useState<boolean>(false);
+  const [confirmPasswordEmpty, setConfirmPasswordEmpty] =
+    useState<boolean>(false);
+
+  const result = usePasswordStrength(password);
 
   switch (stepNumber) {
     case 1:
@@ -94,6 +145,11 @@ export const CreateAccountFormProvider = (props: Props) => {
             fullWidth
             margin="normal"
           />
+          <PasswordStrengResult password={password} result={result} />
+          <CheckSamePassword
+            password={password}
+            confirmPassword={confirmPassword}
+          />
           <Typography variant="body1">
             8文字以上かつ英数字を組み合わせたパスワードを入力してください。
           </Typography>
@@ -115,4 +171,36 @@ export const CreateAccountFormProvider = (props: Props) => {
         </div>
       );
   }
+};
+
+const PasswordStrengResult = (props: {
+  password: string;
+  result: ZxcvbnResult | null;
+}) => {
+  if (!props.result || props.password === "") {
+    return null;
+  }
+
+  const { result } = props;
+  const { score } = result;
+
+  if (score < 2) {
+    return <Typography color="error">弱いパスワード</Typography>;
+  } else {
+    return <Typography color="success">強いパスワード</Typography>;
+  }
+};
+
+const CheckSamePassword = (props: {
+  password: string;
+  confirmPassword: string;
+}) => {
+  const { password, confirmPassword } = props;
+  if (password === "" || confirmPassword === "") {
+    return null;
+  }
+  if (password !== confirmPassword) {
+    return <Typography color="error">パスワードが一致しません。</Typography>;
+  }
+  return null;
 };

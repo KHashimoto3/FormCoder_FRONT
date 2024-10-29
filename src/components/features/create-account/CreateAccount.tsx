@@ -79,14 +79,14 @@ export const CreateAccount = () => {
             />
           </Box>
           <Stack spacing={2}>
-            {activeStep > 0 && activeStep < steps.length && (
+            {activeStep === steps.length - 1 && (
               <Button
                 data-testid="login-button"
-                variant="outlined"
-                color="primary"
-                onClick={() => setActiveStep(activeStep - 1)}
+                variant="contained"
+                style={buttonStyle}
+                onClick={() => alert("アカウントを作成しました")}
               >
-                戻る
+                作成
               </Button>
             )}
             {activeStep < steps.length - 1 && (
@@ -99,14 +99,14 @@ export const CreateAccount = () => {
                 次へ
               </Button>
             )}
-            {activeStep === steps.length - 1 && (
+            {activeStep > 0 && activeStep < steps.length && (
               <Button
                 data-testid="login-button"
-                variant="contained"
-                style={buttonStyle}
-                onClick={() => alert("アカウントを作成しました")}
+                variant="outlined"
+                color="primary"
+                onClick={() => setActiveStep(activeStep - 1)}
               >
-                作成
+                戻る
               </Button>
             )}
           </Stack>
