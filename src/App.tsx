@@ -16,6 +16,7 @@ import { CookiesProvider } from "react-cookie";
 import { CodeProvider } from "./components/features/exec/CodeProvider";
 import { AnalyticsPage } from "./components/pages/AnalyticsPage";
 import { SequenceDataProvider } from "./components/features/sequence/SequenceDataProvider";
+import { TimestampProvider } from "./components/features/sequence/TimestampProvider";
 
 function App() {
   return (
@@ -25,37 +26,39 @@ function App() {
           <InputArrayProvider>
             <FormDataProvider>
               <SequenceDataProvider>
-                <BrowserRouter>
-                  <Route exact path="/">
-                    <TitleBar />
-                    <TopPage />
-                  </Route>
-                  <Route path="/learning">
-                    <TitleBar />
-                    <LearningPage />
-                  </Route>
-                  <Route path="/form">
-                    <FormPage />
-                  </Route>
-                  <Route path="/storagetest">
-                    <StorageTestPage />
-                  </Route>
-                  <Route path="/reason-check">
-                    <ReasonCheckPage />
-                  </Route>
-                  <Route path="/login">
-                    <LoginPage />
-                  </Route>
-                  <Route path="/question">
-                    <QuestionPage />
-                  </Route>
-                  <Route path="/dashboard">
-                    <DashboardPage />
-                  </Route>
-                  <Route path="/analytics">
-                    <AnalyticsPage />
-                  </Route>
-                </BrowserRouter>
+                <TimestampProvider>
+                  <BrowserRouter>
+                    <Route exact path="/">
+                      <TitleBar />
+                      <TopPage />
+                    </Route>
+                    <Route path="/learning">
+                      <TitleBar />
+                      <LearningPage />
+                    </Route>
+                    <Route path="/form">
+                      <FormPage />
+                    </Route>
+                    <Route path="/storagetest">
+                      <StorageTestPage />
+                    </Route>
+                    <Route path="/reason-check">
+                      <ReasonCheckPage />
+                    </Route>
+                    <Route path="/login">
+                      <LoginPage />
+                    </Route>
+                    <Route path="/question">
+                      <QuestionPage />
+                    </Route>
+                    <Route path="/dashboard">
+                      <DashboardPage />
+                    </Route>
+                    <Route path="/analytics">
+                      <AnalyticsPage />
+                    </Route>
+                  </BrowserRouter>
+                </TimestampProvider>
               </SequenceDataProvider>
             </FormDataProvider>
           </InputArrayProvider>
