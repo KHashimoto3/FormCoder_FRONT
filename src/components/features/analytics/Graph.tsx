@@ -41,7 +41,7 @@ export const Graph = () => {
     },
   ];
 
-  const labels = ["0", "60", "120", "150", "180", "210", "240"];
+  const labels = ["0", "60", "120", "150", "180", "210"];
   const graphData = {
     labels: labels,
     datasets: [
