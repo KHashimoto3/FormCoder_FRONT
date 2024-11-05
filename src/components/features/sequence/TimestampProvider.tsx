@@ -16,7 +16,7 @@ export const TimestampProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [timestamp, setTimestamp] = React.useState(0);
-  const [isRunning, setIsRunning] = React.useState(false);
+  const [isRunning, setIsRunning] = React.useState(true);
   const startTimeRef = React.useRef<number | null>(null);
 
   const startTimer = () => {
