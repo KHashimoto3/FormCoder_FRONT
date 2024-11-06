@@ -1,9 +1,18 @@
-import { useCallback, useContext, useState } from "react";
+import {
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { HintContext } from "../../hint/HintProvider";
 import { InputContext } from "../InputArrayProvider";
 import useInterval from "../hooks/useinterval";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { cppLanguage } from "@codemirror/lang-cpp";
+
+import useTextDiff from "../../sequence/hooks/useTextDiff";
+import { TimestampContext } from "../../sequence/TimestampProvider";
 
 type Props = {
   id: number;
@@ -19,7 +28,13 @@ export const Output = (props: Props) => {
 
   const { upDateInputArray } = useContext(InputContext);
 
-  const [input, setInput] = useState<string>("");
+  //シーケンス関連
+  const { initInputIdAndType, textInput, setTextInput } = useTextDiff();
+  const { recordTimestamp } = useContext(TimestampContext);
+
+  useEffect(() => {
+    initInputIdAndType(props.id, props.partType);
+  }, []);
 
   //タイマーに関する処理
   const [count, setCount] = useState<number>(0);
@@ -45,7 +60,7 @@ export const Output = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null,
+    isRunning ? delay : null
   );
 
   //upDateInputArrayにstringの配列を渡す
@@ -54,9 +69,13 @@ export const Output = (props: Props) => {
     upDateInputArray(idx, str);
   };
 
-  const onChange = useCallback((val: string) => {
-    setInput(val);
-  }, []);
+  const onChange = useCallback(
+    (val: SetStateAction<string>) => {
+      recordTimestamp();
+      setTextInput(val);
+    },
+    [setTextInput]
+  );
 
   const formId = props.id;
   const partType = props.partType;
@@ -69,12 +88,12 @@ export const Output = (props: Props) => {
         setHintTypeC(explanation);
         setIsRunning(true);
       }}
-      value={input}
+      value={textInput}
       extensions={[cppLanguage]}
       style={{ fontSize: "16pt" }}
       onChange={onChange}
       onBlur={() => {
-        updateInput(props.inputIdx, input);
+        updateInput(props.inputIdx, textInput);
         setIsRunning(false);
       }}
     ></ReactCodeMirror>
