@@ -71,7 +71,7 @@ export const Struct = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null
+    isRunning ? delay : null,
   );
 
   const formId = props.id;
@@ -91,7 +91,7 @@ export const Struct = (props: Props) => {
       recordTimestamp();
       setInput2(val);
     },
-    [setInput2]
+    [setInput2],
   );
 
   return (

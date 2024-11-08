@@ -60,7 +60,7 @@ export const Process = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null
+    isRunning ? delay : null,
   );
 
   //upDateInputArrayにstringの配列を渡す
@@ -78,7 +78,7 @@ export const Process = (props: Props) => {
       recordTimestamp();
       setTextInput(val);
     },
-    [setTextInput]
+    [setTextInput],
   );
 
   return (

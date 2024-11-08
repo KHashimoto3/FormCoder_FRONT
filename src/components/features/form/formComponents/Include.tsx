@@ -60,7 +60,7 @@ export const Include = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null
+    isRunning ? delay : null,
   );
 
   //upDateInputArrayにstringの配列を渡す
@@ -74,7 +74,7 @@ export const Include = (props: Props) => {
       recordTimestamp();
       setTextInput(val);
     },
-    [setTextInput]
+    [setTextInput],
   );
 
   const formId = props.id;

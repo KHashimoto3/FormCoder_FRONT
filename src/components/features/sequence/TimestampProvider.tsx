@@ -8,7 +8,7 @@ export const TimestampContext = createContext(
     setIsRunning: Dispatch<SetStateAction<boolean>>;
     startTimer: () => void;
     recordTimestamp: () => void;
-  }
+  },
 );
 
 export const TimestampProvider: React.FC<{ children: React.ReactNode }> = ({
