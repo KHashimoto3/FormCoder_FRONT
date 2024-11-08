@@ -1,9 +1,18 @@
-import { useContext, useState } from "react";
+import {
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { HintContext } from "../../hint/HintProvider";
 import { InputContext } from "../InputArrayProvider";
 import useInterval from "../hooks/useinterval";
 import { cppLanguage } from "@codemirror/lang-cpp";
 import ReactCodeMirror from "@uiw/react-codemirror";
+
+import useTextDiff from "../../sequence/hooks/useTextDiff";
+import { TimestampContext } from "../../sequence/TimestampProvider";
 
 type Props = {
   id: number;
@@ -19,8 +28,19 @@ export const Struct = (props: Props) => {
 
   //入力の記録に関する処理
   const { upDateInputArray } = useContext(InputContext);
-  const [input1, setInput1] = useState<string>("");
-  const [input2, setInput2] = useState<string>("");
+  //シーケンス関連
+  const { initInputIdAndType: initInputIdAndType1 } = useTextDiff();
+  const { initInputIdAndType: initInputIdAndType2 } = useTextDiff();
+
+  const { textInput: input1, setTextInput: setInput1 } = useTextDiff();
+  const { textInput: input2, setTextInput: setInput2 } = useTextDiff();
+
+  const { recordTimestamp } = useContext(TimestampContext);
+
+  useEffect(() => {
+    initInputIdAndType1(props.id, "struct_input1");
+    initInputIdAndType2(props.id, props.partType);
+  }, []);
 
   const updateInput = (idx: number, input1: string, input2: string) => {
     const str: string[] = [input1, input2];
@@ -51,7 +71,7 @@ export const Struct = (props: Props) => {
         setCurrentHintStep(2);
       }
     },
-    isRunning ? delay : null,
+    isRunning ? delay : null
   );
 
   const formId = props.id;
@@ -66,9 +86,13 @@ export const Struct = (props: Props) => {
     fontSize: "16pt",
   };
 
-  const onChange2 = (val: string) => {
-    setInput2(val);
-  };
+  const onChange2 = useCallback(
+    (val: SetStateAction<string>) => {
+      recordTimestamp();
+      setInput2(val);
+    },
+    [setInput2]
+  );
 
   return (
     <>
@@ -79,6 +103,7 @@ export const Struct = (props: Props) => {
           type="text"
           size={5}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            recordTimestamp();
             setInput1(event.target.value);
           }}
           onFocus={() => {
