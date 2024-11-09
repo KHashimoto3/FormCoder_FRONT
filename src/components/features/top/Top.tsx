@@ -230,6 +230,100 @@ export const Top = () => {
             </Box>
           </Grid>
         </Grid>
+        <Box
+          sx={{
+            textAlign: "center",
+            width: "80%",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              textAlign: "center",
+              paddingTop: "100px",
+              fontWeight: "bold",
+            }}
+          >
+            その他の機能
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", paddingTop: "20px" }}
+          >
+            以上の他にも、学習者や教員ともに、プログラミング学習のDX化につなげるための以下のような機能が搭載されています。
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            textAlign: "center",
+            width: "80%",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              textAlign: "center",
+              paddingTop: "100px",
+              fontWeight: "bold",
+            }}
+          >
+            利用料金
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", paddingTop: "20px" }}
+          >
+            Form Coderは、現在も研究・開発途中のため、
+            <span style={{ fontWeight: "bold" }}>
+              すべての方にすべての機能を無料で
+            </span>
+            ご利用いただけます。
+            <br />
+            未来のプログラミング教育をいち早くご体験いただき、ぜひフィードバックをお寄せください。
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            textAlign: "center",
+            width: "80%",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              textAlign: "center",
+              paddingTop: "100px",
+              fontWeight: "bold",
+            }}
+          >
+            利用方法
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", paddingTop: "20px" }}
+          >
+            利用方法は簡単です。今すぐアカウントを作成し、フォームを選んで学習を始めましょう。
+            <br />
+            ソフトウェアのインストールや面倒な環境設定は一切不要です。
+            <Box sx={{ paddingTop: "20px" }}>
+              <Button
+                style={buttonStyle}
+                size="large"
+                onClick={() => {
+                  alert("アカウント作成画面に遷移します");
+                }}
+              >
+                アカウントを作成
+              </Button>
+            </Box>
+          </Typography>
+        </Box>
       </Box>
     </>
   );
