@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -66,6 +67,16 @@ export const CreateAccount = () => {
   const [confirmPasswordEmpty, setConfirmPasswordEmpty] =
     useState<boolean>(false);
 
+  //パスワードの長さチェック
+  const [passwordLengthError, setPasswordLengthError] =
+    useState<boolean>(false);
+
+  //パスワードの不一致チェック
+  const [passwordMatchError, setPasswordMatchError] = useState<boolean>(false);
+
+  //最初は空の入力があるため、アラートを表示
+  const [inputMissed, setInputMissed] = useState<boolean>(false);
+
   const buttonStyle = {
     color: "#fff",
     background:
@@ -79,31 +90,65 @@ export const CreateAccount = () => {
     result: ZxcvbnResult | null;
   }) => {
     if (!props.result || props.password === "") {
-      return <Typography>パスワードの強度が表示されます</Typography>;
+      return null;
     }
 
     const { result } = props;
     const { score } = result;
 
     return (
-      <Typography color={score < 2 ? "#d16b52" : "#4E9316"}>
+      <Typography color={score < 2 ? "error" : "#4E9316"}>
         {score < 2 ? "弱いパスワード" : "強いパスワード"}
       </Typography>
     );
   };
 
-  const CheckSamePassword = (props: {
-    password: string;
-    confirmPassword: string;
-  }) => {
-    const { password, confirmPassword } = props;
-    if (password === "" || confirmPassword === "") {
-      return null;
+  const isLengthShort = (value: string, len: number) => {
+    return value.length < len ? true : false;
+  };
+
+  const isEmpty = (value: string) => {
+    return value === "" ? true : false;
+  };
+
+  //リアルタイムなエラーチェック
+  const checkEmail = () => {
+    setEmailEmpty(isEmpty(email));
+  };
+
+  const checkUserName = () => {
+    setNameEmpty(isEmpty(userName));
+  };
+
+  const checkPassword = () => {
+    setPasswordEmpty(isEmpty(password));
+    setPasswordLengthError(isLengthShort(password, 8));
+  };
+
+  const checkConfirmPassword = () => {
+    setConfirmPasswordEmpty(isEmpty(confirmPassword));
+    setPasswordMatchError(password !== confirmPassword);
+  };
+
+  //アカウント作成
+  const handleCreateAccount = () => {
+    checkEmail();
+    checkUserName();
+    checkPassword();
+    checkConfirmPassword();
+
+    if (
+      emailEmpty ||
+      nameEmpty ||
+      passwordEmpty ||
+      confirmPasswordEmpty ||
+      passwordLengthError ||
+      passwordMatchError
+    ) {
+      setInputMissed(true);
+      return;
     }
-    if (password !== confirmPassword) {
-      return <Typography color="error">パスワードが一致しません。</Typography>;
-    }
-    return null;
+    alert("アカウントを作成しました");
   };
 
   return (
@@ -122,6 +167,16 @@ export const CreateAccount = () => {
           ホームに戻る
         </Typography>
         <Typography variant="h4">アカウントの作成</Typography>
+        {inputMissed && (
+          <Alert
+            data-testid="input-missed-alert"
+            variant="filled"
+            severity="warning"
+            sx={{ marginBottom: "20px" }}
+          >
+            未入力の項目があります。
+          </Alert>
+        )}
         <Box sx={{ width: "100%", marginTop: "20px", marginBottom: "20px" }}>
           <Box sx={{ height: "auto", marginTop: "20px", marginBottom: "20px" }}>
             <div style={{ marginBottom: "20px" }}>
@@ -131,9 +186,14 @@ export const CreateAccount = () => {
                 variant="standard"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onBlur={checkEmail}
                 fullWidth
                 margin="normal"
+                error={emailEmpty}
               />
+              {emailEmpty && (
+                <Typography color="error">入力してください。</Typography>
+              )}
               <Typography variant="body1">
                 ログインに使用するため、有効なメールアドレスを入力してください。
               </Typography>
@@ -145,9 +205,14 @@ export const CreateAccount = () => {
                 variant="standard"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
+                onBlur={checkUserName}
                 fullWidth
                 margin="normal"
+                error={nameEmpty}
               />
+              {nameEmpty && (
+                <Typography color="error">入力してください。</Typography>
+              )}
               <Typography variant="body1">
                 ニックネームでも構いません。他のユーザーに表示される名前です。
               </Typography>
@@ -160,26 +225,40 @@ export const CreateAccount = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onBlur={checkPassword}
                 fullWidth
                 margin="normal"
+                error={passwordEmpty || passwordLengthError}
               />
+              <PasswordStrengResult password={password} result={result} />
+              {passwordEmpty && (
+                <Typography color="error">入力してください。</Typography>
+              )}
+              {passwordLengthError && (
+                <Typography color="error">
+                  8文字以上のパスワードを入力してください。
+                </Typography>
+              )}
               <TextField
                 label="パスワードの確認"
                 variant="standard"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                onBlur={checkConfirmPassword}
                 fullWidth
                 margin="normal"
+                error={confirmPasswordEmpty}
               />
-              <PasswordStrengResult password={password} result={result} />
-              <CheckSamePassword
-                password={password}
-                confirmPassword={confirmPassword}
-              />
-              <Typography variant="body1">
-                8文字以上かつ英数字を組み合わせたパスワードを入力してください。
-              </Typography>
+              {confirmPasswordEmpty && (
+                <Typography color="error">入力してください。</Typography>
+              )}
+
+              {passwordMatchError && (
+                <Typography color="error">
+                  パスワードが一致しません。
+                </Typography>
+              )}
             </div>
           </Box>
           <Stack spacing={2}>
@@ -187,7 +266,7 @@ export const CreateAccount = () => {
               data-testid="login-button"
               variant="contained"
               style={buttonStyle}
-              onClick={() => alert("アカウントを作成しました")}
+              onClick={handleCreateAccount}
             >
               作成
             </Button>
