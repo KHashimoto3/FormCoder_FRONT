@@ -20,7 +20,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
 export const Graph = () => {
@@ -30,7 +30,7 @@ export const Graph = () => {
     {
       label: "打鍵速度",
       labelEn: "speed",
-      data: [65, 59, 60, 81, 56, 55],
+      data: [2.5, 3.0, 1.0, 4.2, 1.6, 2.0],
       borderColor: "rgb(75, 192, 192)",
     },
     {
@@ -47,7 +47,7 @@ export const Graph = () => {
     datasets: [
       {
         label: "打鍵速度",
-        data: [65, 59, 60, 81, 56, 55],
+        data: [2.5, 3.0, 1.0, 4.2, 1.6, 2.0],
         borderColor: "rgb(75, 192, 192)",
       },
     ],
