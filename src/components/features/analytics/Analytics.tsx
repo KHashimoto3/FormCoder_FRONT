@@ -48,6 +48,64 @@ export const Analytics = () => {
     }
   }, []);
 
+  //Generalコンポーネントに渡すサンプルデータ
+  const sampleScore = 81;
+  const sampleRank = {
+    time: 13,
+    speed: 21,
+    accuracy: 14,
+  };
+  const sampleComment = "入力のミスが減ってきましたね！その調子です！";
+
+  const sampleResultData = [
+    {
+      title: "基本テスト1",
+      status: "正解",
+      input: "1 2",
+      output: "3",
+      error: "",
+    },
+    {
+      title: "基本テスト2",
+      status: "正解",
+      input: "2 3",
+      output: "5",
+      error: "",
+    },
+    {
+      title: "エッジテスト1",
+      status: "失敗",
+      input: "3 4",
+      output: "9",
+      error: "違う出力結果",
+    },
+    {
+      title: "エッジテスト2",
+      status: "失敗",
+      input: "9 1",
+      output: "9",
+      error: "違う出力結果",
+    },
+  ];
+
+  const sampleReviewData = [
+    {
+      title: "繰り返し（for）",
+      description:
+        "for文の基本を復習します。配列の要素を一つずつ取り出す方法を確認してください。",
+    },
+    {
+      title: "関数",
+      description:
+        "関数の作り方と使い方を復習します。引数や戻り値についても思い出してください。",
+    },
+    {
+      title: "文字列処理",
+      description:
+        "文字列を扱う方法を復習します。文字列の長さを調べたり、特定の文字を見つける方法を確認してください。",
+    },
+  ];
+
   return (
     <div>
       <AppBar
@@ -120,17 +178,21 @@ export const Analytics = () => {
                   <Graph />
                 </Grid>
                 <Grid item xs={6}>
-                  <ReviewAdovice />
+                  <ReviewAdovice reviewList={sampleReviewData} />
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={5}>
               <Grid container direction={"column"} spacing={2}>
                 <Grid item xs={6}>
-                  <General />
+                  <General
+                    score={sampleScore}
+                    rank={sampleRank}
+                    comment={sampleComment}
+                  />
                 </Grid>
                 <Grid item xs={6}>
-                  <TestResult />
+                  <TestResult resultData={sampleResultData} />
                 </Grid>
               </Grid>
             </Grid>

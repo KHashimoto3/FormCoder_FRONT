@@ -1,10 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormData } from "../../../types/formData";
 import { FormProvider } from "../FormProvider";
 import { Process } from "./Process";
 import { HintContext } from "../../hint/HintProvider";
 import useInterval from "../hooks/useinterval";
 import { InputContext } from "../InputArrayProvider";
+
+import useTextDiff from "../../sequence/hooks/useTextDiff";
+import { TimestampContext } from "../../sequence/TimestampProvider";
 
 type Props = {
   id: number;
@@ -21,9 +24,23 @@ export const For = (props: Props) => {
 
   //入力の記録に関する処理
   const { upDateInputArray } = useContext(InputContext);
-  const [input1, setInput1] = useState<string>("");
-  const [input2, setInput2] = useState<string>("");
-  const [input3, setInput3] = useState<string>("");
+
+  //シーケンス関連
+  const { initInputIdAndType: initInputIdAndType1 } = useTextDiff();
+  const { initInputIdAndType: initInputIdAndType2 } = useTextDiff();
+  const { initInputIdAndType: initInputIdAndType3 } = useTextDiff();
+
+  const { textInput: input1, setTextInput: setInput1 } = useTextDiff();
+  const { textInput: input2, setTextInput: setInput2 } = useTextDiff();
+  const { textInput: input3, setTextInput: setInput3 } = useTextDiff();
+
+  const { recordTimestamp } = useContext(TimestampContext);
+
+  useEffect(() => {
+    initInputIdAndType1(props.id, "for_input1");
+    initInputIdAndType2(props.id, "for_input2");
+    initInputIdAndType3(props.id, "for_input3");
+  }, []);
 
   const updateInput = (
     idx: number,
@@ -91,6 +108,7 @@ export const For = (props: Props) => {
             type="text"
             size={5}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              recordTimestamp();
               setInput1(event.target.value);
             }}
             onFocus={() => {
@@ -110,6 +128,7 @@ export const For = (props: Props) => {
             type="text"
             size={5}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              recordTimestamp();
               setInput2(event.target.value);
             }}
             onFocus={() => {
@@ -128,6 +147,7 @@ export const For = (props: Props) => {
             type="text"
             size={5}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              recordTimestamp();
               setInput3(event.target.value);
             }}
             onFocus={() => {

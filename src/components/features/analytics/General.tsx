@@ -1,13 +1,17 @@
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 
-export const General = () => {
-  const score = 81;
-  const rank = {
-    time: 13,
-    speed: 21,
-    accuracy: 14,
+type Props = {
+  score: number;
+  rank: {
+    time: number;
+    speed: number;
+    accuracy: number;
   };
-  const comment = "入力のミスが減ってきましたね！その調子です！";
+  comment: string;
+};
+
+export const General = (props: Props) => {
+  const { score, rank, comment } = props;
   return (
     <div>
       <Typography variant="h6" sx={{ color: "#ffffff", background: "#D96D5F" }}>

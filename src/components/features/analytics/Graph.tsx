@@ -20,7 +20,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
 export const Graph = () => {
@@ -30,7 +30,7 @@ export const Graph = () => {
     {
       label: "打鍵速度",
       labelEn: "speed",
-      data: [65, 59, 60, 81, 56, 55],
+      data: [2.5, 3.0, 1.0, 4.2, 1.6, 2.0],
       borderColor: "rgb(75, 192, 192)",
     },
     {
@@ -41,13 +41,13 @@ export const Graph = () => {
     },
   ];
 
-  const labels = ["0", "60", "120", "150", "180", "210", "240"];
+  const labels = ["0", "60", "120", "150", "180", "210"];
   const graphData = {
     labels: labels,
     datasets: [
       {
         label: "打鍵速度",
-        data: [65, 59, 60, 81, 56, 55],
+        data: [2.5, 3.0, 1.0, 4.2, 1.6, 2.0],
         borderColor: "rgb(75, 192, 192)",
       },
     ],
@@ -73,7 +73,7 @@ export const Graph = () => {
         position: "left" as const,
       },
     },
-    onHover: (event: any, activeElements: any) => {
+    onHover: (_: any, activeElements: any) => {
       if (activeElements.length > 0) {
         const index = activeElements[0].index;
         setForcasedSpeed(graphData.datasets[0].data[index]);
