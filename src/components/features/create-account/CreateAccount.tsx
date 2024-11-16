@@ -53,7 +53,6 @@ const usePasswordStrength = (password: string) => {
 export const CreateAccount = () => {
   //各情報を保持する
   const [email, setEmail] = useState<string>("");
-  const [confirmEmail, setConfirmEmail] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -62,7 +61,6 @@ export const CreateAccount = () => {
 
   //入力欄の空チェック
   const [emailEmpty, setEmailEmpty] = useState<boolean>(false);
-  const [confirmEmailEmpty, setConfirmEmailEmpty] = useState<boolean>(false);
   const [nameEmpty, setNameEmpty] = useState<boolean>(false);
   const [passwordEmpty, setPasswordEmpty] = useState<boolean>(false);
   const [confirmPasswordEmpty, setConfirmPasswordEmpty] =
@@ -127,7 +125,7 @@ export const CreateAccount = () => {
         <Box sx={{ width: "100%", marginTop: "20px", marginBottom: "20px" }}>
           <Box sx={{ height: "auto", marginTop: "20px", marginBottom: "20px" }}>
             <div style={{ marginBottom: "20px" }}>
-              <Typography variant="h5">1. メールアドレスの入力</Typography>
+              <Typography variant="h6">1. メールアドレスの入力</Typography>
               <TextField
                 label="メールアドレス"
                 variant="standard"
@@ -136,20 +134,12 @@ export const CreateAccount = () => {
                 fullWidth
                 margin="normal"
               />
-              <TextField
-                label="メールアドレスの確認"
-                variant="standard"
-                value={confirmEmail}
-                onChange={(e) => setConfirmEmail(e.target.value)}
-                fullWidth
-                margin="normal"
-              />
               <Typography variant="body1">
                 ログインに使用するため、有効なメールアドレスを入力してください。
               </Typography>
             </div>
             <div style={{ marginBottom: "20px" }}>
-              <Typography variant="h5">2. ユーザー名の入力</Typography>
+              <Typography variant="h6">2. ユーザー名の入力</Typography>
               <TextField
                 label="ユーザー名"
                 variant="standard"
@@ -163,7 +153,7 @@ export const CreateAccount = () => {
               </Typography>
             </div>
             <div style={{ marginBottom: "20px" }}>
-              <Typography variant="h5">3. パスワードの入力</Typography>
+              <Typography variant="h6">3. パスワードの入力</Typography>
               <TextField
                 label="パスワード"
                 variant="standard"
