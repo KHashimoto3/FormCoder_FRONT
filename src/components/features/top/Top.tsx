@@ -2,7 +2,7 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { useHistory } from "react-router-dom";
 
-import systemImg from "../../../assets/system_img.png";
+import systemImg from "../../../assets/system_form_image.png";
 
 export const Top = () => {
   const history = useHistory();

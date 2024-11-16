@@ -23,7 +23,7 @@ interface Pages {
 
 const pages: Pages[] = [
   { pageName: "FormCoderとは", pagePath: "/" },
-  { pageName: "フォーム一覧", pagePath: "/learning" },
+  { pageName: "対応カリキュラム", pagePath: "/learning" },
 ];
 
 export const TitleBar = () => {
