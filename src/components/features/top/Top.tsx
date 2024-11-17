@@ -2,10 +2,17 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { useHistory } from "react-router-dom";
 
+import { useUserData } from "../../common/hooks/useUserData";
+
 import systemImg from "../../../assets/system_form_image.png";
+import { useEffect, useState } from "react";
 
 export const Top = () => {
   const history = useHistory();
+
+  const { getUserData } = useUserData();
+  const [userId, setUserId] = useState<string | null>(null);
+  const [loginUser, setLoginUser] = useState<boolean>(false);
 
   const backgroundStyle = {
     background:
@@ -18,6 +25,14 @@ export const Top = () => {
       "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
+
+  useEffect(() => {
+    const userData = getUserData();
+    if (userData.userId !== undefined) {
+      setLoginUser(true);
+      setUserId(userData.userId);
+    }
+  }, []);
 
   return (
     <>
@@ -39,16 +54,28 @@ export const Top = () => {
                   プログラミング学習
                 </Typography>
                 <Box>
-                  <Button
-                    style={buttonStyle}
-                    size="large"
-                    onClick={() => {
-                      history.push("/learning");
-                    }}
-                  >
-                    <PlayCircleOutlineIcon />
-                    フォーム一覧へ
-                  </Button>
+                  {loginUser ? (
+                    <Button
+                      style={buttonStyle}
+                      size="large"
+                      onClick={() => {
+                        history.push("/dashboard");
+                      }}
+                    >
+                      <PlayCircleOutlineIcon />
+                      ダッシュボードへ
+                    </Button>
+                  ) : (
+                    <Button
+                      style={buttonStyle}
+                      size="large"
+                      onClick={() => {
+                        location.href = "/dashboard/" + userId;
+                      }}
+                    >
+                      ログイン
+                    </Button>
+                  )}
                 </Box>
               </Stack>
             </Box>
