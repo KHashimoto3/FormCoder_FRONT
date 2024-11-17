@@ -11,6 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { error } from "console";
 
 interface FormData {
   email: string;
@@ -65,18 +66,19 @@ export const CreateAccount = () => {
                 fullWidth
                 margin="normal"
                 {...register("email", {
-                  required: true,
-                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+                  required: "メールアドレスは必須です",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+                    message: "メールアドレスの形式が正しくありません",
+                  },
                 })}
                 required
               />
               <Typography variant="body2" color="error">
-                {errors.email?.type === "required" &&
-                  "メールアドレスは必須です"}
+                {errors.email?.type === "required" && errors.email.message}
               </Typography>
               <Typography variant="body2" color="error">
-                {errors.email?.type === "pattern" &&
-                  "メールアドレスの形式が正しくありません"}
+                {errors.email?.type === "pattern" && errors.email.message}
               </Typography>
               <Typography variant="body1">
                 ログインに使用するため、有効なメールアドレスを入力してください。
@@ -86,11 +88,11 @@ export const CreateAccount = () => {
                 variant="standard"
                 fullWidth
                 margin="normal"
-                {...register("name", { required: true })}
+                {...register("name", { required: "ユーザー名は必須です。" })}
                 required
               />
               <Typography variant="body2" color="error">
-                {errors.name?.type === "required" && "ユーザー名は必須です"}
+                {errors.name?.type === "required" && errors.name.message}
               </Typography>
               <Typography variant="body1">
                 ニックネームでも構いません。他のユーザーに表示される名前です。
@@ -101,12 +103,24 @@ export const CreateAccount = () => {
                 type="password"
                 fullWidth
                 margin="normal"
-                {...register("password", { required: true })}
+                {...register("password", {
+                  required: "パスワードは必須です",
+                  minLength: {
+                    value: 8,
+                    message: "パスワードは8文字以上で入力してください",
+                  },
+                })}
                 required
               />
               <Typography variant="body2" color="error">
-                {errors.password?.type === "required" && "パスワードは必須です"}
+                {errors.password?.type === "required" &&
+                  errors.password.message}
               </Typography>
+              <Typography variant="body2" color="error">
+                {errors.password?.type === "minLength" &&
+                  errors.password.message}
+              </Typography>
+              <Typography variant="body1">条件: 8文字以上</Typography>
             </Box>
             <Stack spacing={2}>
               <Button
