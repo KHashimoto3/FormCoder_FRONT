@@ -8,9 +8,23 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useForm } from "react-hook-form";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+interface FormData {
+  email: string;
+  name: string;
+  password: string;
+}
+
 export const CreateAccount = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({ mode: "onBlur" });
+
   const buttonStyle = {
     color: "#fff",
     background:
@@ -18,8 +32,9 @@ export const CreateAccount = () => {
     boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
   };
 
-  const handleCreateAccount = () => {
+  const handleCreateAccount = (data: FormData) => {
     alert("アカウントを作成しました");
+    console.log(data);
   };
 
   return (
@@ -39,62 +54,83 @@ export const CreateAccount = () => {
         </Typography>
         <Typography variant="h4">アカウントの作成</Typography>
         <Box sx={{ width: "100%", marginTop: "20px", marginBottom: "20px" }}>
-          <Box sx={{ height: "auto", marginTop: "20px", marginBottom: "20px" }}>
-            <TextField
-              label="メールアドレス"
-              variant="standard"
-              fullWidth
-              margin="normal"
-            />
-            <Typography variant="body1">
-              ログインに使用するため、有効なメールアドレスを入力してください。
-            </Typography>
-            <TextField
-              label="ユーザー名"
-              variant="standard"
-              fullWidth
-              margin="normal"
-            />
-            <Typography variant="body1">
-              ニックネームでも構いません。他のユーザーに表示される名前です。
-            </Typography>
-            <TextField
-              label="パスワード"
-              variant="standard"
-              type="password"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="パスワードの確認"
-              variant="standard"
-              type="password"
-              fullWidth
-              margin="normal"
-            />
-          </Box>
-          <Stack spacing={2}>
-            <Button
-              data-testid="login-button"
-              variant="contained"
-              style={buttonStyle}
-              onClick={handleCreateAccount}
+          <form onSubmit={handleSubmit(handleCreateAccount)}>
+            <Box
+              sx={{ height: "auto", marginTop: "20px", marginBottom: "20px" }}
             >
-              作成
-            </Button>
-          </Stack>
-          <Stack spacing={2} sx={{ marginTop: "20px" }}>
-            <Typography variant="body2" color="text.secondary" align="center">
-              すでにアカウントをお持ちの方
-            </Typography>
-            <Button
-              variant="outlined"
-              onClick={() => (location.href = "/login")}
-              fullWidth
-            >
-              ログイン
-            </Button>
-          </Stack>
+              <TextField
+                label="メールアドレス"
+                variant="standard"
+                type="email"
+                fullWidth
+                margin="normal"
+                {...register("email", {
+                  required: true,
+                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+                })}
+                required
+              />
+              <Typography variant="body2" color="error">
+                {errors.email?.type === "required" &&
+                  "メールアドレスは必須です"}
+              </Typography>
+              <Typography variant="body2" color="error">
+                {errors.email?.type === "pattern" &&
+                  "メールアドレスの形式が正しくありません"}
+              </Typography>
+              <Typography variant="body1">
+                ログインに使用するため、有効なメールアドレスを入力してください。
+              </Typography>
+              <TextField
+                label="ユーザー名"
+                variant="standard"
+                fullWidth
+                margin="normal"
+                {...register("name", { required: true })}
+                required
+              />
+              <Typography variant="body2" color="error">
+                {errors.name?.type === "required" && "ユーザー名は必須です"}
+              </Typography>
+              <Typography variant="body1">
+                ニックネームでも構いません。他のユーザーに表示される名前です。
+              </Typography>
+              <TextField
+                label="パスワード"
+                variant="standard"
+                type="password"
+                fullWidth
+                margin="normal"
+                {...register("password", { required: true })}
+                required
+              />
+              <Typography variant="body2" color="error">
+                {errors.password?.type === "required" && "パスワードは必須です"}
+              </Typography>
+            </Box>
+            <Stack spacing={2}>
+              <Button
+                data-testid="login-button"
+                variant="contained"
+                style={buttonStyle}
+                type="submit"
+              >
+                作成
+              </Button>
+            </Stack>
+            <Stack spacing={2} sx={{ marginTop: "20px" }}>
+              <Typography variant="body2" color="text.secondary" align="center">
+                すでにアカウントをお持ちの方
+              </Typography>
+              <Button
+                variant="outlined"
+                onClick={() => (location.href = "/login")}
+                fullWidth
+              >
+                ログイン
+              </Button>
+            </Stack>
+          </form>
         </Box>
       </Container>
     </div>
