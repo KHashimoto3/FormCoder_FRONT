@@ -1,5 +1,4 @@
 import {
-  Alert,
   Box,
   Button,
   Container,
@@ -9,6 +8,8 @@ import {
 } from "@mui/material";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createAccountValSchema } from "../../../utils/validation/createAccountValSchema";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -26,7 +27,10 @@ export const CreateAccount = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ mode: "onBlur" });
+  } = useForm<FormData>({
+    mode: "onBlur",
+    resolver: zodResolver(createAccountValSchema),
+  });
 
   const buttonStyle = {
     color: "#fff",
@@ -110,20 +114,11 @@ export const CreateAccount = () => {
                 type="email"
                 fullWidth
                 margin="normal"
-                {...register("email", {
-                  required: "メールアドレスは必須です",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                    message: "メールアドレスの形式が正しくありません",
-                  },
-                })}
+                {...register("email")}
                 required
               />
               <Typography variant="body2" color="error">
-                {errors.email?.type === "required" && errors.email.message}
-              </Typography>
-              <Typography variant="body2" color="error">
-                {errors.email?.type === "pattern" && errors.email.message}
+                {errors.email?.message}
               </Typography>
               <Typography variant="body1">
                 ログインに使用するため、有効なメールアドレスを入力してください。
@@ -134,20 +129,11 @@ export const CreateAccount = () => {
                 variant="standard"
                 fullWidth
                 margin="normal"
-                {...register("userId", {
-                  required: "ユーザーIDは必須です。",
-                  pattern: {
-                    value: /^[a-zA-Z0-9]*$/,
-                    message: "ユーザーIDは英数字で入力してください",
-                  },
-                })}
+                {...register("userId")}
                 required
               />
               <Typography variant="body2" color="error">
-                {errors.userId?.type === "required" && errors.userId.message}
-              </Typography>
-              <Typography variant="body2" color="error">
-                {errors.userId?.type === "pattern" && errors.userId.message}
+                {errors.userId?.message}
               </Typography>
               <Typography variant="body1">
                 英数字で入力してください。他のユーザーには表示されません。
@@ -158,11 +144,11 @@ export const CreateAccount = () => {
                 variant="standard"
                 fullWidth
                 margin="normal"
-                {...register("name", { required: "ユーザー名は必須です。" })}
+                {...register("name")}
                 required
               />
               <Typography variant="body2" color="error">
-                {errors.name?.type === "required" && errors.name.message}
+                {errors.name?.message}
               </Typography>
               <Typography variant="body1">
                 ニックネームでも構いません。他のユーザーに表示される名前です。
@@ -174,30 +160,11 @@ export const CreateAccount = () => {
                 type="password"
                 fullWidth
                 margin="normal"
-                {...register("password", {
-                  required: "パスワードは必須です",
-                  minLength: {
-                    value: 8,
-                    message: "パスワードは8文字以上で入力してください",
-                  },
-                  pattern: {
-                    value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
-                    message:
-                      "パスワードは英字と数字を組み合わせて入力してください",
-                  },
-                })}
+                {...register("password")}
                 required
               />
               <Typography variant="body2" color="error">
-                {errors.password?.type === "required" &&
-                  errors.password.message}
-              </Typography>
-              <Typography variant="body2" color="error">
-                {errors.password?.type === "minLength" &&
-                  errors.password.message}
-              </Typography>
-              <Typography variant="body2" color="error">
-                {errors.password?.type === "pattern" && errors.password.message}
+                {errors.password?.message}
               </Typography>
               <Typography variant="body1">
                 条件: 8文字以上かつ、英数字を組み合わせたもの。
