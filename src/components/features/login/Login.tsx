@@ -191,7 +191,11 @@ export const Login = () => {
           <Typography variant="body2" color="text.secondary" align="center">
             アカウントをお持ちでない方
           </Typography>
-          <Button variant="outlined" fullWidth>
+          <Button
+            variant="outlined"
+            onClick={() => (location.href = "/create-account")}
+            fullWidth
+          >
             新規登録
           </Button>
         </Stack>
