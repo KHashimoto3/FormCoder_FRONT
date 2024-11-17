@@ -15,11 +15,14 @@ import { error } from "console";
 
 interface FormData {
   email: string;
+  userId: string;
   name: string;
   password: string;
 }
 
 export const CreateAccount = () => {
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
+
   const {
     register,
     handleSubmit,
@@ -34,7 +37,7 @@ export const CreateAccount = () => {
   };
 
   const handleCreateAccount = (data: FormData) => {
-    alert("アカウントを作成しました");
+    alert("アカウントを作成します。");
     console.log(data);
   };
 
@@ -83,6 +86,22 @@ export const CreateAccount = () => {
               <Typography variant="body1">
                 ログインに使用するため、有効なメールアドレスを入力してください。
               </Typography>
+
+              <TextField
+                label="ユーザーID"
+                variant="standard"
+                fullWidth
+                margin="normal"
+                {...register("userId", { required: "ユーザーIDは必須です。" })}
+                required
+              />
+              <Typography variant="body2" color="error">
+                {errors.userId?.type === "required" && errors.userId.message}
+              </Typography>
+              <Typography variant="body1">
+                英数字で入力してください。他のユーザーには表示されません。
+              </Typography>
+
               <TextField
                 label="ユーザー名"
                 variant="standard"
@@ -97,6 +116,7 @@ export const CreateAccount = () => {
               <Typography variant="body1">
                 ニックネームでも構いません。他のユーザーに表示される名前です。
               </Typography>
+
               <TextField
                 label="パスワード"
                 variant="standard"
