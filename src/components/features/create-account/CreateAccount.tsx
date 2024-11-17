@@ -11,7 +11,6 @@ import {
 import { useForm } from "react-hook-form";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { error } from "console";
 
 interface FormData {
   email: string;
@@ -39,6 +38,49 @@ export const CreateAccount = () => {
   const handleCreateAccount = (data: FormData) => {
     alert("アカウントを作成します。");
     console.log(data);
+    createAccount(data);
+  };
+
+  const createAccount = async (data: FormData) => {
+    const url = `${apiBaseUrl}/user/register`;
+    const obj = {
+      userId: data.userId,
+      name: data.name,
+      password: data.password,
+      icon: "none",
+      email: data.email,
+    };
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          const statusCode = res.status;
+          switch (statusCode) {
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        console.log(data);
+        alert("アカウントを作成しました。ログイン画面でログインしてください。");
+        location.href = "/login";
+      });
+    } catch (error) {
+      alert("アカウントの作成に失敗しました。");
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -92,11 +134,20 @@ export const CreateAccount = () => {
                 variant="standard"
                 fullWidth
                 margin="normal"
-                {...register("userId", { required: "ユーザーIDは必須です。" })}
+                {...register("userId", {
+                  required: "ユーザーIDは必須です。",
+                  pattern: {
+                    value: /^[a-zA-Z0-9]*$/,
+                    message: "ユーザーIDは英数字で入力してください",
+                  },
+                })}
                 required
               />
               <Typography variant="body2" color="error">
                 {errors.userId?.type === "required" && errors.userId.message}
+              </Typography>
+              <Typography variant="body2" color="error">
+                {errors.userId?.type === "pattern" && errors.userId.message}
               </Typography>
               <Typography variant="body1">
                 英数字で入力してください。他のユーザーには表示されません。
@@ -129,6 +180,11 @@ export const CreateAccount = () => {
                     value: 8,
                     message: "パスワードは8文字以上で入力してください",
                   },
+                  pattern: {
+                    value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
+                    message:
+                      "パスワードは英字と数字を組み合わせて入力してください",
+                  },
                 })}
                 required
               />
@@ -140,7 +196,12 @@ export const CreateAccount = () => {
                 {errors.password?.type === "minLength" &&
                   errors.password.message}
               </Typography>
-              <Typography variant="body1">条件: 8文字以上</Typography>
+              <Typography variant="body2" color="error">
+                {errors.password?.type === "pattern" && errors.password.message}
+              </Typography>
+              <Typography variant="body1">
+                条件: 8文字以上かつ、英数字を組み合わせたもの。
+              </Typography>
             </Box>
             <Stack spacing={2}>
               <Button

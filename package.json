@@ -34,7 +34,8 @@
     "react-hook-form": "^7.53.2",
     "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^5.3.4",
-    "sass": "^1.63.5"
+    "sass": "^1.63.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@playwright/test": "^1.38.1",
