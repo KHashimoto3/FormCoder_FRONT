@@ -2,6 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import { Select, Option } from "@mui/joy";
 import { BarGraph } from "./BarGraph";
 import React from "react";
+import { HorizoBarGraph } from "./HorizoBarGraph";
 
 export const Graph = () => {
   const [selectedOption, setSelectedOption] = React.useState("time");
@@ -31,7 +32,7 @@ export const Graph = () => {
       <Typography variant="h6" sx={{ color: "#ffffff", background: "#5F94D9" }}>
         区間別分析
       </Typography>
-      {selectedOption === "time" ? <BarGraph /> : null}
+      {selectedOption === "time" ? <BarGraph /> : <HorizoBarGraph />}
       <div>
         <Stack spacing={2} direction="row">
           <div>
