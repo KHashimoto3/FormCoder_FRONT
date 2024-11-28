@@ -28,21 +28,6 @@ export const BarGraph = () => {
     string | null
   >(null);
 
-  const analyzedData = [
-    {
-      label: "打鍵速度",
-      labelEn: "speed",
-      data: [2.5, 3.0, 1.0, 4.2, 1.6, 2.0],
-      borderColor: "rgb(75, 192, 192)",
-    },
-    {
-      label: "削除率",
-      labelEn: "delete-rate",
-      data: [28, 48, 40, 19, 86, 27],
-      borderColor: "rgb(255, 99, 132)",
-    },
-  ];
-
   const labels = ["0", "60", "120", "150", "180", "210"];
   const graphData = {
     labels: labels,

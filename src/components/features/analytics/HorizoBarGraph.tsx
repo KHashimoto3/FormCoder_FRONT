@@ -14,7 +14,6 @@ import {
 
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import { set } from "react-hook-form";
 
 ChartJS.register(
   TimeScale,
