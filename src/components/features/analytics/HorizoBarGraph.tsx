@@ -14,6 +14,7 @@ import {
 
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
+import { set } from "react-hook-form";
 
 ChartJS.register(
   TimeScale,
@@ -27,6 +28,9 @@ ChartJS.register(
 
 export const HorizoBarGraph = () => {
   const [forcasedSpeed, setForcasedSpeed] = React.useState<number | null>(null);
+  const [forcasedBrankName, setForcasedBrankName] = React.useState<
+    string | null
+  >(null);
 
   const data = {
     labels: [
@@ -68,8 +72,10 @@ export const HorizoBarGraph = () => {
       if (activeElements.length > 0) {
         const index = activeElements[0].index;
         setForcasedSpeed(data.datasets[0].data[index]);
+        setForcasedBrankName(data.labels[index]);
       } else {
         setForcasedSpeed(null);
+        setForcasedBrankName(null);
       }
     },
     responsive: true,
@@ -91,7 +97,7 @@ export const HorizoBarGraph = () => {
         <Box sx={{ background: "#FFFDE7", borderRadius: 2, padding: "5px" }}>
           <Stack spacing={2} direction={"row"}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              変数・配列宣言
+              {forcasedBrankName ? forcasedBrankName : "--"}
             </Typography>
             <Typography variant="h6">
               速度：{forcasedSpeed ? forcasedSpeed : "--"}個/秒
