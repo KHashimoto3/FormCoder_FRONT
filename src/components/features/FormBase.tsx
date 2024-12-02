@@ -39,6 +39,9 @@ export const FormBase = () => {
   const [formName, setFormName] = useState<string>("フォーム名"); //TODO: 後日、削除する
   const [formId, setFormId] = useState<string>("");
 
+  //保存済みのrecordId
+  const [recordId, setRecordId] = useState<string>("");
+
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
   const { code } = useContext(CodeContext);
@@ -66,7 +69,8 @@ export const FormBase = () => {
 
   //分析結果画面へ遷移
   const jumpToAnalytics = () => {
-    location.href = "/analytics";
+    console.log("recordId: " + recordId);
+    location.href = "/analytics?id=" + recordId;
   };
 
   //ローディングモーダルを閉じる
@@ -129,7 +133,7 @@ export const FormBase = () => {
   const saveLearningData = async () => {
     const url = `${apiBaseUrl}/record`;
     //仮のシーケンスデータを追加
-    initSequenceData();
+    //initSequenceData();
 
     const sampleSeqAnalyze = {
       speed: 50,
@@ -164,10 +168,13 @@ export const FormBase = () => {
               throw new Error("Unknown Error");
           }
         }
+        const data = await res.json();
+        const recordId = data.recordId;
+        setRecordId(recordId);
         handleClickOpen();
       });
     } catch (error) {
-      alert("アップロード中にエラーが発生しました。");
+      alert("A: アップロード中にエラーが発生しました。");
       console.log(error);
     }
   };
