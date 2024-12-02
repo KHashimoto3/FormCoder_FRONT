@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 ChartJS.register(
@@ -19,26 +19,55 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
-export const BarGraph = () => {
+type Props = {
+  analyzeItemLabel: string;
+  analyzeItemlabelEn: string;
+  analyzeResultList: any;
+};
+
+export const BarGraph = (props: Props) => {
+  const { analyzeItemLabel, analyzeItemlabelEn, analyzeResultList } = props;
   const [forcasedSpeed, setForcasedSpeed] = React.useState<number | null>(null);
   const [forcasedBrankName, setForcasedBrankName] = React.useState<
     string | null
   >(null);
 
-  const labels = ["0", "60", "120", "150", "180", "210"];
-  const graphData = {
-    labels: labels,
-    datasets: [
-      {
-        label: "打鍵速度",
-        data: [2.5, 3.0, 1.0, 4.2, 1.6, 2.0],
-        borderColor: "rgb(75, 192, 192)",
-      },
-    ],
-  };
+  const [graphData, setGraphData] = React.useState<any>({
+    labels: [],
+    datasets: [],
+  });
+
+  useEffect(() => {
+    //analyzeResultListがnullのとき
+    if (analyzeResultList === null) {
+      return;
+    }
+
+    const labels: string[] = [];
+    const data: number[] = [];
+
+    analyzeResultList.forEach((result: any) => {
+      const startTimestamp = result.startTimestamp / 1000;
+      const endTimestamp = result.endTimestamp / 1000;
+      const label = `${startTimestamp} - ${endTimestamp}`;
+      labels.push(label);
+      data.push(result[analyzeItemlabelEn]);
+    });
+
+    setGraphData({
+      labels: labels,
+      datasets: [
+        {
+          label: analyzeItemLabel,
+          data: data,
+          borderColor: "rgb(75, 192, 192)",
+        },
+      ],
+    });
+  }, [analyzeItemLabel, analyzeItemlabelEn, analyzeResultList]);
 
   const options = {
     responsive: true,
@@ -50,7 +79,7 @@ export const BarGraph = () => {
     plugins: {
       title: {
         display: true,
-        text: "打鍵速度推移",
+        text: "時間ごとの分析",
       },
     },
     scales: {
