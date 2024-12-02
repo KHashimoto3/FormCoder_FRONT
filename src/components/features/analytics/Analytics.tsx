@@ -17,7 +17,6 @@ import { TestResult } from "./TestResult";
 
 import { useUserData } from "../../common/hooks/useUserData";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 export const Analytics = () => {
   const { getUserData } = useUserData();
@@ -25,7 +24,11 @@ export const Analytics = () => {
 
   //記録データのID
   const [recordId, setRecordId] = useState<string>("");
-  const [recordData, setRecordData] = useState<any>({});
+  const [recordData, setRecordData] = useState<any>({
+    userId: "",
+    formId: "",
+    sequence: [],
+  });
 
   const buttonStyle = {
     color: "#fff",
@@ -232,7 +235,7 @@ export const Analytics = () => {
             <Grid item xs={7}>
               <Grid container direction={"column"} spacing={2}>
                 <Grid item xs={6}>
-                  <Graph />
+                  <Graph sequence={recordData.sequence} />
                 </Grid>
                 <Grid item xs={6}>
                   <ReviewAdovice reviewList={sampleReviewData} />

@@ -1,15 +1,26 @@
 import { Stack, Typography } from "@mui/material";
 import { Select, Option } from "@mui/joy";
 import { BarGraph } from "./BarGraph";
-import React from "react";
+import React, { useEffect } from "react";
 import { HorizoBarGraph } from "./HorizoBarGraph";
+import { SequenceData } from "../../types/sequenceData";
 
-export const Graph = () => {
+type Props = {
+  sequence: SequenceData[];
+};
+
+export const Graph = (props: Props) => {
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
+  const { sequence } = props;
+
   const [selectedOption, setSelectedOption] = React.useState("time");
+
+  //それぞれの分析結果
+  const [analyzeResultListInterval, setAnalyzeResultListInterval] =
+    React.useState<any>(null);
 
   const handleOptionChange = (event: any, newValue: any) => {
     setSelectedOption(newValue);
-    console.log(newValue);
   };
 
   const analyzedData = [
@@ -26,6 +37,54 @@ export const Graph = () => {
       borderColor: "rgb(255, 99, 132)",
     },
   ];
+
+  useEffect(() => {
+    //sequenceデータが変更され、データがnullでないとき
+    if (sequence.length === 0) {
+      return;
+    }
+    if (selectedOption === "time") {
+      callAnalyzeApiWithInterval();
+    }
+  }, [sequence]);
+
+  //指定した時間間隔で分析を行うAPIを呼び出す
+  const callAnalyzeApiWithInterval = async () => {
+    const url = `${apiBaseUrl}/sequence/analyze/interval`;
+
+    const obj = {
+      intervalTime: 10000,
+      sequence: sequence,
+    };
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }).then(async (res) => {
+        if (!res.ok) {
+          const statusCode = res.status;
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        const analyzeResultList = data.analyzeResultList;
+        setAnalyzeResultListInterval(analyzeResultList);
+      });
+    } catch (error) {
+      alert("D: エラーが発生しました。");
+      console.log(error);
+    }
+  };
 
   return (
     <div>
