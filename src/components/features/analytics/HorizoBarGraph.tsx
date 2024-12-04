@@ -12,7 +12,7 @@ import {
   ChartOptions,
 } from "chart.js";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 ChartJS.register(
@@ -22,16 +22,62 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
-export const HorizoBarGraph = () => {
+type AnalyzeResultList = {
+  partType: string;
+  analyzeResult: any;
+};
+
+type Props = {
+  analyzeItemLabel: string;
+  analyzeItemlabelEn: string;
+  analyzeResultList: AnalyzeResultList[] | null;
+};
+
+export const HorizoBarGraph = (props: Props) => {
+  const { analyzeItemLabel, analyzeItemlabelEn, analyzeResultList } = props;
   const [forcasedSpeed, setForcasedSpeed] = React.useState<number | null>(null);
   const [forcasedBrankName, setForcasedBrankName] = React.useState<
     string | null
   >(null);
 
-  const data = {
+  const [graphData, setGraphData] = React.useState<any>({
+    labels: [],
+    datasets: [],
+  });
+
+  useEffect(() => {
+    console.log("B: analyzeResultList:", analyzeResultList);
+    //analyzeResultListがnullのとき
+    if (analyzeResultList === null) {
+      return;
+    }
+
+    const labels: string[] = [];
+    const data: number[] = [];
+
+    analyzeResultList.forEach((result: any) => {
+      const label = result.partType;
+      labels.push(label);
+      data.push(result.analyzeResult[analyzeItemlabelEn]);
+    });
+
+    setGraphData({
+      labels: labels,
+      datasets: [
+        {
+          label: analyzeItemLabel,
+          data: data,
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+        },
+      ],
+    });
+  }, [analyzeResultList, analyzeItemLabel, analyzeItemlabelEn]);
+
+  /*const data = {
     labels: [
       "インクルード",
       "変数・配列宣言",
@@ -48,7 +94,7 @@ export const HorizoBarGraph = () => {
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
-  };
+  };*/
 
   const options: ChartOptions<"bar"> = {
     indexAxis: "y",
@@ -70,8 +116,8 @@ export const HorizoBarGraph = () => {
     onHover: (_: any, activeElements: any) => {
       if (activeElements.length > 0) {
         const index = activeElements[0].index;
-        setForcasedSpeed(data.datasets[0].data[index]);
-        setForcasedBrankName(data.labels[index]);
+        setForcasedSpeed(graphData.datasets[0].data[index]);
+        setForcasedBrankName(graphData.labels[index]);
       } else {
         setForcasedSpeed(null);
         setForcasedBrankName(null);
@@ -91,7 +137,7 @@ export const HorizoBarGraph = () => {
 
   return (
     <div>
-      <Bar options={options} data={data} />
+      <Bar options={options} data={graphData} />
       <div style={{ marginBottom: "10px" }}>
         <Box sx={{ background: "#FFFDE7", borderRadius: 2, padding: "5px" }}>
           <Stack spacing={2} direction={"row"}>

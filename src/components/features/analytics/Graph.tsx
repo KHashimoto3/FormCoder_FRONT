@@ -19,6 +19,8 @@ export const Graph = (props: Props) => {
   //それぞれの分析結果
   const [analyzeResultListInterval, setAnalyzeResultListInterval] =
     React.useState<any>(null);
+  const [analyzeResultListPart, setAnalyzeResultListPart] =
+    React.useState<any>(null);
 
   const handleOptionChange = (event: any, newValue: any) => {
     setSelectedOption(newValue);
@@ -98,8 +100,10 @@ export const Graph = (props: Props) => {
     }
     if (selectedOption === "time") {
       callAnalyzeApiWithInterval();
+    } else if (selectedOption === "blank") {
+      callAnalyzeApiWithPart();
     }
-  }, [sequence]);
+  }, [sequence, selectedOption]);
 
   //指定した時間間隔で分析を行うAPIを呼び出す
   const callAnalyzeApiWithInterval = async () => {
@@ -139,6 +143,44 @@ export const Graph = (props: Props) => {
     }
   };
 
+  //パートごとで分析を行うAPIを呼び出す
+  const callAnalyzeApiWithPart = async () => {
+    const url = `${apiBaseUrl}/sequence/analyze/part`;
+
+    const obj = {
+      sequence: sequence,
+    };
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }).then(async (res) => {
+        if (!res.ok) {
+          const statusCode = res.status;
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        const analyzeResultList = data.analyzeResultList;
+        console.log("A: analyzeResultList:", analyzeResultList);
+        setAnalyzeResultListPart(analyzeResultList);
+      });
+    } catch (error) {
+      alert("D: エラーが発生しました。");
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Typography variant="h6" sx={{ color: "#ffffff", background: "#5F94D9" }}>
@@ -151,7 +193,11 @@ export const Graph = (props: Props) => {
           analyzeResultList={analyzeResultListInterval}
         />
       ) : (
-        <HorizoBarGraph />
+        <HorizoBarGraph
+          analyzeItemLabel={analyzeItemList[selectedAnalyzedItem].label}
+          analyzeItemlabelEn={analyzeItemList[selectedAnalyzedItem].labelEn}
+          analyzeResultList={analyzeResultListPart}
+        />
       )}
       <div>
         <Stack spacing={2} direction="row">
