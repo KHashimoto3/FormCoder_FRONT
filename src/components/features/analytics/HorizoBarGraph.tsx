@@ -60,7 +60,8 @@ export const HorizoBarGraph = (props: Props) => {
 
     analyzeResultList.forEach((result: any) => {
       const label = result.partType;
-      labels.push(label);
+      const labelJp = translateJapanaPartType(label);
+      labels.push(labelJp);
       data.push(result.analyzeResult[analyzeItemlabelEn]);
     });
 
@@ -96,20 +97,94 @@ export const HorizoBarGraph = (props: Props) => {
     ],
   };*/
 
+  const partTypeJpEnMap: { en: string; jp: string }[] = [
+    {
+      en: "INC",
+      jp: "インクルード",
+    },
+    {
+      en: "DEF",
+      jp: "マクロ",
+    },
+    {
+      en: "STRC",
+      jp: "構造体定義",
+    },
+    {
+      en: "FUN",
+      jp: "関数定義",
+    },
+    {
+      en: "PROC",
+      jp: "計算・代入",
+    },
+    {
+      en: "DAT",
+      jp: "データ宣言（変数・配列）",
+    },
+    {
+      en: "STRDC",
+      jp: "構造体宣言",
+    },
+    {
+      en: "FOR",
+      jp: "繰り返しfor",
+    },
+    {
+      en: "WHL",
+      jp: "繰り返しwhile",
+    },
+    {
+      en: "IF",
+      jp: "条件分岐if",
+    },
+    {
+      en: "ELIF",
+      jp: "条件分岐else if",
+    },
+    {
+      en: "ELS",
+      jp: "条件分岐else",
+    },
+    {
+      en: "INP",
+      jp: "データの入力",
+    },
+    {
+      en: "OUT",
+      jp: "データの出力",
+    },
+    {
+      en: "STRIN",
+      jp: "文字列入力",
+    },
+    {
+      en: "STRCIN",
+      jp: "構造体入力",
+    },
+    {
+      en: "STRCOU",
+      jp: "構造体出力",
+    },
+    {
+      en: "STRP",
+      jp: "文字列処理",
+    },
+  ];
+
+  //パートタイプの名前を日本語に変換
+  const translateJapanaPartType = (partType: string) => {
+    const target = partTypeJpEnMap.find((item) => item.en === partType);
+    return target ? target.jp : "未登録パート";
+  };
+
   const options: ChartOptions<"bar"> = {
     indexAxis: "y",
     scales: {
-      x: {
-        type: "linear",
-        title: {
-          display: true,
-          text: "打鍵速度",
-        },
-      },
       y: {
         title: {
           display: true,
-          text: "入力欄",
+          text: "パート",
         },
       },
     },
@@ -130,14 +205,14 @@ export const HorizoBarGraph = (props: Props) => {
       },
       title: {
         display: true,
-        text: "入力欄ごとの分析",
+        text: "パートごとの分析",
       },
     },
   };
 
   return (
     <div>
-      <Bar options={options} data={graphData} />
+      <Bar options={options} data={graphData} style={{ maxHeight: "400px" }} />
       <div style={{ marginBottom: "10px" }}>
         <Box sx={{ background: "#FFFDE7", borderRadius: 2, padding: "5px" }}>
           <Stack spacing={2} direction={"row"}>

@@ -206,7 +206,7 @@ export const Graph = (props: Props) => {
               <Typography variant="h6">表示方法</Typography>
               <Select value={selectedOption} onChange={handleOptionChange}>
                 <Option value="time">時間による推移</Option>
-                <Option value="blank">空欄ごと</Option>
+                <Option value="blank">パートごと</Option>
               </Select>
             </Stack>
           </div>
