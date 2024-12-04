@@ -49,7 +49,6 @@ export const HorizoBarGraph = (props: Props) => {
   });
 
   useEffect(() => {
-    console.log("B: analyzeResultList:", analyzeResultList);
     //analyzeResultListがnullのとき
     if (analyzeResultList === null) {
       return;
@@ -77,25 +76,6 @@ export const HorizoBarGraph = (props: Props) => {
       ],
     });
   }, [analyzeResultList, analyzeItemLabel, analyzeItemlabelEn]);
-
-  /*const data = {
-    labels: [
-      "インクルード",
-      "変数・配列宣言",
-      "入力",
-      "処理",
-      "forループ",
-      "出力",
-    ],
-    datasets: [
-      {
-        label: "打鍵速度",
-        data: [1.5, 2.0, 3.0, 0.2, 2.2, 3.9],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
-  };*/
 
   const partTypeJpEnMap: { en: string; jp: string }[] = [
     {

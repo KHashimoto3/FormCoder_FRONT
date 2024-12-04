@@ -28,7 +28,6 @@ export const Graph = (props: Props) => {
 
   const handleAnalyzedItemChange = (event: any, newValue: any) => {
     setSelectedAnalyzedItem(newValue);
-    console.log("selectedAnalyzedItem:", newValue);
   };
 
   const analyzeItemList = [
@@ -172,7 +171,6 @@ export const Graph = (props: Props) => {
         }
         const data = await res.json();
         const analyzeResultList = data.analyzeResultList;
-        console.log("A: analyzeResultList:", analyzeResultList);
         setAnalyzeResultListPart(analyzeResultList);
       });
     } catch (error) {
