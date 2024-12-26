@@ -1,10 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormData } from "../../../types/formData";
 import { FormProvider } from "../FormProvider";
 import { Process } from "./Process";
 import { HintContext } from "../../hint/HintProvider";
 import useInterval from "../hooks/useinterval";
 import { InputContext } from "../InputArrayProvider";
+
+import useTextDiff from "../../sequence/hooks/useTextDiff";
+import { TimestampContext } from "../../sequence/TimestampProvider";
 
 type Props = {
   id: number;
@@ -21,7 +24,14 @@ export const While = (props: Props) => {
 
   //入力の記録に関する処理
   const { upDateInputArray } = useContext(InputContext);
-  const [input, setInput] = useState<string>("");
+
+  //シーケンス関連
+  const { initInputIdAndType, textInput, setTextInput } = useTextDiff();
+  const { recordTimestamp } = useContext(TimestampContext);
+
+  useEffect(() => {
+    initInputIdAndType(props.id, props.partType);
+  }, []);
 
   const updateInput = (idx: number, input: string) => {
     const str: string[] = [input];
@@ -84,7 +94,8 @@ export const While = (props: Props) => {
             type="text"
             size={5}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setInput(event.target.value);
+              recordTimestamp();
+              setTextInput(event.target.value);
             }}
             onFocus={() => {
               setCurrentHintId(formId);
@@ -93,7 +104,7 @@ export const While = (props: Props) => {
               setIsRunning(true);
             }}
             onBlur={() => {
-              updateInput(props.inputIdx, input);
+              updateInput(props.inputIdx, textInput);
               setIsRunning(false);
             }}
           />

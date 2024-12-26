@@ -16,6 +16,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+
 import PersonIcon from "@mui/icons-material/Person";
 import { Hint } from "./hint/Hint";
 import { Form } from "./form/Form";
@@ -23,6 +24,7 @@ import { useContext, useEffect, useState } from "react";
 import { HintContext } from "./hint/HintProvider";
 import { InputContext } from "./form/InputArrayProvider";
 import { CodeContext } from "./exec/CodeProvider";
+import { SequenceContext } from "./sequence/SequenceDataProvider";
 
 import { RotatingLines } from "react-loader-spinner";
 import { CodeExec } from "./exec/CodeExec";
@@ -37,9 +39,13 @@ export const FormBase = () => {
   const [formName, setFormName] = useState<string>("フォーム名"); //TODO: 後日、削除する
   const [formId, setFormId] = useState<string>("");
 
+  //保存済みのrecordId
+  const [recordId, setRecordId] = useState<string>("");
+
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
   const { code } = useContext(CodeContext);
+  const { sequenceDataArray, addNewSequenceData } = useContext(SequenceContext);
 
   //ローディングモーダル
   const [loading, setLoading] = useState<boolean>(true);
@@ -59,6 +65,12 @@ export const FormBase = () => {
 
   const handleClose = () => {
     setDialogOpen(false);
+  };
+
+  //分析結果画面へ遷移
+  const jumpToAnalytics = () => {
+    console.log("recordId: " + recordId);
+    location.href = "/analytics?id=" + recordId;
   };
 
   //ローディングモーダルを閉じる
@@ -101,8 +113,31 @@ export const FormBase = () => {
     setUserId(userData.userId);
   }, []);
 
+  const initSequenceData = () => {
+    const sampleSequenceData = {
+      id: 1,
+      partType: "FOR",
+      timestamp: 9999,
+      changeData: {
+        from: { line: 0, ch: 0 },
+        to: { line: 0, ch: 0 },
+        text: ["aaaa"],
+        removed: [""],
+        origin: "+input",
+      },
+    };
+
+    addNewSequenceData(sampleSequenceData);
+  };
+
   const saveLearningData = async () => {
     const url = `${apiBaseUrl}/record`;
+    //仮のシーケンスデータを追加
+    //initSequenceData();
+
+    const sampleSeqAnalyze = {
+      speed: 50,
+    };
     //TODO: userNameとformNameを渡せるようにAPIを変更する
     const obj = {
       userId: userId,
@@ -110,6 +145,8 @@ export const FormBase = () => {
       fbData: hintFBArray,
       inputData: inputArray,
       connectedCode: code,
+      sequence: sequenceDataArray,
+      seqAnalyze: sampleSeqAnalyze,
     };
 
     try {
@@ -131,10 +168,13 @@ export const FormBase = () => {
               throw new Error("Unknown Error");
           }
         }
+        const data = await res.json();
+        const recordId = data.recordId;
+        setRecordId(recordId);
         handleClickOpen();
       });
     } catch (error) {
-      alert("アップロード中にエラーが発生しました。");
+      alert("A: アップロード中にエラーが発生しました。");
       console.log(error);
     }
   };
@@ -254,12 +294,15 @@ export const FormBase = () => {
         <DialogTitle id="alert-dialog-title">{"保存完了"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            保存が完了しました！引き続き編集が可能です。編集した後、もう一度保存してください。
+            保存が完了しました！終了して分析結果を表示しますか？または、編集を続けますか？
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={handleClose} autoFocus>
-            閉じる
+          <Button variant="outlined" onClick={handleClose} autoFocus>
+            編集を続ける
+          </Button>
+          <Button variant="contained" onClick={jumpToAnalytics} autoFocus>
+            分析結果表示
           </Button>
         </DialogActions>
       </Dialog>

@@ -33,19 +33,21 @@ export const CodeExec = () => {
   }, []);
 
   const callConnectCodeApi = async () => {
-    const url = `${apiBaseUrl}/programm/connected-code`;
-    const obj = {
+    const url1 = `${apiBaseUrl}/programm/connected-code`;
+    const obj1 = {
       formData: formData,
       inputData: inputArray,
     };
 
+    let connectedCode = "";
+
     try {
-      await fetch(url, {
+      await fetch(url1, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify(obj1),
       }).then(async (res) => {
         const contentType = res.headers.get("content-type");
         if (!res.ok) {
@@ -61,13 +63,47 @@ export const CodeExec = () => {
           }
         }
         const data = await res.json();
-        const code = data.connectedCode;
-        const formattedConnectedCode = code.replace(/\\n/g, "\n");
-        setCode(formattedConnectedCode);
+        connectedCode = data.connectedCode.replace(/\\n/g, "\n");
       });
     } catch (error) {
       alert("コードの接続時にエラーが発生しました。");
       setCode("//エラー: コードの結合時に問題がおきました。");
+    }
+
+    const url2 = `http://localhost:3000/code-formatter`;
+    const obj2 = {
+      code: connectedCode,
+    };
+
+    //結合されたコードをフォーマットする
+    try {
+      await fetch(url2, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj2),
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        const code = data.result;
+        const formattedConnectedCode = code.replace(/\\n/g, "\n");
+        setCode(formattedConnectedCode);
+      });
+    } catch (error) {
+      alert("コードのフォーマット中にエラーが発生しました");
       return;
     }
   };
