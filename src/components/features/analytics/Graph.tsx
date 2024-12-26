@@ -22,11 +22,11 @@ export const Graph = (props: Props) => {
   const [analyzeResultListPart, setAnalyzeResultListPart] =
     React.useState<any>(null);
 
-  const handleOptionChange = (event: any, newValue: any) => {
+  const handleOptionChange = (_: any, newValue: any) => {
     setSelectedOption(newValue);
   };
 
-  const handleAnalyzedItemChange = (event: any, newValue: any) => {
+  const handleAnalyzedItemChange = (_: any, newValue: any) => {
     setSelectedAnalyzedItem(newValue);
   };
 
@@ -74,21 +74,6 @@ export const Graph = (props: Props) => {
     {
       label: "平均書き直し時間",
       labelEn: "averageReInputTime",
-    },
-  ];
-
-  const analyzedData = [
-    {
-      label: "打鍵速度",
-      labelEn: "speed",
-      data: [2.5, 3.0, 1.0, 4.2, 1.6, 2.0],
-      borderColor: "rgb(75, 192, 192)",
-    },
-    {
-      label: "削除率",
-      labelEn: "delete-rate",
-      data: [28, 48, 40, 19, 86, 27],
-      borderColor: "rgb(255, 99, 132)",
     },
   ];
 

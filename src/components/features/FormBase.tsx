@@ -45,7 +45,7 @@ export const FormBase = () => {
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
   const { code } = useContext(CodeContext);
-  const { sequenceDataArray, addNewSequenceData } = useContext(SequenceContext);
+  const { sequenceDataArray } = useContext(SequenceContext);
 
   //ローディングモーダル
   const [loading, setLoading] = useState<boolean>(true);
@@ -112,23 +112,6 @@ export const FormBase = () => {
     }
     setUserId(userData.userId);
   }, []);
-
-  const initSequenceData = () => {
-    const sampleSequenceData = {
-      id: 1,
-      partType: "FOR",
-      timestamp: 9999,
-      changeData: {
-        from: { line: 0, ch: 0 },
-        to: { line: 0, ch: 0 },
-        text: ["aaaa"],
-        removed: [""],
-        origin: "+input",
-      },
-    };
-
-    addNewSequenceData(sampleSequenceData);
-  };
 
   const saveLearningData = async () => {
     const url = `${apiBaseUrl}/record`;

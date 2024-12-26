@@ -22,9 +22,11 @@ export const Analytics = () => {
   const { getUserData } = useUserData();
   const [userId, setUserId] = useState<string>("");
 
-  //記録データのID
-  const [recordId, setRecordId] = useState<string>("");
-  const [recordData, setRecordData] = useState<any>({
+  const [recordData, setRecordData] = useState<{
+    userId: string;
+    formId: string;
+    sequence: any;
+  }>({
     userId: "",
     formId: "",
     sequence: [],
@@ -63,7 +65,6 @@ export const Analytics = () => {
       location.href = "/";
       return;
     }
-    setRecordId(id);
 
     //記録データの取得
     getRecordData(id);
