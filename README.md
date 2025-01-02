@@ -72,3 +72,18 @@ npm run dev
 ### 5. 起動確認
 
 `localhost:5173`にアクセスして、トップページが表示されれば完了です。
+
+## デプロイ方法
+
+### 手動デプロイ
+
+1. 以下のコマンドでデプロイします。
+
+```
+npm run build
+firebase deploy
+```
+
+### 自動デプロイ
+
+`develop`から`main`に対してpull requestを出して、mergeする。
