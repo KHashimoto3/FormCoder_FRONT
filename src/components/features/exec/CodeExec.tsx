@@ -70,7 +70,7 @@ export const CodeExec = () => {
       setCode("//エラー: コードの結合時に問題がおきました。");
     }
 
-    const url2 = `http://localhost:3000/code-formatter`;
+    const url2 = `${apiBaseUrl}/programm/format-code/`;
     const obj2 = {
       code: connectedCode,
     };
