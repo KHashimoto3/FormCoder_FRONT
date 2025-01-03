@@ -5,6 +5,9 @@ import { useHistory } from "react-router-dom";
 import { useUserData } from "../../common/hooks/useUserData";
 
 import systemImg from "../../../assets/system_form_image.png";
+import systemImgError from "../../../assets/system_error_result_image.png";
+import systemImgAnalyze from "../../../assets/system_analyze_image.png";
+
 import { useEffect, useState } from "react";
 
 export const Top = () => {
@@ -201,7 +204,7 @@ export const Top = () => {
             <Box sx={{ textAlign: "center", paddingTop: "50px" }}>
               <img
                 style={{ width: "95%" }}
-                src={systemImg}
+                src={systemImgError}
                 alt="画面イメージ"
               />
             </Box>
@@ -261,7 +264,7 @@ export const Top = () => {
             <Box sx={{ textAlign: "center", paddingTop: "50px" }}>
               <img
                 style={{ width: "95%" }}
-                src={systemImg}
+                src={systemImgAnalyze}
                 alt="画面イメージ"
               />
             </Box>
