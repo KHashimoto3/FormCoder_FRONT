@@ -4,8 +4,22 @@ import { useHistory } from "react-router-dom";
 
 import systemImg from "../../../assets/system_img.png";
 
+import { useUserData } from "../../common/hooks/useUserData";
+import { useEffect } from "react";
+
 export const Top = () => {
   const history = useHistory();
+  //ログイン状態
+  const { getUserData } = useUserData();
+
+  useEffect(() => {
+    //ログイン状態を取得
+    const userData = getUserData();
+    if (userData.userId === undefined) {
+      return;
+    }
+    location.href = "/dashboard/" + userData.userId;
+  }, []);
 
   const backgroundStyle = {
     background:
