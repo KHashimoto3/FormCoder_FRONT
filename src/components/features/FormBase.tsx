@@ -35,6 +35,7 @@ export const FormBase = () => {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [savingDialogOpen, setSavingDialogOpen] = useState<boolean>(false);
 
   const [formName, setFormName] = useState<string>("フォーム名"); //TODO: 後日、削除する
   const [formId, setFormId] = useState<string>("");
@@ -65,6 +66,14 @@ export const FormBase = () => {
 
   const handleClose = () => {
     setDialogOpen(false);
+  };
+
+  //保存中モーダルの開閉
+  const handleSavingDialogOpen = () => {
+    setSavingDialogOpen(true);
+  };
+  const handleSavingDialogClose = () => {
+    setSavingDialogOpen(false);
   };
 
   //分析結果画面へ遷移
@@ -154,6 +163,7 @@ export const FormBase = () => {
         const data = await res.json();
         const recordId = data.recordId;
         setRecordId(recordId);
+        handleSavingDialogClose();
         handleClickOpen();
       });
     } catch (error) {
@@ -255,7 +265,13 @@ export const FormBase = () => {
                 >
                   問題文を再表示
                 </Button>
-                <Button onClick={saveLearningData} style={buttonStyle}>
+                <Button
+                  onClick={() => {
+                    handleSavingDialogOpen();
+                    saveLearningData();
+                  }}
+                  style={buttonStyle}
+                >
                   保存する
                 </Button>
               </Stack>
@@ -268,6 +284,28 @@ export const FormBase = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      <Dialog
+        open={savingDialogOpen}
+        onClose={handleSavingDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{ zIndex: "10000" }}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"保存中です。ブラウザを閉じないでください。"}
+        </DialogTitle>
+        <DialogContent>
+          <Box sx={{ textAlign: "center" }}>
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="96"
+              visible={true}
+            />
+          </Box>
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={dialogOpen}
         onClose={handleClose}
