@@ -7,9 +7,6 @@ import { useUserData } from "../../common/hooks/useUserData";
 import systemImg from "../../../assets/system_form_image.png";
 import { useEffect, useState } from "react";
 
-import { useUserData } from "../../common/hooks/useUserData";
-import { useEffect } from "react";
-
 export const Top = () => {
   const history = useHistory();
   //ログイン状態
@@ -24,7 +21,6 @@ export const Top = () => {
     location.href = "/dashboard/" + userData.userId;
   }, []);
 
-  const { getUserData } = useUserData();
   const [userId, setUserId] = useState<string | null>(null);
   const [loginUser, setLoginUser] = useState<boolean>(false);
 
