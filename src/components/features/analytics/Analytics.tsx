@@ -22,6 +22,16 @@ export const Analytics = () => {
   const { getUserData } = useUserData();
   const [userId, setUserId] = useState<string>("");
 
+  const [recordData, setRecordData] = useState<{
+    userId: string;
+    formId: string;
+    sequence: any;
+  }>({
+    userId: "",
+    formId: "",
+    sequence: [],
+  });
+
   const buttonStyle = {
     color: "#fff",
     background:
@@ -46,7 +56,58 @@ export const Analytics = () => {
     if (userData.userId !== undefined) {
       setUserId(userData.userId);
     }
+
+    //クエリパラメータidを取得
+    const url = new URL(window.location.href);
+    const id = url.searchParams.get("id");
+    if (!id) {
+      alert("不正なアクセスです。");
+      location.href = "/";
+      return;
+    }
+
+    //記録データの取得
+    getRecordData(id);
   }, []);
+
+  const getRecordData = async (id: string) => {
+    const url = import.meta.env.VITE_API_BASE_URL + "/record?recordId=" + id;
+    try {
+      await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) {
+          const statusCode = res.status;
+          if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Oops, we haven't got JSON!");
+          }
+          switch (statusCode) {
+            case 400:
+              throw new Error("Bad Request");
+            case 401:
+              throw new Error("Unauthorized");
+            case 404:
+              throw new Error("Not Found");
+            case 500:
+              throw new Error("Internal Server Error");
+            default:
+              throw new Error("Unknown Error");
+          }
+        }
+        const data = await res.json();
+        const recordData = data.recordData;
+        setRecordData(recordData);
+      });
+    } catch (error) {
+      alert("C: エラーが発生しました。ダッシュボードに戻ります。");
+      console.log(error);
+      window.location.href = "/dashboard/" + userId;
+    }
+  };
 
   //Generalコンポーネントに渡すサンプルデータ
   const sampleScore = 81;
@@ -175,7 +236,7 @@ export const Analytics = () => {
             <Grid item xs={7}>
               <Grid container direction={"column"} spacing={2}>
                 <Grid item xs={6}>
-                  <Graph />
+                  <Graph sequence={recordData.sequence} />
                 </Grid>
                 <Grid item xs={6}>
                   <ReviewAdovice reviewList={sampleReviewData} />

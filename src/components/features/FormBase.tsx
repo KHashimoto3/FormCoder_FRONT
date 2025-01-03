@@ -35,14 +35,18 @@ export const FormBase = () => {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [savingDialogOpen, setSavingDialogOpen] = useState<boolean>(false);
 
   const [formName, setFormName] = useState<string>("フォーム名"); //TODO: 後日、削除する
   const [formId, setFormId] = useState<string>("");
 
+  //保存済みのrecordId
+  const [recordId, setRecordId] = useState<string>("");
+
   const { hintFBArray } = useContext(HintContext);
   const { inputArray } = useContext(InputContext);
   const { code } = useContext(CodeContext);
-  const { sequenceDataArray, addNewSequenceData } = useContext(SequenceContext);
+  const { sequenceDataArray } = useContext(SequenceContext);
 
   //ローディングモーダル
   const [loading, setLoading] = useState<boolean>(true);
@@ -64,9 +68,18 @@ export const FormBase = () => {
     setDialogOpen(false);
   };
 
+  //保存中モーダルの開閉
+  const handleSavingDialogOpen = () => {
+    setSavingDialogOpen(true);
+  };
+  const handleSavingDialogClose = () => {
+    setSavingDialogOpen(false);
+  };
+
   //分析結果画面へ遷移
   const jumpToAnalytics = () => {
-    location.href = "/analytics";
+    console.log("recordId: " + recordId);
+    location.href = "/analytics?id=" + recordId;
   };
 
   //ローディングモーダルを閉じる
@@ -109,27 +122,10 @@ export const FormBase = () => {
     setUserId(userData.userId);
   }, []);
 
-  const initSequenceData = () => {
-    const sampleSequenceData = {
-      id: 1,
-      partType: "FOR",
-      timestamp: 9999,
-      changeData: {
-        from: { line: 0, ch: 0 },
-        to: { line: 0, ch: 0 },
-        text: ["aaaa"],
-        removed: [""],
-        origin: "+input",
-      },
-    };
-
-    addNewSequenceData(sampleSequenceData);
-  };
-
   const saveLearningData = async () => {
     const url = `${apiBaseUrl}/record`;
     //仮のシーケンスデータを追加
-    initSequenceData();
+    //initSequenceData();
 
     const sampleSeqAnalyze = {
       speed: 50,
@@ -164,10 +160,14 @@ export const FormBase = () => {
               throw new Error("Unknown Error");
           }
         }
+        const data = await res.json();
+        const recordId = data.recordId;
+        setRecordId(recordId);
+        handleSavingDialogClose();
         handleClickOpen();
       });
     } catch (error) {
-      alert("アップロード中にエラーが発生しました。");
+      alert("A: アップロード中にエラーが発生しました。");
       console.log(error);
     }
   };
@@ -265,7 +265,13 @@ export const FormBase = () => {
                 >
                   問題文を再表示
                 </Button>
-                <Button onClick={saveLearningData} style={buttonStyle}>
+                <Button
+                  onClick={() => {
+                    handleSavingDialogOpen();
+                    saveLearningData();
+                  }}
+                  style={buttonStyle}
+                >
                   保存する
                 </Button>
               </Stack>
@@ -278,6 +284,28 @@ export const FormBase = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      <Dialog
+        open={savingDialogOpen}
+        onClose={handleSavingDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{ zIndex: "10000" }}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"保存中です。ブラウザを閉じないでください。"}
+        </DialogTitle>
+        <DialogContent>
+          <Box sx={{ textAlign: "center" }}>
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="96"
+              visible={true}
+            />
+          </Box>
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={dialogOpen}
         onClose={handleClose}

@@ -5,7 +5,7 @@
 ## FormCoder について
 
 このアプリは、フォームの仕組みを用いて、初心者のプログラミング（コーディング）を支援してプログラミング能力の向上を目指した、プログラミング学習支援システムです。  
-<img src="https://github.com/KHashimoto3/FormCoder_FRONT/assets/85172807/8a93dbcb-bdd9-42f4-9e52-303b0c96be83" width="70%" />
+<img src="https://github.com/user-attachments/assets/88e3eb5e-dc80-4510-b7d8-27eab269c898" width="70%" />
 
 参考資料: https://x.gd/BTsNX
 
@@ -72,3 +72,18 @@ npm run dev
 ### 5. 起動確認
 
 `localhost:5173`にアクセスして、トップページが表示されれば完了です。
+
+## デプロイ方法
+
+### 手動デプロイ
+
+1. 以下のコマンドでデプロイします。
+
+```
+npm run build
+firebase deploy
+```
+
+### 自動デプロイ
+
+`develop`から`main`に対してpull requestを出して、mergeする。

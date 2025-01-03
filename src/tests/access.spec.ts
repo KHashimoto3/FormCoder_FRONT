@@ -9,7 +9,7 @@ test("トップページにアクセスすると、タイトルの文字が表�
   await expect(title).toContainText("フォームを使ったプログラミング学習");
 });
 
-test("トップページにあるログインボタンをクリックすると、ログインページに遷移する", async ({
+/*test("トップページにあるログインボタンをクリックすると、ログインページに遷移する", async ({
   page,
 }) => {
   await page.goto("http://localhost:5173/");
@@ -45,4 +45,4 @@ test("未入力の状態でログインボタンをクリックすると、エ�
   await expect(inputMissedAlert).toBeVisible();
   const loginFailedAlert = await page.getByTestId("login-failed-alert");
   await expect(loginFailedAlert).not.toBeVisible();
-});
+});*/

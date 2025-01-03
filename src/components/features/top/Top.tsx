@@ -7,8 +7,22 @@ import { useUserData } from "../../common/hooks/useUserData";
 import systemImg from "../../../assets/system_form_image.png";
 import { useEffect, useState } from "react";
 
+import { useUserData } from "../../common/hooks/useUserData";
+import { useEffect } from "react";
+
 export const Top = () => {
   const history = useHistory();
+  //ログイン状態
+  const { getUserData } = useUserData();
+
+  useEffect(() => {
+    //ログイン状態を取得
+    const userData = getUserData();
+    if (userData.userId === undefined) {
+      return;
+    }
+    location.href = "/dashboard/" + userData.userId;
+  }, []);
 
   const { getUserData } = useUserData();
   const [userId, setUserId] = useState<string | null>(null);

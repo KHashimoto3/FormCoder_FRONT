@@ -11,6 +11,7 @@ import {
   Button,
   Tooltip,
   Avatar,
+  Stack,
 } from "@mui/material";
 import { useHistory } from "react-router-dom";
 
@@ -232,14 +233,24 @@ export const TitleBar = () => {
               </Box>
             </>
           ) : (
-            <Button
-              data-testid="login-button"
-              variant="contained"
-              style={buttonStyle}
-              onClick={() => history.push("/login")}
-            >
-              ログイン
-            </Button>
+            <Stack spacing={1} direction="row">
+              <Button
+                data-testid="login-button"
+                color="primary"
+                variant="outlined"
+                onClick={() => (location.href = "/create-account")}
+              >
+                アカウント作成
+              </Button>
+              <Button
+                data-testid="login-button"
+                variant="contained"
+                style={buttonStyle}
+                onClick={() => (location.href = "/login")}
+              >
+                ログイン
+              </Button>
+            </Stack>
           )}
         </Toolbar>
       </Container>
