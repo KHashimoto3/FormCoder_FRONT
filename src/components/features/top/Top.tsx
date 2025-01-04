@@ -356,7 +356,7 @@ export const Top = () => {
                 style={buttonStyle}
                 size="large"
                 onClick={() => {
-                  alert("アカウント作成画面に遷移します");
+                  location.href = "/create-account";
                 }}
               >
                 アカウントを作成
