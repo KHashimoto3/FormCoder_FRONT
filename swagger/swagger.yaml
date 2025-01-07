@@ -191,6 +191,23 @@ paths:
           description: ヒントデータが見つかりません。
         "500":
           description: 何らかのエラーが発生しました。
+  /record/hello:
+    get:
+      tags:
+        - record
+      summary: レコードAPIの動作確認
+      responses:
+        "200":
+          description: レコードAPIの動作確認
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "500":
+          description: 何らかのエラーが発生しました
   /record/tmp:
     get:
       tags:
