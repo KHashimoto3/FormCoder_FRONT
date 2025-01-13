@@ -19,21 +19,25 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
 type Props = {
   analyzeItemLabel: string;
   analyzeItemlabelEn: string;
   analyzeResultList: any;
+  analyzeResultListGeneral: any;
+  analyzeUnit: string;
 };
 
 export const BarGraph = (props: Props) => {
-  const { analyzeItemLabel, analyzeItemlabelEn, analyzeResultList } = props;
-  const [forcasedSpeed, setForcasedSpeed] = React.useState<number | null>(null);
-  const [forcasedBrankName, setForcasedBrankName] = React.useState<
-    string | null
-  >(null);
+  const {
+    analyzeItemLabel,
+    analyzeItemlabelEn,
+    analyzeResultList,
+    analyzeResultListGeneral,
+    analyzeUnit,
+  } = props;
 
   const [graphData, setGraphData] = React.useState<any>({
     labels: [],
@@ -89,16 +93,6 @@ export const BarGraph = (props: Props) => {
         position: "left" as const,
       },
     },
-    onHover: (_: any, activeElements: any) => {
-      if (activeElements.length > 0) {
-        const index = activeElements[0].index;
-        setForcasedSpeed(graphData.datasets[0].data[index]);
-        setForcasedBrankName(graphData.labels[index]);
-      } else {
-        setForcasedSpeed(null);
-        setForcasedBrankName(null);
-      }
-    },
   };
 
   return (
@@ -108,13 +102,16 @@ export const BarGraph = (props: Props) => {
         <Box sx={{ background: "#FFFDE7", borderRadius: 2, padding: "5px" }}>
           <Stack spacing={2} direction={"row"}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              {forcasedBrankName ? forcasedBrankName : "--"} 秒
+              {analyzeItemLabel} 全体
             </Typography>
             <Typography variant="h6">
-              速度：{forcasedSpeed ? forcasedSpeed : "--"}個/秒
+              {analyzeResultListGeneral !== null
+                ? analyzeResultListGeneral[0][analyzeItemlabelEn]
+                : "-"}
+              {analyzeUnit}
             </Typography>
-            <Typography variant="h6">前回比：+2.0個/秒</Typography>
-            <Typography variant="h6">平均比：+2.0個/秒</Typography>
+            <Typography variant="h6">平均比：+2.0{analyzeUnit}</Typography>
+            <Typography variant="h6">前回比：+2.0{analyzeUnit}</Typography>
           </Stack>
         </Box>
       </div>

@@ -19,6 +19,8 @@ export const Graph = (props: Props) => {
   //それぞれの分析結果
   const [analyzeResultListInterval, setAnalyzeResultListInterval] =
     React.useState<any>(null);
+  const [analyzeResultListGeneral, setAnalyzeResultListGeneral] =
+    React.useState<any>(null);
   const [analyzeResultListPart, setAnalyzeResultListPart] =
     React.useState<any>(null);
 
@@ -34,46 +36,57 @@ export const Graph = (props: Props) => {
     {
       label: "データ数",
       labelEn: "datasCount",
+      unit: "個",
     },
     {
       label: "入力文字数",
       labelEn: "inputCharLength",
+      unit: "文字",
     },
     {
       label: "削除文字数",
       labelEn: "removedCharLength",
+      unit: "文字",
     },
     {
       label: "入力データ数",
       labelEn: "inputDataCount",
+      unit: "個",
     },
     {
       label: "削除データ数",
       labelEn: "removedDataCount",
+      unit: "個",
     },
     {
       label: "入力ミス率",
       labelEn: "missTypeRate",
+      unit: "%",
     },
     {
       label: "打鍵速度",
       labelEn: "typePerSec",
+      unit: "回/秒",
     },
     {
       label: "書き直し数",
       labelEn: "totalReInputCnt",
+      unit: "回",
     },
     {
       label: "合計書き直し時間",
       labelEn: "totalReInputTime",
+      unit: "秒",
     },
     {
       label: "書き直し率",
       labelEn: "reInputRate",
+      unit: "%",
     },
     {
       label: "平均書き直し時間",
       labelEn: "averageReInputTime",
+      unit: "秒",
     },
   ];
 
@@ -83,18 +96,27 @@ export const Graph = (props: Props) => {
       return;
     }
     if (selectedOption === "time") {
-      callAnalyzeApiWithInterval();
+      callAnalyzeApiWithInterval(10000, false);
+      const endTimestamp = sequence.at(-1)?.timestamp;
+      if (endTimestamp === undefined) {
+        return;
+      }
+      //全体の時間で分析を行う
+      callAnalyzeApiWithInterval(endTimestamp, true);
     } else if (selectedOption === "blank") {
       callAnalyzeApiWithPart();
     }
   }, [sequence, selectedOption]);
 
   //指定した時間間隔で分析を行うAPIを呼び出す
-  const callAnalyzeApiWithInterval = async () => {
+  const callAnalyzeApiWithInterval = async (
+    intervalTime: number,
+    isGeneral: boolean
+  ) => {
     const url = `${apiBaseUrl}/sequence/analyze/interval`;
 
     const obj = {
-      intervalTime: 10000,
+      intervalTime: intervalTime,
       sequence: sequence,
     };
 
@@ -119,7 +141,11 @@ export const Graph = (props: Props) => {
         }
         const data = await res.json();
         const analyzeResultList = data.analyzeResultList;
-        setAnalyzeResultListInterval(analyzeResultList);
+        if (!isGeneral) {
+          setAnalyzeResultListInterval(analyzeResultList);
+          return;
+        }
+        setAnalyzeResultListGeneral(analyzeResultList);
       });
     } catch (error) {
       alert("D: エラーが発生しました。");
@@ -174,6 +200,8 @@ export const Graph = (props: Props) => {
           analyzeItemLabel={analyzeItemList[selectedAnalyzedItem].label}
           analyzeItemlabelEn={analyzeItemList[selectedAnalyzedItem].labelEn}
           analyzeResultList={analyzeResultListInterval}
+          analyzeResultListGeneral={analyzeResultListGeneral}
+          analyzeUnit={analyzeItemList[selectedAnalyzedItem].unit}
         />
       ) : (
         <HorizoBarGraph
