@@ -228,6 +228,7 @@ export const Graph = (props: Props) => {
           analyzeItemLabel={analyzeItemList[selectedAnalyzedItem].label}
           analyzeItemlabelEn={analyzeItemList[selectedAnalyzedItem].labelEn}
           analyzeResultList={analyzeResultListPart}
+          analyzeUnit={analyzeItemList[selectedAnalyzedItem].unit}
         />
       )}
       <div>

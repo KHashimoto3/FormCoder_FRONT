@@ -137,7 +137,7 @@ export const BarGraph = (props: Props) => {
                 : "-"}
               {analyzeUnit}
             </Typography>
-            <Typography variant="h6">前回比：---{analyzeUnit}</Typography>
+            <Typography variant="h6">前回比：+2.0{analyzeUnit}</Typography>
           </Stack>
         </Box>
       </div>
