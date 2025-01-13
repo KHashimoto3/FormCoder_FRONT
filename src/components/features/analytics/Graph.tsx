@@ -24,6 +24,25 @@ export const Graph = (props: Props) => {
   const [analyzeResultListPart, setAnalyzeResultListPart] =
     React.useState<any>(null);
 
+  //サンプルの分析結果平均
+  const analyzeResultListIntervalAverage = [
+    {
+      startTimestamp: 0,
+      endTimestamp: 10000,
+      datasCount: 10,
+      inputCharLength: 100,
+      removedCharLength: 10,
+      inputDataCount: 5,
+      removedDataCount: 2,
+      missTypeRate: 10,
+      typePerSec: 10,
+      totalReInputCnt: 5,
+      totalReInputTime: 10,
+      reInputRate: 10,
+      averageReInputTime: 2,
+    },
+  ];
+
   const handleOptionChange = (_: any, newValue: any) => {
     setSelectedOption(newValue);
   };
@@ -201,6 +220,7 @@ export const Graph = (props: Props) => {
           analyzeItemlabelEn={analyzeItemList[selectedAnalyzedItem].labelEn}
           analyzeResultList={analyzeResultListInterval}
           analyzeResultListGeneral={analyzeResultListGeneral}
+          analyzeResultListAverage={analyzeResultListIntervalAverage}
           analyzeUnit={analyzeItemList[selectedAnalyzedItem].unit}
         />
       ) : (

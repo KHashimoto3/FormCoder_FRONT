@@ -27,6 +27,7 @@ type Props = {
   analyzeItemlabelEn: string;
   analyzeResultList: any;
   analyzeResultListGeneral: any;
+  analyzeResultListAverage: any;
   analyzeUnit: string;
 };
 
@@ -36,8 +37,12 @@ export const BarGraph = (props: Props) => {
     analyzeItemlabelEn,
     analyzeResultList,
     analyzeResultListGeneral,
+    analyzeResultListAverage,
     analyzeUnit,
   } = props;
+
+  const [compareWithAverage, setCompareWithAverage] =
+    React.useState<string>("");
 
   const [graphData, setGraphData] = React.useState<any>({
     labels: [],
@@ -71,6 +76,19 @@ export const BarGraph = (props: Props) => {
         },
       ],
     });
+
+    //平均比を計算
+    if (
+      analyzeResultListGeneral !== null &&
+      analyzeResultListAverage !== null
+    ) {
+      const average = analyzeResultListAverage[0][analyzeItemlabelEn];
+      const general = analyzeResultListGeneral[0][analyzeItemlabelEn];
+      const compareResult = general - average;
+      //compareResultの結果を少数第２位までにする
+      const compareResultFixed = compareResult.toFixed(1);
+      setCompareWithAverage(compareResultFixed);
+    }
   }, [analyzeItemLabel, analyzeItemlabelEn, analyzeResultList]);
 
   const options = {
@@ -110,8 +128,16 @@ export const BarGraph = (props: Props) => {
                 : "-"}
               {analyzeUnit}
             </Typography>
-            <Typography variant="h6">平均比：+2.0{analyzeUnit}</Typography>
-            <Typography variant="h6">前回比：+2.0{analyzeUnit}</Typography>
+            <Typography variant="h6">
+              平均比：
+              {Number(compareWithAverage) > 0 ? "+" : ""}
+              {analyzeResultListGeneral !== null &&
+              analyzeResultListAverage !== null
+                ? compareWithAverage
+                : "-"}
+              {analyzeUnit}
+            </Typography>
+            <Typography variant="h6">前回比：---{analyzeUnit}</Typography>
           </Stack>
         </Box>
       </div>
