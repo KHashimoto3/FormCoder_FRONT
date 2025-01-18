@@ -37,7 +37,7 @@ const firebaseJsonTemplate = {
 fs.writeFileSync(
   "./firebase.json",
   JSON.stringify(firebaseJsonTemplate, null, 2),
-  "utf-8"
+  "utf-8",
 );
 
 console.log("firebase.json generated successfully");
