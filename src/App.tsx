@@ -18,58 +18,66 @@ import { AnalyticsPage } from "./components/pages/AnalyticsPage";
 import { SequenceDataProvider } from "./components/features/sequence/SequenceDataProvider";
 import { CreateAccountPage } from "./components/pages/CreateAccountPage";
 import { TimestampProvider } from "./components/features/sequence/TimestampProvider";
+import React from "react";
+import { MaintenancePage } from "./components/pages/MaintenacePage";
 
 function App() {
-  return (
-    <CookiesProvider>
-      <CodeProvider>
-        <HintProvider>
-          <InputArrayProvider>
-            <FormDataProvider>
-              <SequenceDataProvider>
-                <TimestampProvider>
-                  <BrowserRouter>
-                    <Route exact path="/">
-                      <TitleBar />
-                      <TopPage />
-                    </Route>
-                    <Route path="/learning">
-                      <TitleBar />
-                      <LearningPage />
-                    </Route>
-                    <Route path="/form">
-                      <FormPage />
-                    </Route>
-                    <Route path="/storagetest">
-                      <StorageTestPage />
-                    </Route>
-                    <Route path="/reason-check">
-                      <ReasonCheckPage />
-                    </Route>
-                    <Route path="/login">
-                      <LoginPage />
-                    </Route>
-                    <Route path="/create-account">
-                      <CreateAccountPage />
-                    </Route>
-                    <Route path="/question">
-                      <QuestionPage />
-                    </Route>
-                    <Route path="/dashboard">
-                      <DashboardPage />
-                    </Route>
-                    <Route path="/analytics">
-                      <AnalyticsPage />
-                    </Route>
-                  </BrowserRouter>
-                </TimestampProvider>
-              </SequenceDataProvider>
-            </FormDataProvider>
-          </InputArrayProvider>
-        </HintProvider>
-      </CodeProvider>
-    </CookiesProvider>
-  );
+  //メンテナンス中の場合はtrueにする
+  const [maintenance] = React.useState(true);
+  if (maintenance) {
+    return <MaintenancePage />;
+  } else {
+    return (
+      <CookiesProvider>
+        <CodeProvider>
+          <HintProvider>
+            <InputArrayProvider>
+              <FormDataProvider>
+                <SequenceDataProvider>
+                  <TimestampProvider>
+                    <BrowserRouter>
+                      <Route exact path="/">
+                        <TitleBar />
+                        <TopPage />
+                      </Route>
+                      <Route path="/learning">
+                        <TitleBar />
+                        <LearningPage />
+                      </Route>
+                      <Route path="/form">
+                        <FormPage />
+                      </Route>
+                      <Route path="/storagetest">
+                        <StorageTestPage />
+                      </Route>
+                      <Route path="/reason-check">
+                        <ReasonCheckPage />
+                      </Route>
+                      <Route path="/login">
+                        <LoginPage />
+                      </Route>
+                      <Route path="/create-account">
+                        <CreateAccountPage />
+                      </Route>
+                      <Route path="/question">
+                        <QuestionPage />
+                      </Route>
+                      <Route path="/dashboard">
+                        <DashboardPage />
+                      </Route>
+                      <Route path="/analytics">
+                        <AnalyticsPage />
+                      </Route>
+                    </BrowserRouter>
+                  </TimestampProvider>
+                </SequenceDataProvider>
+              </FormDataProvider>
+            </InputArrayProvider>
+          </HintProvider>
+        </CodeProvider>
+      </CookiesProvider>
+    );
+  }
 }
 
 export default App;
