@@ -130,7 +130,7 @@ export const Graph = (props: Props) => {
   //指定した時間間隔で分析を行うAPIを呼び出す
   const callAnalyzeApiWithInterval = async (
     intervalTime: number,
-    isGeneral: boolean
+    isGeneral: boolean,
   ) => {
     const url = `${apiBaseUrl}/sequence/analyze/interval`;
 
