@@ -30,7 +30,7 @@ https://docs.google.com/document/d/13y7rhlHK7xEt1vqXHDnjzAAgzSV4F6oMcV_QgaLlkWk/
 | バックエンド   | Google Cloud, Nest.js, TypeScript       |
 | データベース   | Cloud Firestore                         |
 | ストレージ     | Cloud Storage                           |
-| インフラ       | Firebase, Compute Engine                       |
+| インフラ       | Firebase, Compute Engine                |
 | CI/CD          | Github Actions                          |
 | ツール         | git, ESLint, Prettier, Playwright       |
 
