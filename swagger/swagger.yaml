@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:3000
-    description: Local server
+    description: Local server。デプロイ先での動作確認は別途共有のurl末尾に`/api`を追加してアクセスしてください。
 tags:
   - name: form
     description: Everything about your user
@@ -14,9 +14,28 @@ tags:
     description: Everything about your record
   - name: programm
     description: Everything about your programm
+  - name: sequence
+    description: Everything about your sequence
   - name: user
     description: Everything about your user
 paths:
+  /form/hello:
+    get:
+      tags:
+        - form
+      summary: フォームAPIの動作確認
+      responses:
+        "200":
+          description: フォームAPIの動作確認
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "500":
+          description: 何らかのエラーが発生しました
   /form:
     get:
       tags:
@@ -25,7 +44,7 @@ paths:
       parameters:
         - name: formName
           in: query
-          description: "フォームの名前（英数字）を渡す"
+          description: "フォームの名前（英数字）"
           required: true
           schema:
             type: string
@@ -102,7 +121,7 @@ paths:
       parameters:
         - name: formId
           in: query
-          description: "フォームのIDを渡す"
+          description: "フォームのID"
           required: true
           schema:
             type: string
@@ -172,6 +191,23 @@ paths:
           description: ヒントデータが見つかりません。
         "500":
           description: 何らかのエラーが発生しました。
+  /record/hello:
+    get:
+      tags:
+        - record
+      summary: レコードAPIの動作確認
+      responses:
+        "200":
+          description: レコードAPIの動作確認
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "500":
+          description: 何らかのエラーが発生しました
   /record/tmp:
     get:
       tags:
@@ -180,7 +216,7 @@ paths:
       parameters:
         - name: formName
           in: query
-          description: "フォーム名を渡す"
+          description: "フォーム名"
           required: true
           schema:
             type: string
@@ -209,12 +245,77 @@ paths:
         "500":
           description: 何らかのエラーが発生しました。
   /record:
+    get:
+      tags:
+        - record
+      summary: フォームの回答データを返す
+      parameters:
+        - name: recordId
+          in: query
+          description: "回答データのID"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 指定された回答データを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordData:
+                    type: object
+                    properties:
+                      userId:
+                        type: string
+                      formId:
+                        type: string
+                      fbData:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            partType:
+                              type: string
+                            currentHintStep:
+                              type: number
+                            ClickedHintStep:
+                              type: number
+                      inputData:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                            partType:
+                              type: string
+                            inputDataArray:
+                              type: array
+                              items:
+                                type: string
+                      connectedCode:
+                        type: string
+                      sequence:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/sequence"
+
+        "400":
+          description: パラメータrecordIdは必須です
+        "404":
+          description: 指定されたrecordIdの回答データが見つかりません。
+        "500":
+          description: 何らかのエラーが発生しました。
     post:
       tags:
         - record
       summary: フォームの回答データを保存する
       requestBody:
-        description: フォームの回答データを保存する
+        description: フォームの回答データを渡す
         required: true
         content:
           application/json:
@@ -266,7 +367,7 @@ paths:
         - programm
       summary: プログラムを実行し、その結果を返す
       requestBody:
-        description: プログラムを実行する
+        description: 実行するプログラムと入力データを渡す
         required: true
         content:
           application/json:
@@ -312,7 +413,7 @@ paths:
         - programm
       summary: プログラムエラーの解決法を返す
       requestBody:
-        description: プログラムのエラーを解決する
+        description: エラーの一覧を渡す
         required: true
         content:
           application/json:
@@ -356,7 +457,7 @@ paths:
         - programm
       summary: 入力したコードを１つのコードに結合して返す
       requestBody:
-        description: 入力したコードを１つのコードに結合して返す
+        description: フォームデータと、フォームの各入力欄のコードを渡す
         required: true
         content:
           application/json:
@@ -401,13 +502,189 @@ paths:
                     type: string
         "500":
           description: 何らかのエラーが発生しました。
+  /programm/format-code:
+    post:
+      tags:
+        - programm
+      summary: コードを整形して返す
+      requestBody:
+        description: コードを整形して返す
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+      responses:
+        "200":
+          description: 整形されたコードを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        "500":
+          description: 何らかのエラーが発生しました。
+  /sequence/hello:
+    get:
+      tags:
+        - sequence
+      summary: シーケンスAPIの動作確認
+      responses:
+        "200":
+          description: シーケンスAPIの動作確認
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "500":
+          description: 何らかのエラーが発生しました
+  /sequence//analyze/interval:
+    post:
+      tags:
+        - sequence
+      summary: シーケンスデータを与えられた時間間隔で解析して返す。
+      requestBody:
+        description: シーケンスデータと時間間隔を渡す。
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sequence:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/sequence"
+                interval:
+                  type: number
+      responses:
+        "200":
+          description: 解析されたシーケンスデータを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analyzeResultList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        startTimestamp:
+                          type: number
+                        endTimestamp:
+                          type: number
+                        datasCount:
+                          type: number
+                        inputCharLength:
+                          type: number
+                        removedCharLength:
+                          type: number
+                        inputDataCount:
+                          type: number
+                        removedDataCount:
+                          type: number
+                        missTypeRate:
+                          type: number
+                        totalTime:
+                          type: number
+                        typePerSec:
+                          type: number
+                        totalReInputCnt:
+                          type: number
+                        totalReInputTime:
+                          type: number
+                        reInputRate:
+                          type: number
+                        averageReInputTime:
+                          type: number
+        "400":
+          description: 必要なデータが渡されていません。
+        "500":
+          description: 何らかのエラーが発生しました。
+  /sequence/analyze/part:
+    post:
+      tags:
+        - sequence
+      summary: シーケンスデータをパートごとに解析して返す。
+      requestBody:
+        description: シーケンスデータを渡す。
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sequence:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/sequence"
+      responses:
+        "200":
+          description: 解析されたシーケンスデータを返す。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analyzeResultList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        partType:
+                          type: string
+                        analyzeResult:
+                          type: object
+                          properties:
+                            startTimestamp:
+                              type: number
+                            endTimestamp:
+                              type: number
+                            datasCount:
+                              type: number
+                            inputCharLength:
+                              type: number
+                            removedCharLength:
+                              type: number
+                            inputDataCount:
+                              type: number
+                            removedDataCount:
+                              type: number
+                            missTypeRate:
+                              type: number
+                            totalTime:
+                              type: number
+                            typePerSec:
+                              type: number
+                            totalReInputCnt:
+                              type: number
+                            totalReInputTime:
+                              type: number
+                            reInputRate:
+                              type: number
+                            averageReInputTime:
+                              type: number
+        "400":
+          description: 必要なデータが渡されていません。または、
+        "500":
+          description: 何らかのエラーが発生しました。
+
   /user/login:
     post:
       tags:
         - user
       summary: ユーザーをログインさせる
       requestBody:
-        description: ユーザーをログインさせる
+        description: userIdとpasswordを渡す
         required: true
         content:
           application/json:
@@ -448,9 +725,9 @@ paths:
     post:
       tags:
         - user
-      summary: ユーザーを登録する
+      summary: ユーザーを登録する。passwordはハッシュ化して保存する。
       requestBody:
-        description: ユーザーを登録する。passwordはハッシュ化して保存する。
+        description: 登録するユーザー情報を渡す
         required: true
         content:
           application/json:
@@ -524,3 +801,41 @@ components:
           type: string
         deleteFlag:
           type: boolean
+    sequence:
+      type: object
+      properties:
+        id:
+          type: number
+        partType:
+          type: string
+        timestamp:
+          type: number
+        changeData:
+          type: array
+          items:
+            type: object
+            properties:
+              from:
+                type: object
+                properties:
+                  line:
+                    type: number
+                  ch:
+                    type: number
+              to:
+                type: object
+                properties:
+                  line:
+                    type: number
+                  ch:
+                    type: number
+              text:
+                type: array
+                items:
+                  type: string
+              removed:
+                type: array
+                items:
+                  type: string
+              origin:
+                type: string

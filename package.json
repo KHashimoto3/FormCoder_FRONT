@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "generate:firebase": "node generate-firebase-json.js",
+    "dev": "npm run generate:firebase && vite",
+    "build": "npm run generate:firebase && tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -27,6 +28,7 @@
     "@zxcvbn-ts/matcher-pwned": "^3.0.4",
     "chart.js": "^4.4.4",
     "diff": "^7.0.0",
+    "dotenv": "^16.4.7",
     "firebase": "^9.23.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",

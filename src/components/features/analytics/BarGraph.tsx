@@ -26,14 +26,23 @@ type Props = {
   analyzeItemLabel: string;
   analyzeItemlabelEn: string;
   analyzeResultList: any;
+  analyzeResultListGeneral: any;
+  analyzeResultListAverage: any;
+  analyzeUnit: string;
 };
 
 export const BarGraph = (props: Props) => {
-  const { analyzeItemLabel, analyzeItemlabelEn, analyzeResultList } = props;
-  const [forcasedSpeed, setForcasedSpeed] = React.useState<number | null>(null);
-  const [forcasedBrankName, setForcasedBrankName] = React.useState<
-    string | null
-  >(null);
+  const {
+    analyzeItemLabel,
+    analyzeItemlabelEn,
+    analyzeResultList,
+    analyzeResultListGeneral,
+    analyzeResultListAverage,
+    analyzeUnit,
+  } = props;
+
+  const [compareWithAverage, setCompareWithAverage] =
+    React.useState<string>("");
 
   const [graphData, setGraphData] = React.useState<any>({
     labels: [],
@@ -67,6 +76,19 @@ export const BarGraph = (props: Props) => {
         },
       ],
     });
+
+    //平均比を計算
+    if (
+      analyzeResultListGeneral !== null &&
+      analyzeResultListAverage !== null
+    ) {
+      const average = analyzeResultListAverage[0][analyzeItemlabelEn];
+      const general = analyzeResultListGeneral[0][analyzeItemlabelEn];
+      const compareResult = general - average;
+      //compareResultの結果を少数第２位までにする
+      const compareResultFixed = compareResult.toFixed(1);
+      setCompareWithAverage(compareResultFixed);
+    }
   }, [analyzeItemLabel, analyzeItemlabelEn, analyzeResultList]);
 
   const options = {
@@ -89,16 +111,6 @@ export const BarGraph = (props: Props) => {
         position: "left" as const,
       },
     },
-    onHover: (_: any, activeElements: any) => {
-      if (activeElements.length > 0) {
-        const index = activeElements[0].index;
-        setForcasedSpeed(graphData.datasets[0].data[index]);
-        setForcasedBrankName(graphData.labels[index]);
-      } else {
-        setForcasedSpeed(null);
-        setForcasedBrankName(null);
-      }
-    },
   };
 
   return (
@@ -108,13 +120,24 @@ export const BarGraph = (props: Props) => {
         <Box sx={{ background: "#FFFDE7", borderRadius: 2, padding: "5px" }}>
           <Stack spacing={2} direction={"row"}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              {forcasedBrankName ? forcasedBrankName : "--"} 秒
+              {analyzeItemLabel} 全体
             </Typography>
             <Typography variant="h6">
-              速度：{forcasedSpeed ? forcasedSpeed : "--"}個/秒
+              {analyzeResultListGeneral !== null
+                ? analyzeResultListGeneral[0][analyzeItemlabelEn]
+                : "-"}
+              {analyzeUnit}
             </Typography>
-            <Typography variant="h6">前回比：+2.0個/秒</Typography>
-            <Typography variant="h6">平均比：+2.0個/秒</Typography>
+            <Typography variant="h6">
+              平均比：
+              {Number(compareWithAverage) > 0 ? "+" : ""}
+              {analyzeResultListGeneral !== null &&
+              analyzeResultListAverage !== null
+                ? compareWithAverage
+                : "-"}
+              {analyzeUnit}
+            </Typography>
+            <Typography variant="h6">前回比：+2.0{analyzeUnit}</Typography>
           </Stack>
         </Box>
       </div>

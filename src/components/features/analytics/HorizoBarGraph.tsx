@@ -34,10 +34,16 @@ type Props = {
   analyzeItemLabel: string;
   analyzeItemlabelEn: string;
   analyzeResultList: AnalyzeResultList[] | null;
+  analyzeUnit: string;
 };
 
 export const HorizoBarGraph = (props: Props) => {
-  const { analyzeItemLabel, analyzeItemlabelEn, analyzeResultList } = props;
+  const {
+    analyzeItemLabel,
+    analyzeItemlabelEn,
+    analyzeResultList,
+    analyzeUnit,
+  } = props;
   const [forcasedSpeed, setForcasedSpeed] = React.useState<number | null>(null);
   const [forcasedBrankName, setForcasedBrankName] = React.useState<
     string | null
@@ -200,10 +206,11 @@ export const HorizoBarGraph = (props: Props) => {
               {forcasedBrankName ? forcasedBrankName : "--"}
             </Typography>
             <Typography variant="h6">
-              速度：{forcasedSpeed ? forcasedSpeed : "--"}個/秒
+              全体：{forcasedSpeed ? forcasedSpeed : "--"}
+              {analyzeUnit}
             </Typography>
-            <Typography variant="h6">前回比：+2.0個/秒</Typography>
-            <Typography variant="h6">平均比：+2.0個/秒</Typography>
+            <Typography variant="h6">平均比：+2.0{analyzeUnit}</Typography>
+            <Typography variant="h6">前回比：+2.0{analyzeUnit}</Typography>
           </Stack>
         </Box>
       </div>

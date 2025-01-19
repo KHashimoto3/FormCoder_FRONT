@@ -21,7 +21,7 @@ export const CodeCheckInput = (props: Props) => {
         <ReactCodeMirror
           value={code}
           extensions={[cppLanguage]}
-          style={{ fontSize: "14pt" }}
+          style={{ fontSize: "14pt", height: "400px", overflowY: "scroll" }}
         />
 
         <Typography variant="h6" sx={{ mt: 2, backgroundColor: "#e0e0e0" }}>

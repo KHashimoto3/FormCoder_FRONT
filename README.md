@@ -30,7 +30,7 @@ https://docs.google.com/document/d/13y7rhlHK7xEt1vqXHDnjzAAgzSV4F6oMcV_QgaLlkWk/
 | バックエンド   | Google Cloud, Nest.js, TypeScript       |
 | データベース   | Cloud Firestore                         |
 | ストレージ     | Cloud Storage                           |
-| インフラ       | Firebase, Render                        |
+| インフラ       | Firebase, Compute Engine                |
 | CI/CD          | Github Actions                          |
 | ツール         | git, ESLint, Prettier, Playwright       |
 
@@ -51,6 +51,7 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=***
 VITE_FIREBASE_APP_ID=***
 
 VITE_API_BASE_URL=***
+VITE_API_DATABASE_NAME=***
 ```
 
 ### 3. モジュールインストール
