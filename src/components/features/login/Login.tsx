@@ -16,13 +16,6 @@ import { User } from "../../types/user";
 export const Login = () => {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string;
 
-  const buttonStyle = {
-    color: "#fff",
-    background:
-      "linear-gradient(90deg, rgba(51,202,255,1) 0%, rgba(0,118,249,1) 100%)",
-    boxShadow: "0 3px 5px 0 rgba(0, 0, 0, .3)",
-  };
-
   const { setUserData } = useUserData();
 
   const [userId, setUserId] = useState<string>("");
@@ -33,6 +26,8 @@ export const Login = () => {
 
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
   const [inputMissed, setInputMissed] = useState<boolean>(false);
+
+  const [loginProgress, setLoginProgress] = useState<boolean>(false);
 
   const checkUserId = () => {
     if (userId === "") {
@@ -60,6 +55,7 @@ export const Login = () => {
 
     if (userId === "" || userPassword === "") {
       setInputMissed(true);
+      setLoginProgress(false);
       return;
     }
     setInputMissed(false);
@@ -100,10 +96,12 @@ export const Login = () => {
         const data = await res.json();
         const userData: User = data.userData;
         setUserData(userData);
+        setLoginProgress(false);
         location.href = "/dashboard/" + userData.userId;
       });
     } catch (error) {
       setLoginFailed(true);
+      setLoginProgress(false);
     }
   };
 
@@ -179,9 +177,12 @@ export const Login = () => {
           <Button
             data-testid="login-button"
             variant="contained"
-            style={buttonStyle}
             fullWidth
-            onClick={login}
+            onClick={() => {
+              setLoginProgress(true);
+              login();
+            }}
+            disabled={loginProgress}
           >
             {" "}
             ログイン{" "}
