@@ -36,7 +36,7 @@ export const MaintenancePage = () => {
             ご不便をおかけいたしますが、しばらくお待ちください。
           </Typography>
           <Typography variant="body1" sx={{ marginTop: 2, fontWeight: "bold" }}>
-            復旧予定時刻: 2025年1月20日 10:00
+            復旧予定時刻: 未定です。決まりましたらお知らせ致します。
           </Typography>
         </CardContent>
       </Card>

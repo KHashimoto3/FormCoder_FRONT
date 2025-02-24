@@ -23,7 +23,7 @@ import { MaintenancePage } from "./components/pages/MaintenacePage";
 
 function App() {
   //メンテナンス中の場合はtrueにする
-  const [maintenance] = React.useState(false);
+  const [maintenance] = React.useState(true);
   if (maintenance) {
     return <MaintenancePage />;
   } else {
